@@ -116,6 +116,8 @@ if (test)
     target_link_libraries(${PROJECT_NAME}-test ${Boost_LIBRARIES})
     target_link_libraries(${PROJECT_NAME}-test ${CMAKE_THREAD_LIBS_INIT})
 
+    add_custom_target(tests DEPENDS ${PROJECT_NAME}-test)
+
     add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
 endif()
 
