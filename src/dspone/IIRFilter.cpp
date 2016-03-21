@@ -36,12 +36,12 @@ IIRFilter::IIRFilter(const double *coefs, int length) :
   if (length%2 != 0)
     ERROR_STREAM("length should be an even number");
   else
-    wipp::init_iir(_iir_filter, coefs, length/2, &coefs[length/2], length/2);
+    wipp::init_iir(&_iir_filter, coefs, length/2, &coefs[length/2], length/2);
 }
 
 IIRFilter::~IIRFilter()
 {
-  wipp::delete_iir(_iir_filter);
+  wipp::delete_iir(&_iir_filter);
 }
 
 void IIRFilter::filter(int16_t *signal, int length)

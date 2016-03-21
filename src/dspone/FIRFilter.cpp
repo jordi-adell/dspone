@@ -156,14 +156,14 @@ void FIRFilterImpl::initFilter_BaseType(const BaseType *coefs, int length)
 
   BaseType pastValues[length];
   wipp::setZeros(pastValues,length);
-  wipp::init_fir(_fir_filter, coefs, length, pastValues);
+  wipp::init_fir(&_fir_filter, coefs, length, pastValues);
 }
 
 
 void FIRFilterImpl::closeFilter()
 {
   if (_fir_filter != NULL)
-    wipp::delete_fir(_fir_filter);
+    wipp::delete_fir(&_fir_filter);
   _fir_filter = NULL;
 }
 

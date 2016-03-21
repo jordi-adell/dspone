@@ -942,8 +942,8 @@ void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputD
 	wipp::abs(difference, processedSamples-latency);
 	wipp::sum(difference, processedSamples-latency, &sum);
 
-	//            INFO_STREAM("saved into: " << saveBufferToFile(inDatabuffer, processedSamples-latency, "indata.txt"));
-	//            INFO_STREAM("saved into: " << saveBufferToFile(&outDatabuffer[latency], processedSamples-latency, "outdata.txt"));
+	INFO_STREAM("saved into: " << saveBufferToFile(inDatabuffer, processedSamples-latency, "indata.txt"));
+	INFO_STREAM("saved into: " << saveBufferToFile(&outDatabuffer[latency], processedSamples-latency, "outdata.txt"));
 	saveBufferToFile(inDatabuffer, processedSamples-latency, "indata.txt");
 	saveBufferToFile(&outDatabuffer[latency], processedSamples-latency, "outdata.txt");
 	wipp::abs(dataDifference, processedSamples-latency);
@@ -985,8 +985,10 @@ void testFilterBank(int order,  FilterBank &filterBank)
 
 	DEBUG_STREAM("input power: " << calculateLogPowerTemporal(signal, length));
 
-	for (int j=0; j<1000; ++j)
-	    filterBank.filterBuffer(signal, residual, filtered, length, length*filterBank.getNBins());
+	std::cout << " F: " << sinFreq << std::endl;
+
+	for (int j=0; j<5; ++j)
+	  filterBank.filterBuffer(signal, residual, filtered, length, length*filterBank.getNBins());
 
 	for (int i=0; i<filterBank.getNBins(); ++i)
 	{
@@ -1011,6 +1013,8 @@ void testFilterBank(int order,  FilterBank &filterBank)
 	DEBUG_STREAM("P: " << pPower[pIdx] << " i: " << pIdx);
 	DEBUG_STREAM("F: " << pFreqs[fIdx] << " i: " << fIdx);
 
+
+	EXPECT_FLOAT_EQ(fIdx, pIdx);
 
 	//            EXPECT_FLOAT_EQ("The maximum power does not correspond to the bin whose central frequency is closer to the one of the input sinusoidal",
 	//                                         fIdx,

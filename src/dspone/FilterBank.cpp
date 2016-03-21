@@ -25,6 +25,8 @@
 
 #include <math.h>
 
+#include <iostream>
+
 namespace dsp {
 
 FilterBank::FilterBank(int order, const std::vector<double> &centerFreqs) : _centerFreqs(centerFreqs), _order(order)
@@ -95,7 +97,7 @@ template <class T> void FilterBank::filterBufferCore(T *inbuffer, T *residual, T
   for (it = _filterBank.begin(); it != _filterBank.end(); ++it, outOffset += inlength)
   {
     it->get()->filterBuffer(residual, &outbuffer[outOffset], inlength);
-    wipp::subBuffer_I(&outbuffer[outOffset], residual, inlength);
+    wipp::subBuffer_I(&outbuffer[outOffset], residual, inlength);;
   }
 }
 

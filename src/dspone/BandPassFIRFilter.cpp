@@ -157,11 +157,11 @@ void BandPassFIRFilter::initialiseTriangularCoefs()
   // status = ippsFFTFree_R_64f(fftspec);
 
   wipp::wipp_fft_t *fft;
-  wipp::init_wipp_fft(fft, _impl->_order);
+  wipp::init_wipp_fft(&fft, _impl->_order);
   wipp::ifft(spectrum,
 	     _impl->_coefs.get(),
 	     fft);
-  wipp::delete_wipp_fft(fft);
+  wipp::delete_wipp_fft(&fft);
 
   _impl->_firFilter.reset(new FIRFilter(static_cast<const double*>(_impl->_coefs.get()), _impl->_order));
 }

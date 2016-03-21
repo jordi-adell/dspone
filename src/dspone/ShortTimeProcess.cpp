@@ -116,12 +116,11 @@ void ShortTimeProcess::initBuffers()
   for (unsigned int i = 0; i<_nchannels; ++i)
   {
 //    _latencyBufferSignal.push_back(container::CircularBuffer<BaseType, _maximumLatencyBufferSize>());
-//    _latencyBufferProcessed.push_back(SignalPtr(new BaseType[_windowSize]));
+    _latencyBufferProcessed.push_back(SignalPtr(new BaseType[_windowSize]));
     wipp::wipp_circular_buffer_t *cb;
-    wipp::init_cirular_buffer(cb, _maximumLatencyBufferSize, _frame.get(), _windowSize);
+    wipp::init_cirular_buffer(&cb, _maximumLatencyBufferSize, _frame.get(), _windowSize);
     _latencyBufferSignal.push_back(cb);
-
-    //    wipp::setZeros(_latencyBufferProcessed.back().get(), _windowSize);
+    wipp::setZeros(_latencyBufferProcessed.back().get(), _windowSize);
 
     _analysisFrames.push_back(SignalPtr(new BaseType[_analysisLength]));
     wipp::setZeros(_analysisFrames.back().get(), _analysisLength);
@@ -141,10 +140,10 @@ void ShortTimeProcess::allocateNDataChannels(int nDataChannels)
     BaseType zeros[_windowSize];
     wipp::setZeros(zeros, _windowSize);
     //    _latencyBufferSignal.push_back(container::CircularBuffer<BaseType, _maximumLatencyBufferSize>());
-    //    _latencyBufferProcessed.push_back(SignalPtr(new BaseType[_windowSize]));
-    //    ippsZero_64f(_latencyBufferProcessed.back().get(), _windowSize);
+    _latencyBufferProcessed.push_back(SignalPtr(new BaseType[_windowSize]));
+    wipp::setZeros(_latencyBufferProcessed.back().get(), _windowSize);
     wipp::wipp_circular_buffer_t *cb;
-    wipp::init_cirular_buffer(cb, _maximumLatencyBufferSize, zeros, _windowSize);
+    wipp::init_cirular_buffer(&cb, _maximumLatencyBufferSize, zeros, _windowSize);
     _latencyBufferSignal.push_back(cb);
   }
 }

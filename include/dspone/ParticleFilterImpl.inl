@@ -47,7 +47,7 @@
           if (!_randState)  // for the assignment operator
           {
 	      //            IppStatus status = ippsRandGaussInitAlloc_32f(&_randState, _randMean, _randStdDev, _seed);
-	      wipp::init_rand_gaussian(_randState, _randMean, _randStdDev);
+	      wipp::init_rand_gaussian(&_randState, _randMean, _randStdDev);
 	      //	      wipp::checkStatus(status);
           }
         }
@@ -58,7 +58,7 @@
           if (_randState)
           {
 	      //            ippsRandGaussFree_32f(_randState);
-	    wipp::delete_rand(_randState);
+	    wipp::delete_rand(&_randState);
 	    _randState = NULL;
           }
         }
