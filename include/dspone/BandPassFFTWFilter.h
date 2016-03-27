@@ -61,17 +61,17 @@ class BandPassFFTWFilter : public BandPassFilter
 	/** @brief getLowFreq
 	   * @return the low edge frequency
 	   **/
-	inline double getLowFreq()  const;
+	double getLowFreq()  const;
 	/**
 	   * @brief getHighFreq
 	   * @return the high cut off frequency
 	   */
-	inline double getHighFreq() const;
+	double getHighFreq() const;
 	/**
 	   * @brief getCenterFreq
 	   * @return returns the central digital frequency
 	   */
-	inline double getCenterFreq() const;
+	double getCenterFreq() const;
 
 	/**
 	   * @brief getCoeficients This function fils the coefs array with the length first coefficients of the filter.
