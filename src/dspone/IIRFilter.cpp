@@ -34,9 +34,18 @@ IIRFilter::IIRFilter(const double *coefs, int length) :
   int bufferSize;
   _order = length/2 - 1;
   if (length%2 != 0)
+  {
     ERROR_STREAM("length should be an even number");
+  }
   else
-    wipp::init_iir(&_iir_filter, coefs, length/2, &coefs[length/2], length/2);
+  {
+    double past_x[length/2];
+    double past_y[length/2];
+    wipp::setZeros(past_x, length/2);
+    wipp::setZeros(past_y, length/2);
+    wipp::init_iir(&_iir_filter, coefs, length/2, &coefs[length/2], length/2, past_x, past_y);
+
+  }
 }
 
 IIRFilter::~IIRFilter()
