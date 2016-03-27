@@ -43,7 +43,7 @@ BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int an
 
   for (unsigned int c = 0; c < nchannels; ++c)
   {
-    wipp::sqrt(analysisFrames[c].get(), signalPower.get(), analysisLength);
+    wipp::sqr(analysisFrames[c].get(), signalPower.get(), analysisLength);
     wipp::mean(signalPower.get(), analysisLength, &channelPower[c]);
   }
 
@@ -98,7 +98,7 @@ BaseType calculateLinearPowerTemporal(const BaseType* signal, int length)
 {
   BaseType power;
   BaseType signalSqr[length];
-  wipp::sqrt(signal, signalSqr, length);
+  wipp::sqr(signal, signalSqr, length);
   wipp::mean(signalSqr, length, &power);
   return power;
 }
@@ -109,7 +109,7 @@ BaseType calculateLinearPowerTemporal(const BaseType16s *signal, int length)
   BaseType64 aux[length];
   wipp::copyBuffer(signal, aux, length);
   BaseType64 power;
-  wipp::sqrt(aux, length);
+  wipp::sqr(aux, length);
   wipp::mean(aux, length, &power);
   return power;
 }
