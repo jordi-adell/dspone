@@ -16,22 +16,13 @@ else(DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -msse4")
 endif(DEBUG)
 
-## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
 find_package(Boost REQUIRED COMPONENTS system filesystem)
-find_package(FFTW)
 
 find_library(WIPP_LIBRARY wipp)
 find_path(WIPP_INCLUDE_DIRS wipp/wipp.h)
 
 message(STATUS ${WIPP_LIBRARY})
 message(STATUS ${WIPP_INCLUDE_DIRS})
-
-
-if(FFTW_FOUND)
-    message(STATUS "FFTW found")
-    add_definitions(-DFFTW_FOUND)
-endif(FFTW_FOUND)
 
 ###########
 ## Build ##
@@ -80,7 +71,6 @@ add_library(dspone
 target_link_libraries(dspone
   ${Boost_LIBRARIES}
   ${WIPP_LIBRARY}
-  ${FFTW_LIBRARIES}
 )
 
 #############
@@ -117,7 +107,6 @@ if (test)
     add_executable(${PROJECT_NAME}-test test/test_dspone.cpp)
     target_link_libraries(${PROJECT_NAME}-test dspone)
     target_link_libraries(${PROJECT_NAME}-test ${WIPP_LIBRARY})
-    target_link_libraries(${PROJECT_NAME}-test ${FFTW_LIBRARIES})
     target_link_libraries(${PROJECT_NAME}-test ${GTEST_BOTH_LIBRARIES})
     target_link_libraries(${PROJECT_NAME}-test ${Boost_LIBRARIES})
     target_link_libraries(${PROJECT_NAME}-test ${CMAKE_THREAD_LIBS_INIT})
