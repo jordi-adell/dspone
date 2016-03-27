@@ -108,8 +108,6 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-    DEBUG_STREAM("Spent: " << elapsed.elapsedMs() << " ms");
-
 //    ippSetNumThreads(4);
 //    ippGetNumThreads(&numTHreads);
 //    DEBUG_STREAM("Using " << numTHreads << " threads for IPP and order 2");
@@ -130,8 +128,6 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	    }
 	}
     }
-
-    DEBUG_STREAM("Spent: " << elapsed.elapsedMs() << " ms");
 
 //    ippSetNumThreads(1);
 //    ippGetNumThreads(&numTHreads);
@@ -154,7 +150,6 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-    DEBUG_STREAM("Spent: " << elapsed.elapsedMs() << " ms");
 
 //    ippSetNumThreads(4);
 //    ippGetNumThreads(&numTHreads);
@@ -176,8 +171,6 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	    filter2.filterBuffer(signal2,filtered2,length);
 	}
     }
-
-    DEBUG_STREAM("Spent: " << elapsed.elapsedMs() << " ms");
 
 //    ippSetNumThreads(1);
 //    ippGetNumThreads(&numTHreads);
@@ -201,7 +194,6 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-    DEBUG_STREAM("Spent: " << elapsed.elapsedMs() << " ms");
 
 //    ippSetNumThreads(4);
 //    ippGetNumThreads(&numTHreads);
@@ -223,8 +215,6 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	    filter2.filterBuffer(signal2,filtered2,length);
 	}
     }
-
-    DEBUG_STREAM("Spent: " << elapsed.elapsedMs() << " ms");
 }
 
 TEST(DigitalSignalProcessingTest, testIIRFilter)
@@ -373,7 +363,6 @@ TEST(DigitalSignalProcessingTest, testDummyShortTimeProcess)
     for (int order = 7; order < maxorder; ++order)
     {
 	INFO_STREAM("Testing order: " << order);
-
 	DummyShortTimeProcess shortTimePData(1 << order, true);
 	DummyShortTimeProcess shortTimeP(1 << order);
 
@@ -929,12 +918,10 @@ void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputD
 	outVectorSignal.push_back(outbuffer);
 	outVectorSignal.push_back(outDatabuffer);
 
-
 	int processedSamples = shortTimeP.process(inVectorSignal, bufferSampleSize, outVectorSignal, bufferOutSampleSize);
 	int latency = shortTimeP.getLatency();
 	wipp::sub(inbuffer, &outbuffer[latency], difference, processedSamples-latency);
 	wipp::sub(inDatabuffer, &outDatabuffer[latency], dataDifference, processedSamples-latency);
-
 
 	DEBUG_STREAM("buffsize: " << bufferSampleSize << " order " << shortTimeP.getFrameSize() << " PS:" << processedSamples << " L:" << latency);
 	saveBufferToFile(inbuffer, processedSamples-latency, "in.txt");
