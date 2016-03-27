@@ -40,6 +40,7 @@ include_directories(
 
 ## Declare a cpp library
 add_library(dspone
+  src/${PROJECT_NAME}/dsplogger.cpp
   src/${PROJECT_NAME}/BandPassFFTWFilter.cpp
   src/${PROJECT_NAME}/BandPassFFTWFilterImpl.cpp
   src/${PROJECT_NAME}/BandPassFilter.cpp
@@ -90,7 +91,7 @@ install(TARGETS dspone
 
 ## Mark cpp header files for installation
 install(FILES
-  include/${PROJECT_NAME}/dspdefs.h
+#  include/${PROJECT_NAME}/dspdefs.h
     DESTINATION ${INCLUDE_DESTINATION}
 )
 
