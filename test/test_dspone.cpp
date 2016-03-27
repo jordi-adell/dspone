@@ -234,9 +234,10 @@ TEST(DigitalSignalProcessingTest, testIIRFilter)
     // producing a transitory output.
     for (size_t i = 1; i < 9; ++i)
     {
-	EXPECT_EQ((int16_t) 0, outSignal[i]);
-	DEBUG_STREAM("OUTPUT (" << i << "): " << outSignal[i]);
+      DEBUG_STREAM("OUTPUT (" << i << "): " << outSignal[i]);
+      EXPECT_EQ((int16_t) 0, outSignal[i]);
     }
+    DEBUG_STREAM("Tested");
 }
 
 TEST(DigitalSignalProcessingTest, interactiveIIRShape)
@@ -890,7 +891,7 @@ void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputD
 
 	int bufferSampleSize = sizemultiple*shortTimeP.getFrameSize();
 	int bufferOutSampleSize = bufferSampleSize + shortTimeP.getMaxLatency();
-	INFO_STREAM("Using buffersize: " << bufferSampleSize << " and the window size is " << shortTimeP.getFrameSize());
+	INFO_STREAM("Using buffersize: " << bufferSampleSize << " " << bufferOutSampleSize << " and the window size is " << shortTimeP.getFrameSize());
 
 	int16_t sum = -1;
 	int16_t datasum = -1;
