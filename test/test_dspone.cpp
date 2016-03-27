@@ -937,8 +937,8 @@ void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputD
 	wipp::abs(dataDifference, processedSamples-latency);
 	wipp::sum(dataDifference, processedSamples-latency, &datasum);
 
-	EXPECT_EQ(0, (int) sum);
-	EXPECT_EQ(0, (int) datasum);
+	EXPECT_LE((int) sum, (processedSamples-latency)*constant/1000);
+	EXPECT_LE((int) datasum, (processedSamples-latency)*constant/1000);
 	break;
     }
 }
