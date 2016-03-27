@@ -104,7 +104,7 @@ void ShortTimeProcess::initWindowBuffers()
   BaseType ones[_windowSize];
   wipp::set(1.0, ones, _windowSize);
   wipp::copyBuffer(_window.get(),_iwindow.get(),_windowSize);
-  wipp::div(ones, &_window[1], &_iwindow[1], _windowSize-1);
+  wipp::div(&_window[1], ones, &_iwindow[1], _windowSize-1);
 }
 
 void ShortTimeProcess::initBuffers()
