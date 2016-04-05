@@ -98,7 +98,7 @@ void BandPassFIRFilter::initialiseFilter()
 
 void BandPassFIRFilter::initialiseRectangularCoefs()
 {
-  int status = wipp::fir_coefs(_highFreq, _lowFreq, _impl->_coefs.get(), _impl->_order, _impl->_winType);
+  int status = wipp::fir_coefs( _lowFreq,_highFreq, _impl->_coefs.get(), _impl->_order, _impl->_winType);
   if (status)
   {
     std::string msg = "I had problems while initialising a band pass FIR filter.";
