@@ -453,8 +453,8 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
 
     DEBUG_STREAM("Constructed a band pass filter with: " << 0.2 << ", " << 0.3 << " and got " << lowFreq << ", " << highFreq);
 
-    EXPECT_FLOAT_EQ(0.2, lowFreq);
-    EXPECT_FLOAT_EQ(0.3, highFreq);
+    EXPECT_NEAR(0.2, lowFreq, 0.005);
+    EXPECT_NEAR(0.3, highFreq, 0.005);
 
     for (int f = 1; f< NFREQS; ++f)
     {
