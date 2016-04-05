@@ -461,28 +461,27 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
 	float sinFreq = freqs[f];
 	if (sinFreq <= 0.2)
 	{
-	    DEBUG_STREAM("Gain: < lowFreq " << filterGaindB[f] << "f: " << sinFreq);
-
+	    DEBUG_STREAM("Gain: < lowFreq " << filterGaindB[f] << ", f: " << sinFreq);
 	    EXPECT_TRUE(filterGaindB[f] < -1);
 	}
 	else if (sinFreq < (0.22))
 	{
-	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << "f: " << sinFreq);
+	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
 	    EXPECT_TRUE(filterGaindB[f] > -30);
 	}
 	else if (sinFreq < (0.28))
 	{
-	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << "f: " << sinFreq);
+	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
 	    EXPECT_TRUE(filterGaindB[f] > -8);
 	}
 	else if (sinFreq < (0.3))
 	{
-	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << "f: " << sinFreq);
+	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
 	    EXPECT_TRUE(filterGaindB[f] > -30);
 	}
 	else
 	{
-	    DEBUG_STREAM("Gain: > highFreq" << filterGaindB[f] << "f: " << sinFreq);
+	    DEBUG_STREAM("Gain: > highFreq" << filterGaindB[f] << ", f: " << sinFreq);
 	    EXPECT_TRUE(filterGaindB[f] < -1);
 	}
     }
@@ -1017,7 +1016,7 @@ void testBandPassFilter(BandPassFilter &filter, double *filterGaindB, double *fr
     float lowFreq = filter.getLowFreq();
     float highFreq  = filter.getHighFreq();
 
-    DEBUG_STREAM("RL: " << lowFreq << " RH: " << highFreq);
+    DEBUG_STREAM("LF: " << lowFreq << " HF: " << highFreq);
 
     int length = 1 << order;
     int16_t signal[length];
@@ -1040,11 +1039,12 @@ void testBandPassFilter(BandPassFilter &filter, double *filterGaindB, double *fr
 	double powerfilt = calculateLogPowerTemporal(filtered, length) ;
 	double powersign = calculateLogPowerTemporal(signal, length);
 	filterGaindB[f] = (powerfilt - powersign);
-	DEBUG_STREAM("Freq: " << sinFreq << "; filt: " << powerfilt << " dB; signal: " << powersign << " dB; gain: " << filterGaindB[f]);
+	DEBUG_STREAM("Freq: " << sinFreq  <<
+		     "; filt: " << powerfilt <<
+		     " dB; signal: " << powersign <<
+		     " dB; gain: " << filterGaindB[f]);
     }
 
-    //          Gnuplot plot;
-    //          plot.plot_x(filterGaindB, NFREQS);
 }
 
 void checkFilterBankBinsOverlap(double *coefs, int length, int nbins)
