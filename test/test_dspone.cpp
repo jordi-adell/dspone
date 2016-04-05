@@ -431,8 +431,8 @@ TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
     wipp::min(&filterGaindB[1], NFREQS-2, &min);
     wipp::max(&filterGaindB[1], NFREQS-2, &max);
 
-    EXPECT_FLOAT_EQ(-30, min);
-    EXPECT_FLOAT_EQ(-1, max);
+    EXPECT_LT(min, -30);
+    EXPECT_GT(max, -1);
 
 }
 
