@@ -1010,7 +1010,9 @@ void testFilterBank(int order,  FilterBank &filterBank)
 
 }
 
-void testBandPassFilter(BandPassFilter &filter, double *filterGaindB, double *freqs)
+void testBandPassFilter(BandPassFilter &filter,
+			double *filterGaindB,
+			double *freqs)
 {
     int order = 9;
     float lowFreq = filter.getLowFreq();
