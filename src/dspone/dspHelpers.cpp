@@ -74,7 +74,7 @@ BaseType calculateLinearPowerFFT(const SignalVector &analysisFrames, int analysi
     // This implies that the sum is directly the mean power (see Parseval's theorem).
     // We multiply x2 the result because we are working with one-sided FFT.
 
-    wipp::power_spectrum(reinterpret_cast<wipp::wipp_complex_t*>(analysisFrames[c].get()), signalPower.get(), complexFFTCCSLength);
+    wipp::power(reinterpret_cast<wipp::wipp_complex_t*>(analysisFrames[c].get()), signalPower.get(), complexFFTCCSLength);
     wipp::sum(signalPower.get(), complexFFTCCSLength, &(channelPower[c]));
     channelPower.get()[c] = 2*channelPower[c] - signalPower[0] - signalPower[complexFFTCCSLength-1];
   }
@@ -139,7 +139,7 @@ BaseType calculateLinearPowerFFT(const SignalPtr &signal, int length)
   // This implies that the sum is directly the mean power (see Parseval's theorem).
   // We multiply x2 the result because we are working with one-sided FFT.
 
-  wipp::power_spectrum(reinterpret_cast<wipp::wipp_complex_t*>(signal.get()), signalPower, complexFFTCCSLength);
+  wipp::power(reinterpret_cast<wipp::wipp_complex_t*>(signal.get()), signalPower, complexFFTCCSLength);
   wipp::sum(signalPower, complexFFTCCSLength, &power);
   power = 2*power - signalPower[0] - signalPower[complexFFTCCSLength-1];
 
