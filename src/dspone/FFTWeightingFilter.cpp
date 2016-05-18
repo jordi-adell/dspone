@@ -57,9 +57,7 @@ void FFTWeightingFilter::initialiseFilter(const BaseType *coefs, int length)
   _coefs.reset(new BaseType[2*_coefsLength]);
   wipp::real2complex(coefs, NULL, reinterpret_cast<wipp::wipp_complex_t*>(_coefs.get()), _coefsLength);
 
-
   wipp::init_fft(&_fftspec, 1 << _order);
-
 }
 
 void FFTWeightingFilter::filterBuffer(const double *inbuffer, double *outbuffer, int length)
@@ -92,6 +90,7 @@ inline void FFTWeightingFilter::filterBufferCore(const BaseType *inbuffer, BaseT
   if (length != _length)
     throw(DspException("The buffer length has to be " + std::to_string(_length)));
   fft(inbuffer, _length, _spectrum.get(), _specLength);
+
   spectralWeighting(_spectrum.get(), _specLength);
   ifft(_spectrum.get(), _specLength, outbuffer, _length);
 }
@@ -100,7 +99,9 @@ void FFTWeightingFilter::spectralWeighting(BaseType *spectrum, int length) const
 {
   if (length != _specLength)
     throw(DspException("The buffer spectrum has to be " + std::to_string(_coefsLength)));
-  wipp::mult(_coefs.get(), reinterpret_cast<wipp::wipp_complex_t*>(spectrum), _coefsLength);
+
+  wipp::mult(reinterpret_cast<wipp::wipp_complex_t*>(_coefs.get()), reinterpret_cast<wipp::wipp_complex_t*>(spectrum), _coefsLength);
+
 }
 
 void FFTWeightingFilter::fft(const double *signal, int signallength, BaseType *spectrum, int speclength) const
