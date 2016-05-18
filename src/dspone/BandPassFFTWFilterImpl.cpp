@@ -85,7 +85,7 @@ namespace dsp {
     // cppcheck-suppress zerodivcond
     float triangleFreq = 1.0F/(2*triangleLength);
     float triangleMagn = 1;
-    int idealCenter = ((float) (endId + startId))/2 + 0.5;
+    int idealCenter = (static_cast<float>(endId + startId))/2 + 0.5;
     // cppcheck-suppress zerodivcond
     double triangleAsym = -(centerId - idealCenter)*2*M_PI/triangleLength;
     double trianglePhase = 3*M_PI_2 + triangleAsym/2;
@@ -107,9 +107,7 @@ namespace dsp {
       trianglePhase = 0;
 
     wipp::set(0, coefs, length);
-    //    IppStatus status = ippsTriangle_Direct_64f(&coefs[startId], triangleLength, triangleMagn, triangleFreq, triangleAsym, &trianglePhase);
-    wipp::triangle(&coefs[startId], triangleLength);
-    //    checkIPPStatus(status);
+    wipp::triangle(&coefs[startId], triangleLength, triangleLength, 0, triangleAsym, 0);
 
     // We adjust the maximum,
     // to minimise the problems of overlaping triangles not summing 1
@@ -191,10 +189,11 @@ namespace dsp {
   {
     if (length > _coefsLength)
       length = _coefsLength;
+
     for (int i=0; i<length; ++i)
-      {
-	coefs[i] = _coefs[i];
-      }
+    {
+      coefs[i] = _coefs[i];
+    }
   }
 
 
@@ -202,7 +201,6 @@ namespace dsp {
   {
     if (status)
       {
-	//	throw(DspException(ippGetStatusString(static_cast<IppStatus>(status))));
 	throw(DspException(std::to_string(status)));
       }
   }
