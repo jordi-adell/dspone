@@ -34,7 +34,7 @@ BaseType calculateLogPowerTemporal(const SignalVector &analysisFrames, int analy
 BaseType calculateLinearPowerTemporal(const BaseType* signal, int length);
 BaseType calculateLinearPowerTemporal(const BaseType16s *signal, int length);
 BaseType calculateLinearPowerTemporal(const SignalPtr &signal, int length);
-BaseType calculateLogPowerTemporal(const BaseType16s *signal, int length);
+BaseType calculateLogPowerTemporal(const BaseType *signal, int length);
 BaseType calculateLogPowerTemporal(const BaseType16s *signal, int length);
 BaseType calculateLogPowerTemporal(const SignalPtr &signal, int length);
 BaseType calculateLinearPowerFFT(const SignalPtr &signal, int length);
