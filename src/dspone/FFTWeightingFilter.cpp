@@ -29,10 +29,11 @@
 
 namespace dsp {
 
-FFTWeightingFilter::FFTWeightingFilter(double *coefs, int length) :
+FFTWeightingFilter::FFTWeightingFilter(const double *coefs, int length) :
   _order(0),  _length(0),  _specLength(0),   _coefsLength(0)
 {
-  initialiseFilter(static_cast<BaseType*>(coefs), length);
+ // @TODO add a type check before the cast.
+  initialiseFilter(reinterpret_cast<const BaseType*>(coefs), length);
 }
 
 
@@ -41,7 +42,7 @@ FFTWeightingFilter::~FFTWeightingFilter()
   wipp::delete_fft(&_fftspec);
 }
 
-void FFTWeightingFilter::initialiseFilter(BaseType *coefs, int length)
+void FFTWeightingFilter::initialiseFilter(const BaseType *coefs, int length)
 {
   if (length <= 0)
     return;
@@ -105,7 +106,7 @@ void FFTWeightingFilter::spectralWeighting(BaseType *spectrum, int length) const
 void FFTWeightingFilter::fft(const double *signal, int signallength, BaseType *spectrum, int speclength) const
 {
   if (speclength != _specLength ||  signallength != _length)
-    throw DspException("Either the signal or the spectrum buffer legths are wrong");
+    throw DspException("Either the signal or the spectrum buffer lengths are wrong");
   wipp::fft(signal, spectrum, _fftspec);
 }
 

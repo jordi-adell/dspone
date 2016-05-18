@@ -48,7 +48,7 @@ class FFTWeightingFilter : public Filter
 	   * @param coefs the coeficients to multiply the spectrum
 	   * @param length the length of the supplied vector
 	   **/
-	FFTWeightingFilter(double *coefs, int length);
+	FFTWeightingFilter(const double *coefs, int length);
 	~FFTWeightingFilter();
 
 	/**
@@ -83,7 +83,7 @@ class FFTWeightingFilter : public Filter
 	wipp::wipp_fft_t *_fftspec;
 
 	/** @brief this function is called by the constructor to initialise the IPP filter data */
-	void initialiseFilter(BaseType *coefs, int length);
+	void initialiseFilter(const BaseType *coefs, int length);
 
 	/**
 	   * @brief This fucntion performs the actual filtering process.
