@@ -27,6 +27,8 @@
 #include <dspone/dspdefs.h>
 #include <boost/scoped_ptr.hpp>
 
+#include <dspone/BandPassFFTWFilter.h>
+
 namespace dsp {
 
 class FFTWeightingFilter;
@@ -46,8 +48,11 @@ class BandPassFFTWFilterImpl : public BandPassFilter
 	   * @param highFreq  high edge of the filter.
 	   * @param centerFreq  central frequency (maximum gain applied here)
 	   */
-	BandPassFFTWFilterImpl(const int &order, const double &lowFreq, const double &highFreq);
-	BandPassFFTWFilterImpl(const int &order, const double &lowFreq, const double &highFreq, const double &centerFreq);
+	BandPassFFTWFilterImpl(const int &order, const double &lowFreq,
+			       const double &highFreq, BandPassFFTWFilter::filterShape shape);
+	BandPassFFTWFilterImpl(const int &order, const double &lowFreq, const double &highFreq,
+			       const double &centerFreq);
+
 	virtual ~BandPassFFTWFilterImpl();
 
 	/**
@@ -100,6 +105,8 @@ class BandPassFFTWFilterImpl : public BandPassFilter
 
 	int _coefsLength;
 	BaseTypePtr _coefs;
+
+	const BandPassFFTWFilter::filterShape _shape;
 
 	/** Actual implementation of the filter **/
 	std::unique_ptr<FFTWeightingFilter> _fftwFilter;

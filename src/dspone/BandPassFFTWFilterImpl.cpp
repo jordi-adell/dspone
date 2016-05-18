@@ -32,12 +32,16 @@
 
 namespace dsp {
 
-  BandPassFFTWFilterImpl::BandPassFFTWFilterImpl(const int &order, const double &lowFreq, const double &highFreq)
+  BandPassFFTWFilterImpl::BandPassFFTWFilterImpl(const int &order, const double &lowFreq,
+						 const double &highFreq, BandPassFFTWFilter::filterShape shape) :
+    _shape(shape)
   {
     initialiseFilter(order, lowFreq, highFreq, (lowFreq+highFreq)/2);
   }
 
-  BandPassFFTWFilterImpl::BandPassFFTWFilterImpl(const int &order, const double &lowFreq, const double &highFreq, const double &centerFreq)
+  BandPassFFTWFilterImpl::BandPassFFTWFilterImpl(const int &order, const double &lowFreq, const double &highFreq,
+						 const double &centerFreq) :
+    _shape(BandPassFFTWFilter::TRIANGULAR)
   {
     initialiseFilter(order, lowFreq, highFreq, centerFreq);
   }
@@ -48,15 +52,16 @@ namespace dsp {
 
   }
 
-  void BandPassFFTWFilterImpl::initialiseFilter(const int &order, const double &lowFreq, const double &highFreq, const double &centerFreq)
+  void BandPassFFTWFilterImpl::initialiseFilter(const int &order, const double &lowFreq, const double &highFreq,
+						const double &centerFreq)
   {
     _lowFreq = lowFreq;
     _highFreq = highFreq;
     _centerFreq = centerFreq;
     _order = order;
     _length = 1 << _order;
-    _coefsLength = _length/2 + 1;
-    _coefs.reset(new BaseType[_coefsLength]); // Because of FFT symetry in real signals.
+    _coefsLength = _length/2 + 1; // Because of FFT symetry in real signals.
+    _coefs.reset(new BaseType[_coefsLength]);
     wipp::setZeros(_coefs.get(), _coefsLength);
     initialiseFilterCore();
   }
@@ -67,7 +72,18 @@ namespace dsp {
     // Currently I am using a triangular window in the frequency domain as a filter
     // This is usefull for mel-scale analysis. The use of assymetry is to
     // ensure the sum of all the filters in a filter bank can be configured to be a constant.
-    setTriangularFilterShape(coefs, length, startId, endId, centerId);
+    //    setTriangularFilterShape(coefs, length, startId, endId, centerId);
+    switch (_shape)
+    {
+      case BandPassFFTWFilter::RECTANGULAR:
+	setRectangularFilterShape(coefs, length, startId, endId);
+      break;
+      case BandPassFFTWFilter::TRIANGULAR:
+	setTriangularFilterShape(coefs, length, startId, endId, centerId);
+      break;
+      default:
+	throw(DspException("Undefined filter shape in FFT weiting filter bank"));
+    }
   }
 
   void BandPassFFTWFilterImpl::setTriangularFilterShape(BaseType *coefs, const int &length, const int &startId, const int &endId) const

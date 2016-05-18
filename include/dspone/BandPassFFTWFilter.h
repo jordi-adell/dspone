@@ -37,6 +37,8 @@ class BandPassFFTWFilterImpl;
 class BandPassFFTWFilter : public BandPassFilter
 {
     public:
+	typedef enum{ RECTANGULAR, TRIANGULAR} filterShape;
+
 	/**
 	   * @brief BandPassFFTWFilter Contructs the object from the cut off frequencies
 	   * @param order  order of the filter. The FFT used to filter witll contain 2^order samples
@@ -44,7 +46,7 @@ class BandPassFFTWFilter : public BandPassFilter
 	   * @param highFreq  high edge of the filter.
 	   * @param centerFreq  central frequency (maximum gain applied here)
 	   */
-	BandPassFFTWFilter(const int &order, const double &lowFreq, const double &highFreq);
+	BandPassFFTWFilter(const int &order, const double &lowFreq, const double &highFreq, filterShape shape = RECTANGULAR);
 	BandPassFFTWFilter(const int &order, const double &lowFreq, const double &highFreq, const double &centerFreq);
 	virtual ~BandPassFFTWFilter();
 
@@ -74,10 +76,10 @@ class BandPassFFTWFilter : public BandPassFilter
 	double getCenterFreq() const;
 
 	/**
-	   * @brief getCoeficients This function fils the coefs array with the length first coefficients of the filter.
+	   * @brief getCoeficients This function fills the coefs array with the <length> first coefficients of the filter.
 	   * They function assumes the necessary memory has been already allocated.
 	   * @param coefs  array to wehere coeficients are stored
-	   * @param length  number of coeficients stored
+	   * @param length  number of coeficients stored1
 	   */
 	void getCoeficients(double *coefs, int length) const;
 

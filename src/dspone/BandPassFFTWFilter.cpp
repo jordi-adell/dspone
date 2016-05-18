@@ -31,9 +31,9 @@
 
 namespace dsp {
 
-BandPassFFTWFilter::BandPassFFTWFilter(const int &order, const double &lowFreq, const double &highFreq)
+BandPassFFTWFilter::BandPassFFTWFilter(const int &order, const double &lowFreq, const double &highFreq, filterShape shape)
 {
-  _impl.reset(new BandPassFFTWFilterImpl(order, lowFreq, highFreq));
+  _impl.reset(new BandPassFFTWFilterImpl(order, lowFreq, highFreq, shape));
 }
 
 BandPassFFTWFilter::BandPassFFTWFilter(const int &order, const double &lowFreq, const double &highFreq, const double &centerFreq)
