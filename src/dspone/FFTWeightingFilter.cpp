@@ -38,7 +38,7 @@ FFTWeightingFilter::FFTWeightingFilter(double *coefs, int length) :
 
 FFTWeightingFilter::~FFTWeightingFilter()
 {
-  wipp::delete_wipp_fft(&_fftspec);
+  wipp::delete_fft(&_fftspec);
 }
 
 void FFTWeightingFilter::initialiseFilter(BaseType *coefs, int length)
@@ -56,12 +56,9 @@ void FFTWeightingFilter::initialiseFilter(BaseType *coefs, int length)
   _coefs.reset(new BaseType[2*_coefsLength]);
   wipp::real2complex(coefs, NULL, reinterpret_cast<wipp::wipp_complex_t*>(_coefs.get()), _coefsLength);
 
-  wipp::init_wipp_fft(&_fftspec, 1 << _order);
 
-  //  ippsFFTInitAlloc_R_64f(&_fftspec, _order, IPP_DIV_FWD_BY_N, ippAlgHintFast);
-  //  int internalBuferSize=0;
-  //  ippsFFTGetBufSize_R_64f(_fftspec, &internalBuferSize);
-  //  _fftInternalBuffer.reset(new Ipp8u[internalBuferSize]);
+  wipp::init_fft(&_fftspec, 1 << _order);
+
 }
 
 void FFTWeightingFilter::filterBuffer(const double *inbuffer, double *outbuffer, int length)

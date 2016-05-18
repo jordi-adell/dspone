@@ -35,12 +35,12 @@ FFTImpl::FFTImpl(int order) :
 
 FFTImpl::~FFTImpl()
 {
-  wipp::delete_wipp_fft(&_fftspec);
+  wipp::delete_fft(&_fftspec);
 }
 
 void FFTImpl::init()
 {
-  wipp::init_wipp_fft(&_fftspec, 1 <<_fftOrder);
+  wipp::init_fft(&_fftspec, 1 <<_fftOrder);
   _frame.reset(new BaseType[_fftLength]);
 }
 
