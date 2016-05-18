@@ -119,11 +119,18 @@ namespace dsp {
       (&coefs[startId])[idx] /= max;
   }
 
+
+  void BandPassFFTWFilterImpl::setRectangularFilterShape(BaseType *coefs, const int &length, const int &startId, const int &endId) const
+  {
+    wipp::setZeros(coefs, length);
+    wipp::set(1, &coefs[startId], endId - startId);
+  }
+
   void BandPassFFTWFilterImpl::initialiseFilterCore()
   {
 
     if (_highFreq < 0 || _lowFreq < 0 || _lowFreq > 0.5 || _highFreq > 0.5)
-      {
+    {
 	std::string msg("Cut-off frequencies need to be in the Nyquist range [0 - 0.5]:  ");
 	msg += std::to_string(_lowFreq) + ", " + std::to_string(_highFreq);
 	throw(DspException(msg));

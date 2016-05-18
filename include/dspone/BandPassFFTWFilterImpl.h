@@ -141,6 +141,9 @@ class BandPassFFTWFilterImpl : public BandPassFilter
 	void setTriangularFilterShape(BaseType *coefs, const int &length, const int &startId, const int &endId) const;
 	void setTriangularFilterShape(BaseType *coefs, const int &length, const int &startId, const int &endId, const int &centerId) const;
 
+
+	void setRectangularFilterShape(BaseType *coefs, const int &length, const int &startId, const int &endId) const;
+
 	/** @brief This function performes the actual filter process and is called by the three public
 	   * filterBuyffer(...) functions.
 	   * @param inbuffer  The signal buffer to be filtered
