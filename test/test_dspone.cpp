@@ -22,10 +22,6 @@
 #include <boost/filesystem.hpp>
 
 #include <stdlib.h>
-#include <ostream>
-#include <istream>
-//#include <libavcodec/avcodec.h>
-#include <sstream>
 #include <string>
 
 namespace dsp {
@@ -88,10 +84,6 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
     wipp::set(1, signal, length);
     wipp::setZeros(filtered, length);
 
-    //    ippSetNumThreads(1);
-    //    ippGetNumThreads(&numTHreads);
-    //    DEBUG_STREAM("Using " << numTHreads << " threads for IPP and order 2");
-
     {
 	FIRFilter filter(coefs,2);
 	for (int j = 0; j < iterations; ++j)
@@ -108,12 +100,8 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-//    ippSetNumThreads(4);
-//    ippGetNumThreads(&numTHreads);
-//    DEBUG_STREAM("Using " << numTHreads << " threads for IPP and order 2");
 
     {
-//	qa::AutoTimer timer("Four threads order 2");
 	FIRFilter filter(coefs,2);
 	for (int j = 0; j < iterations; ++j)
 	{
@@ -129,12 +117,8 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-//    ippSetNumThreads(1);
-//    ippGetNumThreads(&numTHreads);
-//    DEBUG_STREAM("Using " << numTHreads << " threads for IPP and order 1024");
 
     {
-//	qa::AutoTimer timer("One thread order 1024");
 	FIRFilter filter2(firfile);
 
 	int16_t signal2[length];
@@ -150,13 +134,7 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-
-//    ippSetNumThreads(4);
-//    ippGetNumThreads(&numTHreads);
-//    DEBUG_STREAM("Using " << numTHreads << " threads for IPP and order 1024");
-
     {
-//	qa::AutoTimer timer("Four threads order 1024");
 	FIRFilter filter2(firfile);
 
 	int16_t signal2[length];
@@ -172,13 +150,7 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-//    ippSetNumThreads(1);
-//    ippGetNumThreads(&numTHreads);
-//    DEBUG_STREAM("Using " << numTHreads << " threads for IPP and order " << largeorder);
-
     {
-//	qa::AutoTimer timer("Four threads order 1024");
-
 	FIRFilter filter2(largeFIRcoefs, largeorder);
 
 	int16_t signal2[length];
@@ -194,14 +166,7 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
 	}
     }
 
-
-//    ippSetNumThreads(4);
-//    ippGetNumThreads(&numTHreads);
-//    DEBUG_STREAM("Using " << numTHreads << " threads for IPP and order " << largeorder);
-
     {
-//	qa::AutoTimer timer("Four threads order 1024");
-
 	FIRFilter filter2(largeFIRcoefs, largeorder);
 	int16_t signal2[length];
 	int16_t filtered2[length];
@@ -394,8 +359,8 @@ TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
 {
     int order = 9;
     int length = 1 << order;
-    float lowFreq = 0.2;
-    float highFreq  = 0.3;
+    float lowFreq = 0.1;
+    float highFreq  = 0.2;
     int NFREQS = length/2;
     double filterGaindB[NFREQS];
     double freqs[NFREQS];
@@ -405,8 +370,8 @@ TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
     lowFreq = filter.getLowFreq();
     highFreq = filter.getHighFreq();
 
-    EXPECT_FLOAT_EQ(0.2, lowFreq);
-    EXPECT_FLOAT_EQ(0.3, highFreq);
+    EXPECT_FLOAT_EQ(0.1, lowFreq);
+    EXPECT_FLOAT_EQ(0.2, highFreq);
 
     for (int f = 1; f< NFREQS; ++f)
     {
@@ -440,49 +405,44 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
 {
     int order = 9;
     int length = 1 << order;
-    float lowFreq = 0.2;
-    float highFreq  = 0.3;
+    const float lowFreq_orig = 0.1;
+    const float highFreq_orig = 0.2;
+    float lowFreq = lowFreq_orig;
+    float highFreq  = highFreq_orig;
     int NFREQS = length/2;
     double filterGaindB[NFREQS];
     double freqs[NFREQS];
+    double coefs[NFREQS];
 
-    BandPassFFTWFilter filter(order, lowFreq, highFreq);
+    BandPassFFTWFilter filter(order, lowFreq, highFreq, BandPassFFTWFilter::RECTANGULAR);
     lowFreq = filter.getLowFreq();
     highFreq = filter.getHighFreq();
     testBandPassFilter(filter, filterGaindB, freqs);
 
-    DEBUG_STREAM("Constructed a band pass filter with: " << 0.2 << ", " << 0.3 << " and got " << lowFreq << ", " << highFreq);
+    DEBUG_STREAM("Constructed a band pass filter with: " << lowFreq_orig << ", " << highFreq_orig<< " and got " << lowFreq << ", " << highFreq);
 
-    EXPECT_NEAR(0.2, lowFreq, 0.005);
-    EXPECT_NEAR(0.3, highFreq, 0.005);
+    EXPECT_NEAR(lowFreq_orig, lowFreq, 0.005);
+    EXPECT_NEAR(highFreq_orig, highFreq, 0.005);
+
+    filter.getCoeficients(coefs, NFREQS);
 
     for (int f = 1; f< NFREQS; ++f)
     {
 	float sinFreq = freqs[f];
-	if (sinFreq <= 0.2)
+	if (sinFreq < 0.99*lowFreq)
 	{
 	    DEBUG_STREAM("Gain: < lowFreq " << filterGaindB[f] << ", f: " << sinFreq);
-	    EXPECT_TRUE(filterGaindB[f] < -1);
+	    EXPECT_LT(filterGaindB[f], -30);
 	}
-	else if (sinFreq < (0.22))
+	else if (1.01*lowFreq < sinFreq && sinFreq < 0.99*highFreq)
 	{
 	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
-	    EXPECT_TRUE(filterGaindB[f] > -30);
+	    EXPECT_GE(filterGaindB[f], 0);
 	}
-	else if (sinFreq < (0.28))
-	{
-	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
-	    EXPECT_TRUE(filterGaindB[f] > -8);
-	}
-	else if (sinFreq < (0.3))
-	{
-	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
-	    EXPECT_TRUE(filterGaindB[f] > -30);
-	}
-	else
+	else if(sinFreq> 1.01*highFreq)
 	{
 	    DEBUG_STREAM("Gain: > highFreq" << filterGaindB[f] << ", f: " << sinFreq);
-	    EXPECT_TRUE(filterGaindB[f] < -1);
+	    EXPECT_LT(filterGaindB[f], -30);
 	}
     }
 
@@ -491,8 +451,8 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
     wipp::min(&filterGaindB[1], NFREQS-2, &min);
     wipp::max(&filterGaindB[1], NFREQS-2, &max);
 
-    EXPECT_FLOAT_EQ(-1081, min);
-    EXPECT_FLOAT_EQ(-1, max);
+    EXPECT_NEAR(-1081, min,1);
+    EXPECT_NEAR(5, max,1);
 
 }
 
@@ -500,9 +460,9 @@ TEST(DigitalSignalProcessingTest, testFFTweightingFilter)
 {
     int order = 9;
     int length = (1 << order);
-    int clength = (1 << (order-1)) + 1;
-    float lowFreq = 0.15;
-    float highFreq = 0.25;
+    int clength = (1 << (order-1)) + 1; // length/2 + 1
+    float lowFreq = 0.1;
+    float highFreq = 0.2;
     double coefs[clength];
 
     int16_t signal[length];
@@ -525,7 +485,12 @@ TEST(DigitalSignalProcessingTest, testFFTweightingFilter)
 	    signal[i] = pow(2,14)*sin(2*M_PI*sinFreq*i);
 
 	filter.filterBuffer(signal, filtered, length);
-	float filterGaindB = (calculateLogPowerTemporal(filtered, length) - calculateLogPowerTemporal(signal, length));
+	double signalPower = calculateLogPowerTemporal(signal, length);
+	double filteredPower = calculateLogPowerTemporal(filtered, length);
+	float filterGaindB = (filteredPower - signalPower);
+
+
+	DEBUG_STREAM("f: " << sinFreq << ", G: " << filterGaindB << ", signal power: " << signalPower <<", filetered power: " << filteredPower);
 
 	if (sinFreq < lowFreq)
 	{
@@ -533,11 +498,11 @@ TEST(DigitalSignalProcessingTest, testFFTweightingFilter)
 	}
 	else if (sinFreq < highFreq)
 	{
-	    EXPECT_LT(filterGaindB, -1.2);
+	    EXPECT_GT(filterGaindB, -1);
 	}
 	else
 	{
-	    EXPECT_GT(filterGaindB, -1);
+	    EXPECT_LT(filterGaindB, -1);
 	}
     }
 }
@@ -859,14 +824,8 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	    {
 		if (processedSamples > latency)
 		{
-		    //                  DEBUGº_STREAM("buffsize: " << bufferBytesSize << " order " << shortTimeP.getFrameSize() << " PS:" << processedSamples << " L:" << latency);
-		    saveBufferToFile(inbuffer, processedSamples-latency, "in.txt");
-		    saveBufferToFile(&outbuffer[latency], processedSamples-latency, "out.txt");
 		    wipp::abs(difference, processedSamples-latency);
 		    wipp::sum(&difference[0], processedSamples-latency, &sum);
-
-		    saveBufferToFile(inDatabuffer, processedSamples-latency, "in.txt");
-		    saveBufferToFile(&outDatabuffer[latency], processedSamples-latency, "out.txt");
 		    wipp::abs(dataDifference, processedSamples-latency);
 		    wipp::sum(dataDifference, processedSamples-latency, &datasum);
 
@@ -924,15 +883,9 @@ void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputD
 	wipp::sub(inDatabuffer, &outDatabuffer[latency], dataDifference, processedSamples-latency);
 
 	DEBUG_STREAM("buffsize: " << bufferSampleSize << " order " << shortTimeP.getFrameSize() << " PS:" << processedSamples << " L:" << latency);
-	saveBufferToFile(inbuffer, processedSamples-latency, "in.txt");
-	saveBufferToFile(&outbuffer[latency], processedSamples-latency, "out.txt");
 	wipp::abs(difference, processedSamples-latency);
 	wipp::sum(difference, processedSamples-latency, &sum);
 
-	INFO_STREAM("saved into: " << saveBufferToFile(inDatabuffer, processedSamples-latency, "indata.txt"));
-	INFO_STREAM("saved into: " << saveBufferToFile(&outDatabuffer[latency], processedSamples-latency, "outdata.txt"));
-	saveBufferToFile(inDatabuffer, processedSamples-latency, "indata.txt");
-	saveBufferToFile(&outDatabuffer[latency], processedSamples-latency, "outdata.txt");
 	wipp::abs(dataDifference, processedSamples-latency);
 	wipp::sum(dataDifference, processedSamples-latency, &datasum);
 
@@ -1021,22 +974,33 @@ void testBandPassFilter(BandPassFilter &filter,
     DEBUG_STREAM("LF: " << lowFreq << " HF: " << highFreq);
 
     int length = 1 << order;
+    int NFREQS = length/2;
+
+    double test_signal[length];
     int16_t signal[length];
     int16_t filtered[length];
+    double coefs[length];
+
     std::ostringstream ossf, ossg;
     ossf.precision(3);
     ossg.precision(3);
 
-    int NFREQS = length/2;
     wipp::set(0, filterGaindB, NFREQS);
     wipp::set(0, freqs, NFREQS);
 
     for (int f = 1; f< NFREQS; ++f)
     {
-	float sinFreq = (f*1.0F)/length;
+	double sinFreq = (f*1.0F)/length;
+	double A = pow(2,14);
 	for (int i = 0; i < length; ++i)
-	    signal[i] = pow(2,14)*sin(2*M_PI*sinFreq*i);
+	{
+	  test_signal[i] = 10*sin(2*M_PI*sinFreq*i) + sinFreq;
+	  signal[i] = A*sin(2*M_PI*sinFreq*i);
+	}
+
 	filter.filterBuffer(signal, filtered, length);
+	filter.getCoeficients(coefs, length/2+1);
+
 	freqs[f] = sinFreq;
 	double powerfilt = calculateLogPowerTemporal(filtered, length) ;
 	double powersign = calculateLogPowerTemporal(signal, length);
@@ -1054,26 +1018,17 @@ void checkFilterBankBinsOverlap(double *coefs, int length, int nbins)
 
     double coefsum[length];
     wipp::set(0, coefsum, length);
-    //          Gnuplot plot("lines");
     for (int i=0; i<nbins; ++i)
     {
-	//            plot.reset_all();
-	//            plot.plot_x(coefsum, length);
 	wipp::add(&coefs[length*i], coefsum, length);
     }
-    //          plot.reset_all();
-    //          plot.plot_x(coefsum, length);
     double mean=0, stdev=0;
     wipp::mean(coefsum, length, &mean);
     wipp::stddev(coefsum, length, &stdev);
 
-
-
-    DEBUG_STREAM("coef mean: " << mean << ", stdev: " << stdev);
-    //          saveBufferToFile(coefs, length*nbins, "coefs.txt");
-    //          saveBufferToFile(coefsum, length, "coefsum.txt");
-    EXPECT_FLOAT_EQ(1, mean);
-    EXPECT_FLOAT_EQ(0, stdev);
+    DEBUG_STREAM("coef mean: " << mean << ", stdev: " << stdev << "N: " << length);
+    EXPECT_NEAR(1, mean, 0.02);
+    EXPECT_NEAR(0, stdev, 0.3);
 
 }
 
