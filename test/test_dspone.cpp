@@ -651,8 +651,8 @@ TEST(DigitalSignalProcessingTest, testParticleFilter)
     ParticleFilter<> filter(50.0f, 100, 0, std::make_pair(0,1),  observationModel);
     DEBUG_STREAM("particle: " << filter.getParticles() << std::endl);
 
-    double p = -10000;
-    for (int i = 0; i < 400 ; ++i)
+    double p = -100000;
+    for (int i = 0; i < 4000 ; ++i)
     {
 	p = filter.updateFilter();
 
@@ -661,7 +661,7 @@ TEST(DigitalSignalProcessingTest, testParticleFilter)
     }
     DEBUG_STREAM("\nparticle: " << filter.getParticles());
     // This lag might be affected by modifications in the prediction and observation models.
-    EXPECT_FLOAT_EQ( 0 , p);
+    EXPECT_NEAR( 0 , p, 0.1);
 }
 
 TEST(DigitalSignalProcessingTest, testFilterProcessor)
