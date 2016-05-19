@@ -728,38 +728,46 @@ TEST(DigitalSignalProcessingTest, testIPPGhostsInteractive)
 
 TEST(DigitalSignalProcessingTest, testPreEmphasisFilter)
 {
-    std::string infile  = getAudioPath() + "music16000Hz.raw";
-    std::string outfile = getTmpPath() + "preEmph.raw";
-    std::ifstream istr(infile);
-    std::ofstream ostr(outfile);
+  //    std::string infile  = getAudioPath() + "music16000Hz.raw";
+  //    std::string outfile = getTmpPath() + "preEmph.raw";
+  //    std::ifstream istr(infile);
+  //    std::ofstream ostr(outfile);
 
-    int buffersize=1024;
-    int16_t buffIn[buffersize];
+  //    int buffersize=1024;
+  //    int16_t buffIn[buffersize];
 
-    PreEmphasisFilter preEmphFilter(0.97);
+  //    PreEmphasisFilter preEmphFilter(0.97);
 
-    while (istr)
-    {
-	istr.read(reinterpret_cast<char*>(buffIn), buffersize*2);
-	unsigned int read_bytes = istr.gcount();
-	unsigned int read_samples = read_bytes/2;
-	preEmphFilter.filter(buffIn, read_samples);
-	ostr.write(reinterpret_cast<char*>(buffIn), read_bytes);
-    }
+  //    while (istr)
+  //    {
+  //	istr.read(reinterpret_cast<char*>(buffIn), buffersize*2);
+  //	unsigned int read_bytes = istr.gcount();
+  //	unsigned int read_samples = read_bytes/2;
+  //	preEmphFilter.filter(buffIn, read_samples);
+  //	ostr.write(reinterpret_cast<char*>(buffIn), read_bytes);
+  //    }
 
-    size_t length = 10;
-    int16_t testsignal[] =      {1000, 1000, 1000, 1000,    0,    0,    0,    0,    0,    0};
-    int16_t referencesignal[] = {1000, 1970, 2911, 3824, 3709, 3598, 3490, 3385, 3283, 3185};
-    int16_t filteredsignal[length];
+  size_t length = 10;
+  int16_t testsignal[] =      {1000, 1000, 1000, 1000,    0,    0,    0,    0,    0,    0};
+//  int16_t referencesignal[] = {1000, 1970, 2911, 3824, 3709, 3598, 3490, 3385, 3283, 3185};
+  int16_t referencesignal[] = {1000, 30, 970, 58, -56, 54, -53, 51, -50, 48};
 
-    PreEmphasisFilter preEmphResultTest(0.97);
+  int16_t filteredsignal[length];
 
-    preEmphResultTest.filterBuffer(testsignal, filteredsignal, length);
+  saveBufferToFile(testsignal, length, "orig");
+  saveBufferToFile(referencesignal, length, "ref");
 
-    for (size_t i = 0; i < length; ++i)
-    {
-	EXPECT_FLOAT_EQ(referencesignal[i], filteredsignal[i]);
-    }
+  PreEmphasisFilter preEmphResultTest(0.97);
+
+  preEmphResultTest.filterBuffer(testsignal, filteredsignal, length);
+
+  saveBufferToFile(filteredsignal, length, "filt");
+
+
+  for (size_t i = 0; i < length; ++i)
+  {
+    EXPECT_FLOAT_EQ(referencesignal[i], filteredsignal[i]);
+  }
 
 }
 
