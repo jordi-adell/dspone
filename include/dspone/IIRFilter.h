@@ -48,7 +48,7 @@ namespace dsp {
 	 *
 	 * These filters can also be expressed in term of FDE (Finite differential equations)
 	 *
-	 * y[n] = sum_i{ -b_i*y[n-i] } + sum_j { a_i*x[n-j] }
+	 * y[n] = sum_j { a_i*x[n-j] } - sum_i{ b_i*y[n-i] }
 	 *
 	 * The coefficients vector has to be expressed in the following for:
 	 * a_coefs[] = {a_0, a_1, a_2, ..., a_M}

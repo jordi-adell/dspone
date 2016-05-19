@@ -29,15 +29,20 @@ namespace dsp {
 
 PreEmphasisFilter::PreEmphasisFilter(double factor)
 {
-  int order = 1;
-  int length = 2*(order+1);
+  static const int order = 1;
+  static const int length = 2*(order+1);
   double coefs[length];
   coefs[0] = 1;
   coefs[1] = 0;
   coefs[2] = 1;
-  coefs[3] = -factor;
+  coefs[3] = factor;
+
+  //                  1
+  //  H(z) = ----------------------
+  //            1 - factor/z
 
   _filterImpl.reset(new IIRFilter(coefs, length));
+
 }
 
 PreEmphasisFilter::~PreEmphasisFilter()
