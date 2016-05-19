@@ -49,8 +49,8 @@
         _range(range),
         _callback(NULL),
         _id(id),
-        _observationModel(boost::shared_dynamic_cast<ObservationModel>(obsModel)),
-        _predictionModel(boost::shared_dynamic_cast<PredictionModel>(predModel))
+	_observationModel(boost::dynamic_pointer_cast<ObservationModel>(obsModel)),
+	_predictionModel(boost::dynamic_pointer_cast<PredictionModel>(predModel))
       {
         init();
       }
@@ -139,7 +139,7 @@
           solution = solution / sum;
         else
           ERROR_STREAM("Particle weights are zero, so you are really far away of the target");
-        TRACE_STREAM("Estimation: " << solution);
+        TRACE_STREAM("Estimation: " << (_particles * _weights).sum() << " " << _weights.sum() << " " << solution);
         _predictionModel->updateModel(solution);
 
 #ifdef DSPONE_PARTICLE_FILTER_DEBUG

@@ -146,7 +146,7 @@ class PredictionModelImpl : public IPredictionModel<T_Particle, T_ParticleSet>
 	PredictionModelImpl(T_Particle inititalState, T_Particle initialVelocity,
 			    T_Particle mean=0, T_Particle std=0.1);
 
-	/*****    implemented functino of the abstract class ******/
+	/*****    implemented function of the abstract class ******/
 	virtual void update(T_ParticleSet &particles);
 	virtual void updateModel(T_Particle solution);
 	/*****                                                *****/

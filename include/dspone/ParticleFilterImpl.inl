@@ -46,9 +46,7 @@
           _randomParticles.reset(new T_Particle[IParticleSet<T_Particle>::_size]);
           if (!_randState)  // for the assignment operator
           {
-	      //            IppStatus status = ippsRandGaussInitAlloc_32f(&_randState, _randMean, _randStdDev, _seed);
 	      wipp::init_rand_gaussian(&_randState, _randMean, _randStdDev);
-	      //	      wipp::checkStatus(status);
           }
         }
 
@@ -112,9 +110,7 @@
         DSPONE_BASIC_PARTICLE_SET_TMP
         void DSPONE_BASIC_PARTICLE_SET_DCL::addNoise(T_Particle mean, T_Particle std)
         {
-//          IppStatus status = ippsRandGauss_32f(_randomValues.get(), IParticleSet<T_Particle>::_size, _randState);
 	    wipp::rand(_randState, _randomValues.get(), IParticleSet<T_Particle>::_size);
-	    //	    wipp::checkStatus(status);
 	    wipp::multC(std, _randomValues.get(), IParticleSet<T_Particle>::_size);
 	    wipp::addC(mean, _randomValues.get(), IParticleSet<T_Particle>::_size);
 	    wipp::copyBuffer(_randomValues.get(), _randomParticles.get(), IParticleSet<T_Particle>::_size);
