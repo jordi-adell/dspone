@@ -1,45 +1,43 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(dspone)
+cmake_minimum_required(VERSION 3.5.2)
+project(dspone VERSION 0.2.0)
 
-set(PROJECT_VERSION_MAJOR 0)
-set(PROJECT_VERSION_MINOR 2)
-set(PROJECT_VERSION_PATCH 0)
+###########################
+## Configure compilation ##
+###########################
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+if(DEBUG)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
+    add_definitions("-DWIPP_DEBUG")
+    message(STATUS "DEBUG mode")
+else(DEBUG)
+  set(OPT_FLAGS, "-O3 -msse4")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OPT_FLAGS}")
+  message(STATUS "optimisation flags: ${OPT_FLAGS}")
+endif(DEBUG)
+
+#############################################
+## Find modules and configure dependencies ##
+#############################################
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-
-if(DEBUG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og -g")
-    add_definitions("-DWIPP_DEBUG")
-else(DEBUG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -msse4")
-endif(DEBUG)
-
 find_package(Boost REQUIRED COMPONENTS system filesystem)
+find_package(WIPP REQUIRED)
 
-find_library(WIPP_LIBRARY wipp)
-find_path(WIPP_INCLUDE_DIRS wipp/wipp.h)
 
-message(STATUS ${WIPP_LIBRARY})
-message(STATUS ${WIPP_INCLUDE_DIRS})
-
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-# include_directories(include)
-# TODO: Check names of system library include directories (ipp, boost)
 include_directories(
   include
   ${WIPP_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
 )
 
-## Declare a cpp library
-add_library(dspone
+###################################
+## Declare and configure targets ##
+###################################
+
+add_library(dspone SHARED
   src/${PROJECT_NAME}/dsplogger.cpp
   src/${PROJECT_NAME}/BandPassFFTWFilter.cpp
   src/${PROJECT_NAME}/BandPassFFTWFilterImpl.cpp
@@ -68,6 +66,12 @@ add_library(dspone
   src/${PROJECT_NAME}/TimeProcess.cpp
 )
 
+set_target_properties(dspone
+PROPERTIES
+VERSION ${PROJECT_VERSION}
+SOVERSION ${PROJECT_VERSION_MAJOR}
+)
+
 ## Specify libraries to link a library or executable target against
 target_link_libraries(dspone
   ${Boost_LIBRARIES}
@@ -84,6 +88,7 @@ set(INCLUDE_DESTINATION "include/${PROJECT_NAME}")
 
 ## Mark executables and/or libraries for installation
 install(TARGETS dspone
+  COMPONENT bin
   ARCHIVE DESTINATION ${LIB_DESTINATION}
   LIBRARY DESTINATION ${LIB_DESTINATION}
   RUNTIME DESTINATION ${BIN_DESTINATION}
@@ -93,7 +98,45 @@ install(TARGETS dspone
 install(FILES
 #  include/${PROJECT_NAME}/dspdefs.h
     DESTINATION ${INCLUDE_DESTINATION}
+	COMPONENT dev
 )
+
+########################
+## Package generation ##
+########################
+
+SET(CPACK_GENERATOR "DEB")
+
+SET(CPACK_PACKAGE_NAME "lib${PROJECT_NAME}")
+SET(CPACK_PACKAGE_CONTACT "Jordi Adell <adellj@gmail.com>") #required
+SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/README.md")
+SET(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+SET(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+SET(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+SET(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Library for mathematical calculation signal processing-oriented.")
+
+SET(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE)
+SET(CPACK_RESOURCE_FILE_README ${CMAKE_SOURCE_DIR}/README.md)
+SET(CPACK_RESOURCE_FILE_WELCOME ${CMAKE_SOURCE_DIR}/README.md)
+SET(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_SOURCE_DIR}/README.md)
+
+SET(CPACK_STRIP_FILES TRUE)
+
+if (${CMAKE_SIZEOF_VOID_P} EQUAL "8")
+  SET(CPACK_SYSTEM_NAME "amd64")
+else()
+  SET(CPACK_SYSTEM_NAME "i386")
+endif()
+
+SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS 1)
+SET(CPACK_DEB_COMPONENT_INSTALL 1)
+
+SET(CPACK_DEBIAN_DEV_PACKAGE_DEPENDS "${CPACK_PACKAGE_NAME} (=${CPACK_PACKAGE_VERSION})")
+SET(CPACK_DEBIAN_DEV_PACKAGE_NAME "lib${PROJECT_NAME}-dev")
+SET(CPACK_DEBIAN_BIN_PACKAGE_NAME "lib${PROJECT_NAME}")
+
+INCLUDE(CPack)
 
 #############
 ## Testing ##
