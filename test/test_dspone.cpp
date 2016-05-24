@@ -661,7 +661,7 @@ TEST(DigitalSignalProcessingTest, testParticleFilter)
     }
     DEBUG_STREAM("\nparticle: " << filter.getParticles());
     // This lag might be affected by modifications in the prediction and observation models.
-    EXPECT_NEAR( 0 , p, 0.1);
+    EXPECT_NEAR( 0 , p, 0.5);
 }
 
 TEST(DigitalSignalProcessingTest, testFilterProcessor)
