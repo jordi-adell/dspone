@@ -17,9 +17,9 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/FIRFilter.h>
+#include <dspone/filter/FIRFilter.h>
 #include <dspone/dsplogger.h>
 #include <dspone/dspdefs.h>
 

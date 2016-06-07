@@ -16,8 +16,11 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 *
-* You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* You should have received a copy of the GNU General Public Licenseº
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/ParticleFilter.h>
-#include <dspone/ParticleFilterImpl.h>
+#include <dspone/pf/ParticleSet.hpp>
+#include <dspone/pf/ParticleFilter.hpp>
+#include <dspone/pf/ObservationModel.hpp>
+#include <dspone/pf/PredictionModel.hpp>
+#include <dspone/pf/ResamplingModel.hpp>

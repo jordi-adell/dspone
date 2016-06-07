@@ -17,7 +17,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
 /*
  *  BandPassFIRFilter.cpp
@@ -25,7 +25,7 @@
  *  Created on: 2016
  *      Author:  Jordi Adell (adellj@gmail.com)
  */
-#include <dspone/BandPassFIRFilter.h>
+#include <dspone/filter/BandPassFIRFilter.h>
 #include <dspone/DspException.h>
 #include <dspone/dspdefs.h>
 

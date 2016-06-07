@@ -17,12 +17,12 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
 //cppcheck-suppress zerodivcond
 
-#include <dspone/BandPassFFTWFilterImpl.h>
-#include <dspone/FFTWeightingFilter.h>
+#include <dspone/filter/BandPassFFTWFilterImpl.h>
+#include <dspone/filter/FFTWeightingFilter.h>
 #include <dspone/DspException.h>
 #include <wipp/wipp.h>
 #include <wipp/wipputils.h>

@@ -22,13 +22,11 @@
 #ifndef __DSP_H_
 #define __DSP_H_
 
-#include "SignalProcessor.h"
-#include "BasicFilterModules.h"
+#include "dspone/rt/SignalProcessor.h"
+#include "dspone/rt/Filters.h"
+
 
 #include <boost/shared_ptr.hpp>
-#include <wipp/wipp.h>
-
-using namespace wipp;
 
 #define __INTERACTION_DSP_DECL  dsp
 

@@ -17,10 +17,10 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/SignalProcessor.h>
-#include <dspone/ShortTimeProcess.h>
+#include <dspone/rt/SignalProcessor.h>
+#include <dspone/rt/ShortTimeProcess.h>
 
 namespace dsp {
 

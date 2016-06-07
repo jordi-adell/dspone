@@ -70,8 +70,8 @@ class FFTImpl
 	   * @param frameLength   length of the frame provided.
 	   * Has to be lower or equal to the value returned by getFFTLength
 	   */
-    void fwdTransform(BaseType *inFrame, BaseType *fft);
-    void fwdTransform(BaseType *inFrame, BaseType *fft, int frameLength);
+    void fwdTransform(const BaseType *inFrame, BaseType *fft);
+    void fwdTransform(const BaseType *inFrame, BaseType *fft, int frameLength);
 
     /**
 	   * @brief invTransfrom   Performed the inverse transform
@@ -82,8 +82,8 @@ class FFTImpl
 	   * @param frameLength   length of the frame provided.
 	   * Has to be lower or equal to the value returned by getFFTLength
 	   */
-    void invTransfrom(BaseType *outFrame, BaseType *fft);
-    void invTransfrom(BaseType *outFrame, BaseType *fft, int frameLength);
+    void invTransfrom(BaseType *outFrame, const BaseType *fft);
+    void invTransfrom(BaseType *outFrame, const BaseType *fft, int frameLength);
 
 
   private:

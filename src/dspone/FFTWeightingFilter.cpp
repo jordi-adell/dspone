@@ -17,11 +17,13 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/FFTWeightingFilter.h>
+#include <dspone/filter/FFTWeightingFilter.h>
 #include <dspone/DspException.h>
 #include <dspone/dsplogger.h>
+
+#include <dspone/algorithm/fft.h>
 
 #include <wipp/wipputils.h>
 
@@ -39,7 +41,7 @@ FFTWeightingFilter::FFTWeightingFilter(const double *coefs, int length) :
 
 FFTWeightingFilter::~FFTWeightingFilter()
 {
-  wipp::delete_fft(&_fftspec);
+  _fft.reset();
 }
 
 void FFTWeightingFilter::initialiseFilter(const BaseType *coefs, int length)
@@ -57,7 +59,8 @@ void FFTWeightingFilter::initialiseFilter(const BaseType *coefs, int length)
   _coefs.reset(new BaseType[2*_coefsLength]);
   wipp::real2complex(coefs, NULL, reinterpret_cast<wipp::wipp_complex_t*>(_coefs.get()), _coefsLength);
 
-  wipp::init_fft(&_fftspec, 1 << _order);
+  _fft.reset(new FFT(_order));
+
 }
 
 void FFTWeightingFilter::filterBuffer(const double *inbuffer, double *outbuffer, int length)
@@ -108,14 +111,15 @@ void FFTWeightingFilter::fft(const double *signal, int signallength, BaseType *s
 {
   if (speclength != _specLength ||  signallength != _length)
     throw DspException("Either the signal or the spectrum buffer lengths are wrong");
-  wipp::fft(signal, spectrum, _fftspec);
+
+  _fft->fwdTransform(signal, spectrum, signallength);
 }
 
 void FFTWeightingFilter::ifft(const BaseType *spectrum, int speclength, double *signal, int signallength) const
 {
   if (speclength != _specLength ||  signallength != _length)
     throw DspException("Either the signal or the spectrum buffer legths are wrong");
-  wipp::ifft(spectrum, signal, _fftspec);
+  _fft->invTransfrom(signal, spectrum, signallength);
 }
 
 

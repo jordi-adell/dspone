@@ -17,10 +17,10 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/FilterBankFIR.h>
-#include <dspone/BandPassFIRFilter.h>
+#include <dspone/filter/FilterBankFIR.h>
+#include <dspone/filter/BandPassFIRFilter.h>
 #include <dspone/DspException.h>
 
 namespace dsp {

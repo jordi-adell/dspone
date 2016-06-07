@@ -27,6 +27,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 find_package(WIPP REQUIRED)
 
+if (Boost_FOUND)
+    add_definitions(-DBOOST_FOUND)
+endif()
 
 include_directories(
   include
@@ -44,8 +47,9 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/BandPassFFTWFilterImpl.cpp
   src/${PROJECT_NAME}/BandPassFilter.cpp
   src/${PROJECT_NAME}/BandPassFIRFilter.cpp
-  src/${PROJECT_NAME}/BasicFilterModules.cpp
+  src/${PROJECT_NAME}/Filters.cpp
   src/${PROJECT_NAME}/dspHelpers.cpp
+  src/${PROJECT_NAME}/dspMath.cpp
   src/${PROJECT_NAME}/fft.cpp
   src/${PROJECT_NAME}/fftImpl.cpp
   src/${PROJECT_NAME}/FFTWeightingFilter.cpp
@@ -57,6 +61,7 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/FilterProcess.cpp
   src/${PROJECT_NAME}/FIRFilter.cpp
   src/${PROJECT_NAME}/gralCrossCorrelation.cpp
+  src/${PROJECT_NAME}/gralCrossCorrelationImpl.cpp
   src/${PROJECT_NAME}/IIRFilter.cpp
   src/${PROJECT_NAME}/NotchFilter.cpp
   src/${PROJECT_NAME}/ParticleFilter.cpp
@@ -97,10 +102,58 @@ install(TARGETS dspone
 
 ## Mark cpp header files for installation
 install(FILES
-#  include/${PROJECT_NAME}/dspdefs.h
-    DESTINATION ${INCLUDE_DESTINATION}
-	COMPONENT dev
+  include/${PROJECT_NAME}/dspdefs.h
+  include/${PROJECT_NAME}/dsp.h
+  DESTINATION ${INCLUDE_DESTINATION}
+  COMPONENT dev
+  )
+
+install(FILES
+  include/${PROJECT_NAME}/algorithm/fft.h
+  include/${PROJECT_NAME}/algorithm/gralCrossCorrelation.h
+  DESTINATION ${INCLUDE_DESTINATION}/algorithm
+  COMPONENT dev
+  )
+
+install(FILES
+  include/${PROJECT_NAME}/pf/ParticleFilter.hpp
+  include/${PROJECT_NAME}/pf/IObservationModel.h
+  include/${PROJECT_NAME}/pf/IParticleFilterCallback.h
+  include/${PROJECT_NAME}/pf/IParticleSet.h
+  include/${PROJECT_NAME}/pf/IPredictionModel.h
+  include/${PROJECT_NAME}/pf/IResamplingModel.h
+  include/${PROJECT_NAME}/pf/ObservationModel.hpp
+  include/${PROJECT_NAME}/pf/ParticleFilter.hpp
+  include/${PROJECT_NAME}/pf/ParticleSet.hpp
+  include/${PROJECT_NAME}/pf/PredictionModel.hpp
+  include/${PROJECT_NAME}/pf/ResamplingModel.hpp
+  DESTINATION ${INCLUDE_DESTINATION}/pf/
+  COMPONENT dev
+  )
+
+install(FILES
+  include/${PROJECT_NAME}/filter/Filter.h
+  include/${PROJECT_NAME}/fiilter/FIRFilter.h
+  include/${PROJECT_NAME}/filter/IIRFilter.h
+  include/${PROJECT_NAME}/filter/FFTWeightingFilter.h
+  include/${PROJECT_NAME}/filter/BandPassFilter.h
+  include/${PROJECT_NAME}/filter/BandPassFIRFilter.h
+  include/${PROJECT_NAME}/filter/BandPassFFTWFilter.h
+  include/${PROJECT_NAME}/filter/FilterBank.h
+  include/${PROJECT_NAME}/filter/FilterBankFFTW.h
+  include/${PROJECT_NAME}/filter/FilterBankFIR.h
+  include/${PROJECT_NAME}/filter/FilterBankMelScale.h
+  include/${PROJECT_NAME}/filter/PreEmphasisFilter.h
+  DESTINATION ${INCLUDE_DESTINATION}/filter
+  COMPONENT dev
 )
+
+install(FILES
+    include/${PROJECT_NAME}/rt/Filters.h
+    DESTINATION ${INCLUDE_DESTINATION}/rt
+    COMPONENT dev
+)
+
 
 ########################
 ## Package generation ##

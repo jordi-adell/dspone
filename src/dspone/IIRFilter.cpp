@@ -17,15 +17,42 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/IIRFilter.h>
+#include <dspone/filter/IIRFilter.h>
 #include <dspone/DspException.h>
 #include <dspone/dsplogger.h>
 #include <wipp/wipputils.h>
+#include <wipp/wippfilter.h>
 
 namespace dsp {
 
+class IIRFilter_t_
+{
+  public:
+    IIRFilter_t_(const double *coefs, int length,
+		 const double *past_x, const double *past_y)
+    {
+      wipp::init_iir(&_iir_filter, coefs, length/2, &coefs[length/2], length/2, past_x, past_y);
+    }
+    ~IIRFilter_t_()
+    {
+      wipp::delete_iir(&_iir_filter);
+    }
+
+    void filter(double *signal, int length)
+    {
+      wipp::iir_filter(_iir_filter, signal, length);
+    }
+
+    void filter(const double *insignal, double *outsignal, int length)
+    {
+      wipp::iir_filter(_iir_filter, insignal, outsignal, length);
+    }
+
+  private:
+    wipp::wipp_iir_filter_t *_iir_filter;
+};
 
 IIRFilter::IIRFilter(const double *coefs, int length) :
   _order(0),
@@ -43,14 +70,13 @@ IIRFilter::IIRFilter(const double *coefs, int length) :
     double past_y[length/2];
     wipp::setZeros(past_x, length/2);
     wipp::setZeros(past_y, length/2);
-    wipp::init_iir(&_iir_filter, coefs, length/2, &coefs[length/2], length/2, past_x, past_y);
-
+    _iir_filter = new IIRFilter_t_(coefs, length, past_x, past_y);
   }
 }
 
 IIRFilter::~IIRFilter()
 {
-  wipp::delete_iir(&_iir_filter);
+  delete _iir_filter;
 }
 
 void IIRFilter::filter(int16_t *signal, int length)
@@ -68,7 +94,7 @@ void IIRFilter::filter(float *signal, int length)
 void IIRFilter::filter(double *signal, int length)
 {
   if (_iir_filter != NULL)
-    wipp::iir_filter(_iir_filter, signal, length);
+    _iir_filter->filter(signal, length);
 }
 
 
@@ -86,7 +112,7 @@ void IIRFilter::filterBuffer(const double *insignal, double *outsignal, int leng
   if (_iir_filter == NULL)
     wipp::copyBuffer(insignal, outsignal, length);
   else
-    wipp::iir_filter(_iir_filter, insignal, outsignal, length);
+    _iir_filter->filter(insignal, outsignal, length);
 }
 
 

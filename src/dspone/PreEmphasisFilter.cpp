@@ -17,10 +17,10 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/PreEmphasisFilter.h>
-#include <dspone/IIRFilter.h>
+#include <dspone/filter/PreEmphasisFilter.h>
+#include <dspone/filter/IIRFilter.h>
 #include <wipp/wipputils.h>
 #include <boost/scoped_array.hpp>
 

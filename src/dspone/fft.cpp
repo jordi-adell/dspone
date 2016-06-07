@@ -17,10 +17,10 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with WIPP.  If not, see <http://www.gnu.org/licenses/>.
+* alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "fftImpl.h"
-#include <dspone/fft.h>
+#include <dspone/algorithm/fft.h>
 #include <wipp/wipputils.h>
 
 
@@ -66,23 +66,23 @@ int FFT::getOrder() const
   return _impl->getOrder();
 }
 
-void FFT::fwdTransform(BaseType *inFrame, BaseType *fft, int frameLength)
+void FFT::fwdTransform(const BaseType *inFrame, BaseType *fft, int frameLength)
 {
   _impl->fwdTransform(inFrame, fft, frameLength);
 }
 
 
-void FFT::invTransfrom(BaseType *outFrame, BaseType *fft, int frameLength)
+void FFT::invTransfrom(BaseType *outFrame, const BaseType *fft, int frameLength)
 {
   _impl->invTransfrom(outFrame, fft, frameLength);
 }
 
-void FFT::fwdTransform(BaseType *inFrame, BaseType *fft)
+void FFT::fwdTransform(const BaseType *inFrame, BaseType *fft)
 {
   _impl->fwdTransform(inFrame, fft);
 }
 
-void FFT::invTransfrom(BaseType *outFrame, BaseType *fft)
+void FFT::invTransfrom(BaseType *outFrame, const BaseType *fft)
 {
   _impl->invTransfrom(outFrame, fft);
 }

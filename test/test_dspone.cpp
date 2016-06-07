@@ -1,20 +1,29 @@
 #include <dspone/dsp.h>
 #include <dspone/dspHelpers.h>
 #include <dspone/DspException.h>
-#include <dspone/FIRFilter.h>
-#include <dspone/IIRFilter.h>
-#include <dspone/FilterProcess.h>
-#include <dspone/FFTWeightingFilter.h>
-#include <dspone/BandPassFIRFilter.h>
-#include <dspone/BandPassFFTWFilter.h>
-#include <dspone/FilterBankFFTW.h>
-#include <dspone/FilterBankMelScale.h>
-#include <dspone/PreEmphasisFilter.h>
-#include <dspone/stft.h>
-#include <dspone/ParticleFilter.h>
 
-#include <wipp/wipputils.h>
+#include <dspone/filter/FIRFilter.h>
+#include <dspone/filter/IIRFilter.h>
+#include <dspone/filter/FFTWeightingFilter.h>
+#include <dspone/filter/BandPassFIRFilter.h>
+#include <dspone/filter/BandPassFFTWFilter.h>
+#include <dspone/filter/FilterBankFFTW.h>
+#include <dspone/filter/FilterBankMelScale.h>
+#include <dspone/filter/PreEmphasisFilter.h>
+
+#include <dspone/pf/ParticleFilter.hpp>
+#include <dspone/pf/PredictionModel.hpp>
+#include <dspone/pf/ObservationModel.hpp>
+#include <dspone/pf/ResamplingModel.hpp>
+
+#include <dspone/rt/stft.h>
+#include <dspone/rt/FilterProcess.h>
+
+#include <dspone/dspMath.h>
+
 #include <wipp/wippstats.h>
+#include <wipp/wipputils.h>
+#include <wipp/wippsignal.h>
 #include <wipp/wippfilter.h>
 
 #include <gtest/gtest.h>
@@ -81,8 +90,8 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
     int16_t signal[length];
     int16_t filtered[length];
 
-    wipp::set(1, signal, length);
-    wipp::setZeros(filtered, length);
+    math::set(1, signal, length);
+    math::setZeros(filtered, length);
 
     {
 	FIRFilter filter(coefs,2);
@@ -224,7 +233,7 @@ TEST(DigitalSignalProcessingTest, interactiveIIRShape)
     double ffttransform[length];
     double coefs[ncoefs];
     double magFFT[length/2];
-    wipp::setZeros(delta, length);
+    math::setZeros(delta, length);
     delta[0] = 1;
 
     std::ifstream ifs(file);
@@ -245,14 +254,14 @@ TEST(DigitalSignalProcessingTest, interactiveIIRShape)
     FFT fft(order);
 
     iirFilter.filter(delta, length);
-    wipp::copyBuffer(delta, fdelta, length);
+    math::copy(delta, fdelta, length);
 
     //            plot.plot_x(&fdelta[0], length);
 
     fft.fwdTransform(fdelta, ffttransform, length);
-    wipp::magnitude((wipp::wipp_complex_t*)(ffttransform), magFFT, length/2);
+    math::magnitude((Complex64f*)(ffttransform), magFFT, length/2);
     wipp::logn(magFFT, length/2);
-    wipp::multC(20/log(10), magFFT, length/2);
+    math::multC(20/log(10), magFFT, length/2);
 
     //          plot.plot_x(&magFFT[0], length/2);
 
@@ -468,13 +477,13 @@ TEST(DigitalSignalProcessingTest, testFFTweightingFilter)
     int16_t signal[length];
     int16_t filtered[length];
 
-    wipp::setZeros(coefs, clength);
+    math::setZeros(coefs, clength);
     int iLf = lowFreq*length;
     int iHf = highFreq*length;
     lowFreq  = static_cast<float>(iLf)/length;
     highFreq = static_cast<float>(iHf)/length;
 
-    wipp::set(1, &coefs[iLf], iHf-iLf);
+    math::set(1, &coefs[iLf], iHf-iLf);
 
     FFTWeightingFilter filter(coefs, clength);
 
@@ -524,7 +533,7 @@ TEST(DigitalSignalProcessingTest, testFilterBankFIRMelScale)
     // We only need 2^(order-1) coefs, because of the symetric of FFT for real signals
     int coefLength = 1 << (order -1);
     double coefs[coefLength*melFilterBank.getNBins()];
-    wipp::set(0, coefs, coefLength*melFilterBank.getNBins());
+    math::set(0, coefs, coefLength*melFilterBank.getNBins());
     melFilterBank.getFiltersCoeficients(coefs, coefLength*melFilterBank.getNBins());
 
     //          checkFilterBankBinsOverlap(coefs, coefLength, melFilterBank.getNBins());
@@ -550,7 +559,7 @@ TEST(DigitalSignalProcessingTest, testFilterBankFFTWMelScale)
     // We only need 2^(order-1) coefs, because of the symetric of FFT for real signals
     int coefLength = 1 << (order -1);
     double coefs[coefLength*melFilterBank.getNBins()];
-    wipp::set(0, coefs, coefLength*melFilterBank.getNBins());
+    math::set(0, coefs, coefLength*melFilterBank.getNBins());
     melFilterBank.getFiltersCoeficients(coefs, coefLength*melFilterBank.getNBins());
 
     //          checkFilterBankBinsOverlap(coefs, coefLength, melFilterBank.getNBins());
@@ -586,7 +595,7 @@ TEST(DigitalSignalProcessingTest, testFilterBankFFTW)
     // We only need 2^(order-1) + 1 coefs, because of the symetric of FFT for real signals
     int coefLength = (1 << (order -1)) + 1;
     double coefs[coefLength*filterBank.getNBins()];
-    wipp::set(0, coefs, coefLength*filterBank.getNBins());
+    math::set(0, coefs, coefLength*filterBank.getNBins());
     int coefscopied = filterBank.getFiltersCoeficients(coefs, coefLength*filterBank.getNBins());
 
     EXPECT_FLOAT_EQ(coefLength*filterBank.getNBins(), coefscopied);
@@ -621,9 +630,9 @@ TEST(DigitalSignalProcessingTest, testParticleFilter)
 
     int size = 20;
 
-    BasicParticleSet<> particles(size, 0);
-    BasicParticleSet<> newParticles(size);
-    BasicParticleSet<> weights(size);
+    ParticleSet<> particles(size, 0);
+    ParticleSet<> newParticles(size);
+    ParticleSet<> weights(size);
 
     for(int i = 0; i < size; ++i)
     {
@@ -634,21 +643,28 @@ TEST(DigitalSignalProcessingTest, testParticleFilter)
     particles = particles * weights;
     particles = particles + 0.4;
 
-    boost::shared_ptr<PredictionModelImpl<> >
-	    predictionModel(new PredictionModelImpl<>(0,0));
+    double initValue = 0;
+    double initDerivative = 0;
+    auto predictionModel = make_prediction_model(initValue,initDerivative);
 
     predictionModel->update(particles);
     predictionModel->updateModel(1);
 
 
-    boost::shared_ptr<ObservationModelImpl<> > observationModel(new ObservationModelImpl<>());
+    double mean = 0;
+    double stddev = 1;
+    auto observationModel = make_observation_model<double>(mean, stddev);
+
     weights = observationModel->getWeights(particles);
     observationModel->updateModel();
 
-    boost::shared_ptr<ResamplingModelImpl<> > resamplingModel(new ResamplingModelImpl<>());
+    auto resamplingModel = make_resampling_model<double, double>();
     resamplingModel->resample(particles, newParticles, weights);
 
-    ParticleFilter<> filter(50.0f, 100, 0, std::make_pair(0,1),  observationModel);
+    auto filter = make_particle_filter<double>(50.0, 100, 0,
+				       std::make_pair<double,double>(0,1),
+				       observationModel, predictionModel, resamplingModel);
+
     DEBUG_STREAM("particle: " << filter.getParticles() << std::endl);
 
     double p = -100000;
@@ -695,7 +711,7 @@ TEST(DigitalSignalProcessingTest, testIPPGhostsInteractive)
 
 
 	    INFO_STREAM("Trying to divide " << numerator <<  " by " << denominator << " with IPP function");
-	    wipp::div(&denominator, &numerator, &result, 1);
+	    math::div(&denominator, &numerator, &result, 1);
 	    INFO_STREAM("Result " << result);
 	    //              CPPUNIT_ASSERT(result == 0);
 	}
@@ -716,7 +732,7 @@ TEST(DigitalSignalProcessingTest, testIPPGhostsInteractive)
 
 
 	    INFO_STREAM("Trying to divide " << numerator <<  " by " << denominator << " with IPP function");
-	    wipp::div(&denominator, &numerator, &result, 1);
+	    math::div(&denominator, &numerator, &result, 1);
 	    INFO_STREAM("Result " << result);
 	    //              CPPUNIT_ASSERT(result == 0);
 	}
@@ -792,16 +808,16 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	int16_t inbuffer[bufferSampleSize];
 	int16_t inDatabuffer[bufferSampleSize];
 
-	wipp::set(constant, inbuffer, bufferSampleSize);
-	wipp::set(constant, inDatabuffer, bufferSampleSize);
+	math::set(constant, inbuffer, bufferSampleSize);
+	math::set(constant, inDatabuffer, bufferSampleSize);
 
 	int16_t outbuffer[bufferOutSampleSize];
 	int16_t outDatabuffer[bufferOutSampleSize];
 	int16_t difference[bufferOutSampleSize];
-	wipp::setZeros(difference, bufferSampleSize);
+	math::setZeros(difference, bufferSampleSize);
 
 	int16_t dataDifference[bufferOutSampleSize];
-	wipp::setZeros(dataDifference, bufferSampleSize);
+	math::setZeros(dataDifference, bufferSampleSize);
 
 	std::vector<int16_t *> inVectorSignal;
 	std::vector<int16_t *> outVectorSignal;
@@ -833,9 +849,9 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 		if (processedSamples > latency)
 		{
 		    wipp::abs(difference, processedSamples-latency);
-		    wipp::sum(&difference[0], processedSamples-latency, &sum);
+		    math::sum(&difference[0], processedSamples-latency, &sum);
 		    wipp::abs(dataDifference, processedSamples-latency);
-		    wipp::sum(dataDifference, processedSamples-latency, &datasum);
+		    math::sum(dataDifference, processedSamples-latency, &datasum);
 
 		    EXPECT_EQ(0, (int) sum);
 		    EXPECT_EQ(0, (int) datasum);
@@ -865,16 +881,16 @@ void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputD
 	int16_t inbuffer[bufferSampleSize];
 	int16_t inDatabuffer[bufferSampleSize];
 
-	wipp::set(constant, inbuffer, bufferSampleSize);
-	wipp::set(constant, inDatabuffer, bufferSampleSize);
+	math::set(constant, inbuffer, bufferSampleSize);
+	math::set(constant, inDatabuffer, bufferSampleSize);
 
 	int16_t outbuffer[bufferOutSampleSize];
 	int16_t outDatabuffer[bufferOutSampleSize];
 	int16_t difference[bufferOutSampleSize];
-	wipp::setZeros(difference, bufferSampleSize);
+	math::setZeros(difference, bufferSampleSize);
 
 	int16_t dataDifference[bufferOutSampleSize];
-	wipp::setZeros(dataDifference, bufferSampleSize);
+	math::setZeros(dataDifference, bufferSampleSize);
 
 	std::vector<int16_t *> inVectorSignal;
 	std::vector<int16_t *> outVectorSignal;
@@ -892,10 +908,10 @@ void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputD
 
 	DEBUG_STREAM("buffsize: " << bufferSampleSize << " order " << shortTimeP.getFrameSize() << " PS:" << processedSamples << " L:" << latency);
 	wipp::abs(difference, processedSamples-latency);
-	wipp::sum(difference, processedSamples-latency, &sum);
+	math::sum(difference, processedSamples-latency, &sum);
 
 	wipp::abs(dataDifference, processedSamples-latency);
-	wipp::sum(dataDifference, processedSamples-latency, &datasum);
+	math::sum(dataDifference, processedSamples-latency, &datasum);
 
 	EXPECT_LE((int) sum, (processedSamples-latency)*constant/1000);
 	EXPECT_LE((int) datasum, (processedSamples-latency)*constant/1000);
@@ -950,7 +966,7 @@ void testFilterBank(int order,  FilterBank &filterBank)
 		       );
 	}
 
-	subC(sinFreq, pFreqs, freqs.size());
+	math::subC(sinFreq, pFreqs, freqs.size());
 	wipp::abs(pFreqs, freqs.size());
 
 	double min;
@@ -993,8 +1009,8 @@ void testBandPassFilter(BandPassFilter &filter,
     ossf.precision(3);
     ossg.precision(3);
 
-    wipp::set(0, filterGaindB, NFREQS);
-    wipp::set(0, freqs, NFREQS);
+    math::set(0, filterGaindB, NFREQS);
+    math::set(0, freqs, NFREQS);
 
     for (int f = 1; f< NFREQS; ++f)
     {
@@ -1025,14 +1041,14 @@ void checkFilterBankBinsOverlap(double *coefs, int length, int nbins)
 {
 
     double coefsum[length];
-    wipp::set(0, coefsum, length);
+    math::set(0, coefsum, length);
     for (int i=0; i<nbins; ++i)
     {
-	wipp::add(&coefs[length*i], coefsum, length);
+	math::add(&coefs[length*i], coefsum, length);
     }
     double mean=0, stdev=0;
     wipp::mean(coefsum, length, &mean);
-    wipp::stddev(coefsum, length, &stdev);
+    math::stddev(coefsum, length, &stdev);
 
     DEBUG_STREAM("coef mean: " << mean << ", stdev: " << stdev << "N: " << length);
     EXPECT_NEAR(1, mean, 0.02);

@@ -19,8 +19,8 @@
 * You should have received a copy of the GNU General Public License
 * along with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef DSPHELPERS_H_
-#define DSPHELPERS_H_
+#ifndef __DSPHELPERS_H_
+#define __DSPHELPERS_H_
 
 #include <dspone/dspdefs.h>
 
@@ -44,4 +44,4 @@ BaseType calculateLogPowerFFT(const SignalPtr &signal, int length);
 
 
 
-#endif // DSPHELPERS_H_
+#endif // __DSPHELPERS_H_
