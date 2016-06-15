@@ -2,6 +2,8 @@
 #include <dspone/dspHelpers.h>
 #include <dspone/DspException.h>
 
+#include <dspone/algorithm/fft.h>
+
 #include <dspone/filter/FIRFilter.h>
 #include <dspone/filter/IIRFilter.h>
 #include <dspone/filter/FFTWeightingFilter.h>
@@ -16,8 +18,10 @@
 #include <dspone/pf/ObservationModel.hpp>
 #include <dspone/pf/ResamplingModel.hpp>
 
-#include <dspone/rt/stft.h>
-#include <dspone/rt/FilterProcess.h>
+#include <dspone/rt/ShortTimeFourierTransform.h>
+#include <dspone/rt/DummyShortTimeProcess.h>
+#include <dspone/rt/DummyShortTimeFourier.h>
+#include <dspone/rt/FilterProcess.hpp>
 
 #include <dspone/dspMath.h>
 
@@ -360,6 +364,16 @@ TEST(DigitalSignalProcessingTest, testDummySTFT)
     delete a;
 
     DummySTFT stft;
+    ShortTimeAnalysis *shortTimeP =dynamic_cast<ShortTimeAnalysis *>(&stft);
+}
+
+TEST(DigitalSignalProcessingTest, testDummySTFTAnalysis)
+{
+
+    DummySTFTAnalysis *a = new DummySTFTAnalysis();
+    delete a;
+
+    DummySTFTAnalysis stft;
     ShortTimeProcess *shortTimeP =dynamic_cast<ShortTimeProcess *>(&stft);
     shortTimeProcess(*shortTimeP);
 }
@@ -685,10 +699,9 @@ TEST(DigitalSignalProcessingTest, testFilterProcessor)
     double coefs[] = {1, 1, 1, 0};
     int length = 4;
     int channels = 2;
-    boost::scoped_ptr<FilterProcess> f(FilterProcess::make_FilterProcess<IIRFilter>(channels, coefs, length));
+    std::unique_ptr<FilterProcess> f(FilterProcess::make_FilterProcess<IIRFilter>(channels, coefs, length));
     IIRFilterModule iir(2, coefs, length);
     FIRFilterModule fir(2, coefs, length);
-    //          BandPassFFTWFilterModule bp1(2, 3, 0.2, 0.3);
     BandPassFIRFilterModule bp2(2, 5, 0.1, 0.34);
 }
 

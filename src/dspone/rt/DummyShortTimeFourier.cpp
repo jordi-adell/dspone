@@ -1,5 +1,5 @@
 /*
-* FilterProcess.cpp
+* SummyShortTimeFourier.cpp
 * Copyright 2016 (c) Jordi Adell
 * Created on: 2015
 * 	Author: Jordi Adell - adellj@gmail.com
@@ -19,42 +19,47 @@
 * You should have received a copy of the GNU General Public License
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/rt/FilterProcess.hpp>
-#include <dspone/DspException.h>
+#include <dspone/rt/DummyShortTimeFourier.h>
+
 
 namespace dsp {
 
-FilterProcess::FilterProcess(int nchannels) :
-  _nchannels(nchannels)
+
+DummySTFT::DummySTFT() :
+    STFT()
 {
 
 }
 
-FilterProcess::~FilterProcess()
+DummySTFT::~DummySTFT()
 {
 
 }
 
-int FilterProcess::getLatency() const
+void DummySTFT::processParametrisation(std::vector<double *> analysisFrames, int analysisLength,
+				       std::vector<double *> dataChannels, int dataLength)
 {
-  return 0;
+
 }
 
-int FilterProcess::getMaxLatency() const
+
+
+DummySTFTAnalysis::DummySTFTAnalysis()
 {
-  return 0;
+
 }
 
-int FilterProcess::getBufferSize() const
+DummySTFTAnalysis::~DummySTFTAnalysis()
 {
-  return _filters.at(0)->getFrameLength();
+
 }
 
-int FilterProcess::getNumberOfChannels() const
+
+void DummySTFTAnalysis::processParametrisation(std::vector<double *> analysisFrames, int analysisLength,
+					       std::vector<double *> dataChannels, int dataLength)
 {
-  return _filters.size();
-}
-
-
 
 }
+
+}
+

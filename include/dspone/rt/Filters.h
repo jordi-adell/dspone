@@ -22,7 +22,7 @@
 #ifndef __DSPONE_FILTERS_H_
 #define __DSPONE_FILTERS_H_
 
-#include <dspone/rt/FilterProcess.h>
+#include <dspone/rt/FilterProcess.hpp>
 
 class IIRFilterModule : public dsp::FilterProcess
 {

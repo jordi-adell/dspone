@@ -45,7 +45,7 @@ class Timeprocess : public ShortTimeProcess
 	* @param analysisLength
 	* @param channel
 	*/
-	virtual void frameAnalysis(BaseType *inFrame, BaseType *analysis, int frameLength, int analysisLength, int channel);
+	virtual void frameAnalysis(double *inFrame, double *analysis, int frameLength, int analysisLength, int channel);
 	/**
 	* @brief frameSynthesis
 	*  This function just takes the analysis frame, interprets it as a time
@@ -56,7 +56,7 @@ class Timeprocess : public ShortTimeProcess
 	* @param analysisLength
 	* @param channel
 	*/
-	virtual void frameSynthesis(BaseType *outFrame, BaseType *analysis, int frameLength, int analysisLength, int channel);
+	virtual void frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel);
 
 	/**
 	* @brief processParametrisation

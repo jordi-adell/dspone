@@ -23,7 +23,7 @@
 #define __FILTER_PROCESS_H_
 
 #include <dspone/filter/Filter.h>
-#include <dspone/rt/SignalProcessingDispatcher.h>
+#include <dspone/rt/ProcessDispatcher.h>
 #include <dspone/DspException.h>
 #if BOOST_FOUND
 #include <boost/type_traits.hpp>
@@ -43,7 +43,7 @@ typedef std::unique_ptr<Filter> FilterPtr;
        * I the case a specific frame length is used, getBufferSize
        * will return the length of the frame or -1 if it does not care.
        */
-class FilterProcess : public SignalProcessingDispatcher<FilterProcess>
+class FilterProcess : public ProcessDispatcher<FilterProcess>
 {
 
     public:
@@ -137,8 +137,103 @@ class FilterProcess : public SignalProcessingDispatcher<FilterProcess>
 
 };
 
+
+template <class F >  void FilterProcess::constructFilters(const double *coefs, int length)
+{
+    for (int c = 0; c < _nchannels; ++c)
+    {
+	_filters.push_back(FilterPtr(new F(coefs, length)));
+    }
 }
 
-#include "FilterProcess.inl"
+template <class F > void  FilterProcess::constructFilters(int order, double lowFreq, double highFreq)
+{
+    for (int c = 0; c < _nchannels; ++c)
+    {
+	_filters.push_back(FilterPtr(new F(order, lowFreq, highFreq)));
+    }
+}
+
+template <class F > void  FilterProcess::constructFilters(int order)
+{
+    for (int c = 0; c < _nchannels; ++c)
+    {
+	_filters.push_back(FilterPtr(new F(order)));
+    }
+}
+
+template <typename SampleType>
+int FilterProcess::process(const std::vector<boost::shared_array<SampleType> > &signal,
+			   unsigned int inbuffersize,
+			   const std::vector<boost::shared_array<SampleType> > &output,
+			   unsigned int outbuffersize)
+{
+    if (inbuffersize != outbuffersize)
+    {
+	throw(DspException("Filters expect the same length for input and output buffers"));
+    }
+
+
+    for (int c = 0; c < _nchannels && c < _filters.size(); ++c)
+    {
+	_filters[c].get()->filterBuffer(signal[c].get(), output[c].get(), outbuffersize);
+    }
+
+    return outbuffersize;
+
+}
+
+template <typename SampleType>
+int FilterProcess::process(const std::vector<SampleType*> &signal,
+			   unsigned int inbuffersize,
+			   const std::vector<SampleType*> &output,
+			   unsigned int outbuffersize)
+{
+    if (inbuffersize != outbuffersize)
+    {
+	throw(DspException("Filters expect the same length for input and output buffers"));
+    }
+
+
+    for (int c = 0; c < _nchannels && c < _filters.size(); ++c)
+    {
+	_filters[c]->filterBuffer(signal[c], output[c], outbuffersize);
+    }
+
+    return outbuffersize;
+}
+
+
+template <class F >
+FilterProcess* FilterProcess::make_FilterProcess(int nchannels, const double *coefs, int length)
+{
+    // convert dyanmic convertions into compilation asserts, to avoid
+    // hard to debug errors
+#if BOOST_FOUND
+    BOOST_STATIC_ASSERT_MSG( (boost::is_base_and_derived<Filter, F>::value) ,
+			     "The filter type provided MUST inherit from the Filter interface class.");
+#endif
+    FilterProcess *filter = new FilterProcess(nchannels);
+    filter->constructFilters<F>(coefs, length);
+    return filter;
+}
+
+template <class F >
+FilterProcess* FilterProcess::make_FilterProcess(int nchannels, int order, double lowFreq, double highFreq)
+{
+    // convert dyanmic convertions into compilation asserts, to avoid
+    // hard to debug errors
+#if BOOST_FOUND
+    BOOST_STATIC_ASSERT_MSG( (boost::is_base_and_derived<Filter, F>::value) ,
+			     "The filter type provided MUST inherit from the Filter interface class.");
+#endif
+    FilterProcess *filter = new FilterProcess(nchannels);
+    filter->constructFilters<F>(order, lowFreq, highFreq);
+    return filter;
+}
+
+
+}
 
 #endif // __FILTER_PROCESS_H_
+

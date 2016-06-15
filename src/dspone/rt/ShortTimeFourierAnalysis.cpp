@@ -1,5 +1,5 @@
 /*
-* TimeProcess.cpp
+* stft.cpp
 * Copyright 2016 (c) Jordi Adell
 * Created on: 2015
 * 	Author: Jordi Adell - adellj@gmail.com
@@ -19,40 +19,42 @@
 * You should have received a copy of the GNU General Public License
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/rt/TimeProcess.h>
+#include <dspone/rt/ShortTimeFourierAnalysis.h>
+#include <dspone/rt/STFTImpl.h>
 #include <dspone/dspdefs.h>
-#include <wipp/wipputils.h>
 
 
-namespace dsp{
+namespace dsp {
 
-Timeprocess::Timeprocess(int nchannels, int frameLength) :
-  ShortTimeProcess(frameLength, frameLength, nchannels)
-{
-
-}
-void Timeprocess::frameAnalysis(BaseType *inFrame,
-				BaseType *analysis,
-				int frameLength,
-				int analysisLength, int)
-{
-  int length = std::min(frameLength, analysisLength); // fameLength and analysisLength shoudl be equal
-  wipp::copyBuffer(inFrame, analysis, length);
-}
-
-void Timeprocess::frameSynthesis(BaseType *outFrame,
-				 BaseType *analysis,
-				 int frameLength,
-				 int analysisLength, int)
-
-{
-  int length = std::min(frameLength, analysisLength); // fameLength and analysisLength shoudl be equal
-  wipp::copyBuffer(analysis, outFrame, length);
-}
-
-Timeprocess::~Timeprocess()
+STFTAnalysis::STFTAnalysis(int channels, int order) :
+  ShortTimeAnalysis(STFTImpl::getAnalysisWindowLength(order), STFTImpl::getFFTLength(order), channels)
 {
 
 }
 
+STFTAnalysis::STFTAnalysis(int order) :
+ShortTimeAnalysis(STFTImpl::getAnalysisWindowLength(order), STFTImpl::getFFTLength(order))
+{
+
 }
+
+STFTAnalysis::~STFTAnalysis()
+{
+
+}
+
+//STFTAnalysis::frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel)
+//{
+
+//}
+
+
+void STFTAnalysis::frameAnalysis(double *inFrame, double *analysis, int frameLength, int analysisLength, int channel)
+{
+    _impl->frameAnalysis(inFrame, analysis, frameLength, analysisLength, channel);
+}
+
+
+
+}
+

@@ -43,33 +43,40 @@ include_directories(
 
 add_library(dspone SHARED
   src/${PROJECT_NAME}/dsplogger.cpp
-  src/${PROJECT_NAME}/BandPassFFTWFilter.cpp
-  src/${PROJECT_NAME}/BandPassFFTWFilterImpl.cpp
-  src/${PROJECT_NAME}/BandPassFilter.cpp
-  src/${PROJECT_NAME}/BandPassFIRFilter.cpp
-  src/${PROJECT_NAME}/Filters.cpp
   src/${PROJECT_NAME}/dspHelpers.cpp
   src/${PROJECT_NAME}/dspMath.cpp
-  src/${PROJECT_NAME}/fft.cpp
-  src/${PROJECT_NAME}/fftImpl.cpp
-  src/${PROJECT_NAME}/FFTWeightingFilter.cpp
-  src/${PROJECT_NAME}/FilterBank.cpp
-  src/${PROJECT_NAME}/FilterBankFFTW.cpp
-  src/${PROJECT_NAME}/FilterBankFIR.cpp
-  src/${PROJECT_NAME}/FilterBankMelScale.cpp
-  src/${PROJECT_NAME}/Filter.cpp
-  src/${PROJECT_NAME}/FilterProcess.cpp
-  src/${PROJECT_NAME}/FIRFilter.cpp
-  src/${PROJECT_NAME}/gralCrossCorrelation.cpp
-  src/${PROJECT_NAME}/gralCrossCorrelationImpl.cpp
-  src/${PROJECT_NAME}/IIRFilter.cpp
-  src/${PROJECT_NAME}/NotchFilter.cpp
-  src/${PROJECT_NAME}/ParticleFilter.cpp
-  src/${PROJECT_NAME}/PreEmphasisFilter.cpp
-  src/${PROJECT_NAME}/ShortTimeProcess.cpp
-  src/${PROJECT_NAME}/SignalProcessor.cpp
-  src/${PROJECT_NAME}/stft.cpp
-  src/${PROJECT_NAME}/TimeProcess.cpp
+  src/${PROJECT_NAME}/algorithm/fft.cpp
+  src/${PROJECT_NAME}/algorithm/fftImpl.cpp
+  src/${PROJECT_NAME}/algorithm/gralCrossCorrelation.cpp
+  src/${PROJECT_NAME}/algorithm/gralCrossCorrelationImpl.cpp
+  src/${PROJECT_NAME}/filter/BandPassFFTWFilter.cpp
+  src/${PROJECT_NAME}/filter/BandPassFFTWFilterImpl.cpp
+  src/${PROJECT_NAME}/filter/BandPassFilter.cpp
+  src/${PROJECT_NAME}/filter/BandPassFIRFilter.cpp
+  src/${PROJECT_NAME}/filter/FFTWeightingFilter.cpp
+  src/${PROJECT_NAME}/filter/FilterBank.cpp
+  src/${PROJECT_NAME}/filter/FilterBankFFTW.cpp
+  src/${PROJECT_NAME}/filter/FilterBankFIR.cpp
+  src/${PROJECT_NAME}/filter/FilterBankMelScale.cpp
+  src/${PROJECT_NAME}/filter/Filter.cpp
+  src/${PROJECT_NAME}/filter/FIRFilter.cpp
+  src/${PROJECT_NAME}/filter/IIRFilter.cpp
+  src/${PROJECT_NAME}/filter/NotchFilter.cpp
+  src/${PROJECT_NAME}/filter/PreEmphasisFilter.cpp
+  src/${PROJECT_NAME}/filter/FilterProcess.cpp
+  src/${PROJECT_NAME}/pf/ParticleFilter.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeProcessImpl.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeProcess.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeAnalysisImpl.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeAnalysis.cpp
+  src/${PROJECT_NAME}/rt/Filters.cpp
+  src/${PROJECT_NAME}/rt/TimeProcess.cpp
+  src/${PROJECT_NAME}/rt/DummyShortTimeProcess.cpp
+  src/${PROJECT_NAME}/rt/STFTImpl.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeFourierTransform.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeFourierAnalysis.cpp
+  src/${PROJECT_NAME}/rt/DummyShortTimeFourier.cpp
+  src/${PROJECT_NAME}/rt/SignalProcessor.cpp
 )
 
 set_target_properties(dspone
@@ -133,7 +140,7 @@ install(FILES
 
 install(FILES
   include/${PROJECT_NAME}/filter/Filter.h
-  include/${PROJECT_NAME}/fiilter/FIRFilter.h
+  include/${PROJECT_NAME}/filter/FIRFilter.h
   include/${PROJECT_NAME}/filter/IIRFilter.h
   include/${PROJECT_NAME}/filter/FFTWeightingFilter.h
   include/${PROJECT_NAME}/filter/BandPassFilter.h

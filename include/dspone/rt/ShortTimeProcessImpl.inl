@@ -1,12 +1,11 @@
-#include <dspone/rt/ShortTimeProcess.h>
+#include <dspone/rt/ShortTimeProcessImpl.h>
 
-#include <sstream>
 
 namespace dsp {
 
 
 template <typename SampleType>
-int ShortTimeProcess::process(const std::vector<SampleType *> &signal,
+int ShortTimeProcessImpl::process(const std::vector<SampleType *> &signal,
 			      unsigned int inbuffersize,
 			      const std::vector<SampleType *> &output,
 			      unsigned int outbuffersize)
@@ -25,8 +24,8 @@ int ShortTimeProcess::process(const std::vector<SampleType *> &signal,
 
 
 template <typename SampleType>
-int ShortTimeProcess::process(const std::vector<boost::shared_array<SampleType> > &signal, unsigned int inbuffersize,
-			      const std::vector<boost::shared_array<SampleType> > &output, unsigned int outbuffersize)
+int ShortTimeProcessImpl::process(const std::vector<std::shared_ptr<SampleType> > &signal, unsigned int inbuffersize,
+			      const std::vector<std::shared_ptr<SampleType> > &output, unsigned int outbuffersize)
 {
     unsigned int signalSize = signal.size();
     unsigned int outputSize = output.size();
@@ -49,28 +48,6 @@ int ShortTimeProcess::process(const std::vector<boost::shared_array<SampleType> 
     return process(vsignal,inbuffersize, voutput, outbuffersize);
 }
 
-template<typename SampleType>
-int ShortTimeAnalysis::process(const std::vector<boost::shared_array<SampleType> > &signal,
-			       unsigned int buffersize)
-{
-    unsigned int signalSize = signal.size();
-    std::vector<SampleType*> auxSignal;
-
-    if (signalSize < _nchannels)
-    {
-	throw(DspException("Wrong input number of channels"));
-    }
-    for (unsigned int i = 0; i <signalSize; ++i)
-	auxSignal.push_back(signal[i].get());
-    return process(auxSignal, buffersize);
-}
-
-template<typename SampleType>
-int ShortTimeAnalysis::process(const std::vector<SampleType *> &signal, unsigned int buffersize)
-{
-    std::vector<SampleType*> output;
-    return ShortTimeProcess::process(signal, buffersize, output, 0);
-}
 
 /**
        * @brief The OverlapAndAdd function
@@ -80,7 +57,7 @@ int ShortTimeAnalysis::process(const std::vector<SampleType *> &signal, unsigned
        * by adding in overlap consecutive frames.
        */
 template<typename sampleType>
-int ShortTimeProcess::overlapAndAdd(const std::vector<sampleType *> &signal, unsigned int inbuffersize,
+int ShortTimeProcessImpl::overlapAndAdd(const std::vector<sampleType *> &signal, unsigned int inbuffersize,
 				    const std::vector<sampleType *> &output, unsigned int outbuffersize)
 {
     int latencycount;
@@ -190,7 +167,7 @@ int ShortTimeProcess::overlapAndAdd(const std::vector<sampleType *> &signal, uns
 
 
 template <typename sampleType>
-int ShortTimeProcess::getRemainingSpeech(const std::vector<sampleType *> &buffer, unsigned int buffersize)
+int ShortTimeProcessImpl::getRemainingSpeech(const std::vector<sampleType *> &buffer, unsigned int buffersize)
 {
 
     if (buffersize >= _windowShift)
@@ -207,7 +184,7 @@ int ShortTimeProcess::getRemainingSpeech(const std::vector<sampleType *> &buffer
 
 
 template<typename SampleType>
-int ShortTimeProcess::getRemainingSpeech(const std::vector<boost::shared_array<SampleType> > &buffer, unsigned int buffersize)
+int ShortTimeProcessImpl::getRemainingSpeech(const std::vector<boost::shared_array<SampleType> > &buffer, unsigned int buffersize)
 {
     std::vector<SampleType*> vsignal;
     if (buffer.size() < _nchannels)

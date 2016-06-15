@@ -19,7 +19,7 @@
 * You should have received a copy of the GNU General Public License
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "fftImpl.h"
+#include <dspone/algorithm/fftImpl.h>
 #include <dspone/dsplogger.h>
 #include <wipp/wipputils.h>
 

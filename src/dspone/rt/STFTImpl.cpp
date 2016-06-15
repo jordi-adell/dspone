@@ -1,5 +1,5 @@
 /*
-* FilterProcess.cpp
+* stft.cpp
 * Copyright 2016 (c) Jordi Adell
 * Created on: 2015
 * 	Author: Jordi Adell - adellj@gmail.com
@@ -19,42 +19,54 @@
 * You should have received a copy of the GNU General Public License
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/rt/FilterProcess.hpp>
-#include <dspone/DspException.h>
+#include <dspone/rt/STFTImpl.h>
+
 
 namespace dsp {
 
-FilterProcess::FilterProcess(int nchannels) :
-  _nchannels(nchannels)
+
+// ------------ STFT -------------------------------------------------
+STFTImpl::STFTImpl(int order) :
+    _fft(order)
+{
+}
+
+STFTImpl::STFTImpl(int nchannels, int order) :
+    _fft(order)
+{
+}
+
+STFTImpl::~STFTImpl()
 {
 
 }
 
-FilterProcess::~FilterProcess()
+void STFTImpl::frameAnalysis(BaseType *inFrame, BaseType *analysis, int frameLength, int, int)
 {
-
+  _fft.fwdTransform(inFrame, analysis, frameLength);
 }
 
-int FilterProcess::getLatency() const
+void STFTImpl::frameSynthesis(BaseType *outFrame, BaseType *analysis, int frameLength, int, int)
 {
-  return 0;
+  _fft.invTransfrom(outFrame, analysis, frameLength);
 }
 
-int FilterProcess::getMaxLatency() const
+
+int STFTImpl::getFFTLength(int order)
 {
-  return 0;
+  FFTImpl::getFFTLength(order);
 }
 
-int FilterProcess::getBufferSize() const
+
+int STFTImpl::getAnalysisWindowLength(int order)
 {
-  return _filters.at(0)->getFrameLength();
+  FFTImpl::getAnalysisWindowLength(order);
 }
 
-int FilterProcess::getNumberOfChannels() const
+int STFTImpl::getAnalysisLength() const
 {
-  return _filters.size();
+  _fft.getAnalysisWindowLength();
 }
 
-
-
 }
+

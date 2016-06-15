@@ -1,5 +1,5 @@
 /*
-* FilterProcess.cpp
+* ShortTimeFourierAnalysis.cpp
 * Copyright 2016 (c) Jordi Adell
 * Created on: 2015
 * 	Author: Jordi Adell - adellj@gmail.com
@@ -19,42 +19,35 @@
 * You should have received a copy of the GNU General Public License
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/rt/FilterProcess.hpp>
-#include <dspone/DspException.h>
+
+#ifndef __STFT_ANALYSIS_H_
+#define __STFT_ANALYSIS_H_
+
+#include <dspone/rt/ShortTimeAnalysis.h>
 
 namespace dsp {
 
-FilterProcess::FilterProcess(int nchannels) :
-  _nchannels(nchannels)
+class STFTImpl;
+
+class STFTAnalysis : public ShortTimeAnalysis
 {
+    public:
+	STFTAnalysis(int order = _defaultFFTOrder);
+	STFTAnalysis(int channels, int order);
+	virtual ~STFTAnalysis();
 
-}
+	static const int _defaultFFTOrder = 9;
 
-FilterProcess::~FilterProcess()
-{
+    private:
+	virtual void frameAnalysis (double *inFrame,  double *analysis, int frameLength, int analysisLength, int channel);
 
-}
+	//	virtual void frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel);
 
-int FilterProcess::getLatency() const
-{
-  return 0;
-}
+	std::unique_ptr<STFTImpl> _impl;
 
-int FilterProcess::getMaxLatency() const
-{
-  return 0;
-}
-
-int FilterProcess::getBufferSize() const
-{
-  return _filters.at(0)->getFrameLength();
-}
-
-int FilterProcess::getNumberOfChannels() const
-{
-  return _filters.size();
-}
-
+};
 
 
 }
+
+#endif

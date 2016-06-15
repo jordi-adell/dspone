@@ -30,9 +30,10 @@
 
 #define __INTERACTION_DSP_DECL  dsp
 
-typedef __INTERACTION_DSP_DECL::SignalProcessingDispatcher<__INTERACTION_DSP_DECL::SignalProcessor> SignalProcessor_t;
-typedef __INTERACTION_DSP_DECL::SignalProcessingDispatcher<__INTERACTION_DSP_DECL::FilterProcess  > FilterProcessor_t;
-typedef __INTERACTION_DSP_DECL::SignalAnalysisDispatcher<__INTERACTION_DSP_DECL::SignalAnalyser> SignalAnalyser_t;
+typedef __INTERACTION_DSP_DECL::ProcessDispatcher<__INTERACTION_DSP_DECL::SignalProcessor> SignalProcessor_t;
+typedef __INTERACTION_DSP_DECL::ProcessDispatcher<__INTERACTION_DSP_DECL::FilterProcess  > FilterProcessor_t;
+//typedef __INTERACTION_DSP_DECL::SignalAnalysisDispatcher<__INTERACTION_DSP_DECL::SignalAnalyser> SignalAnalyser_t;
+typedef __INTERACTION_DSP_DECL::ProcessDispatcher<__INTERACTION_DSP_DECL::SignalAnalyser> SignalAnalyser_t;
 
 
 typedef SignalProcessor_t ProcessorModule;

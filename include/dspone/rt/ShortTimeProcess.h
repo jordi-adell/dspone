@@ -22,172 +22,18 @@
 #ifndef __SHORTTIMEPROCESS_H_
 #define __SHORTTIMEPROCESS_H_
 
-#include <dspone/DspException.h>
-#include <dspone/dspdefs.h>
-#include <dspone/dsplogger.h>
-#include <wipp/wipputils.h>
-#include <wipp/wippdefs.h>
-#include <wipp/wippsignal.h>
-
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/shared_array.hpp>
-#include <boost/scoped_array.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/circular_buffer.hpp>
-
+#include <dspone/rt/ProcessDispatcher.h>
 
 #include <vector>
-#include <fstream>
 
 namespace dsp {
 
-class ShortTimeProcess
+class ShortTimeProcessImpl;
+
+class ShortTimeProcess //: public ProcessDispatcher<ShortTimeProcess>
 {
 
-    protected:
-
-	/** @brief this type is used to set whether the short time process
-	   * has to perform analysis only or need to reconstruct the signal too
-	   * (analysis and synthesis)
-	   **/
-	typedef enum {ANALYSIS, ANALYSIS_SYNTHESIS} Mode;
-
-	//@TODO set it at run time
-	static const int _maximumLatencyBufferSize = 3*96000; // 3 seconds at 96kHz
-
-	// Default definitions
-	const unsigned int _windowSize;
-	const unsigned int _windowShift;
-	const unsigned int _halfWindowSize;
-	const unsigned int _nchannels;
-	const unsigned int _nDataChannels;
-	const int _analysisLength;
-	// window
-	const SignalPtr _window;
-	const SignalPtr _iwindow;
-	SignalVector _analysisFrames;
-	SignalVector _dataFrames;
-
-    private:
-
-	const Mode _mode; /**< This variable indicated where we are in analysis only or analysis and synthesis mode */
-	const bool _doSynthesis; /**< When in analysis only mode this variable is set to false in construction */
-
-	// Buffers for frame calculations (ShortTimeProcess)
-	//        SignalPtr _signal;
-	//        SignalPtr _CCS;
-
-	// Buffers for framing
-	SignalPtr _frame;
-
-	// Buffers for continuity between processing steps
-	//          SignalVector _latencyBufferSignal;
-	//          unsigned int _latencyBufferOcupancy;
-
-	std::vector<wipp::wipp_circular_buffer_t*> _latencyBufferSignal;
-
-	SignalVector _latencyBufferProcessed;
-
-	bool _firstCall;
-
-	/** This function process speech frame by frame. Each frame is extracted every _widnowShift and
-	    is of _windowSize length. Each frame is windowed with a Hanning window, process by the
-	    processFrame function and overlaped and added again to reconstruct de processed signal
-	    @param signal  Signal to apply the binary mask
-	    @param noise   Noise already extracted from the signal.
-	  **/
-	void ShortTimeProcessing(const SignalVector &signal, const SignalVector &output, int tlength);
-
-	/**
-	   * @brief The OverlapAndAdd function
-	   * This function is an implementation of the Overlap and Add
-	   * algorithm for the short time processing of audio application.
-	   * Basically windowsing frmaes and then regenerates the signal
-	   * by adding in overlap consecutive frames.
-	     */
-	template<typename sampleType>
-	int overlapAndAdd(const std::vector<sampleType *> &signal, unsigned int inbuffersize, const std::vector<sampleType *> &output, unsigned int outbuffersize);
-
-	/** Processes on signal frame. Calculates |FFT|^2 of both signals. And generates a binary mask,
-	    following the criteria:
-	    0 if |FFT(cleanFrame)|^2 < |FFT(noiseFrame)|^2, 1 otherwise.
-	    Then the power spectra of cleanFrame is multiplied by the mask, its invers FFT is obtained and
-	    stored on cleanFrame
-	    @param cleanFrame  signal to apply the binary mask to.
-	    @param noiseFrame  signal contained singla + noise.
-	   **/
-	virtual void frameAnalysis (BaseType *inFrame,  BaseType *analysis, int frameLength, int analysisLength, int channel) = 0;
-	virtual void processParametrisation() = 0;
-
-	/**
-	   * @brief In this function you need to implement the code necessary to reconstruct the signal
-	   * from the information in the analysis buffers.
-	   * @param outFrame  output frame that will be used to reconstruct the signal. Windowing is considered already
-	   * in this class you do not need to care about it.
-	   * @param analysis  array where all the analysis parameters are stored. You might use them
-	   * to reconstruct the signal
-	   * @param frameLength  length of the signal that has to be reconstructed
-	   * @param analysisLength  length of the analyasis
-	   */
-	virtual void frameSynthesis(BaseType *outFrame, BaseType *analysis, int frameLength, int analysisLength, int channel) = 0;
-
-
-    protected:
-	/** Sets all buffers to an initial value of 0.0 **/
-	void initVariableMembers();
-	void initBuffers();
-	void initWindowBuffers();
-	inline int getAnalysisLength() const;
-	void allocateNDataChannels(int nDataChannels);
-
-
-	/** Check whether the status variable indicates and error an prints a IPP message if is the case
-	     @param status  A return statues obtained from a call to an IPP function.
-	    **/
-	bool checkStatus(int status, bool throwException = false) const;
-
-	/**
-	   * @brief Static function to calculate the necessary order for
-	   * the supplied samples Rate.
-	   * Sometimes the FFT order depened on the frameRate as well as the original
-	   * sample rate. This function is called in the constructor so the order of
-	   * the FFT can be obtained before calling the constructor
-	   * @param samplerate  sample rate
-	   * @param frameRate  time between to frames (i.e., frame shift in seconds)
-	   * @return returns the order of the FFT to accomplish as close as possible
-	   * the given requirements.
-	   */
-	static int calculateOrderFromSampleRate(int samplerate, double frameRate);
-	static int calculateWindowSizeFromSampleRate(int samplerate, double frameRate)
-	{
-	    return (1 << calculateOrderFromSampleRate(samplerate, frameRate));
-	}
-
     public:
-	ShortTimeProcess(int windowSize,  int analisysLength = 0, int nchannels = 1, Mode mode = ANALYSIS_SYNTHESIS);
-	//        ShortTimeProcess(int windowSize,  int analisysLength, int nchannels, int ndatachannels, Mode mode = ANALYSIS_SYNTHESIS);
-	virtual ~ShortTimeProcess();
-
-	/** Process a full buffer, keeps the last _windowShift samples from the buffer provided in the first call
-	    to be used in the following computation. If is the last call, and no more samples have to be processed. Then
-	    you need to call the getRamainingSpeech function
-	    @param cleanSignal  buffer containing the already cleanned signal
-	    @param noisySignal  buffer containing the signal plus the noise (singal before cleanning it)
-	    @param output  buffer where the processed buffer will be stored.
-	    @param buffer  length of the buffer
-	    @return returns the number of samples writen to the output buffer
-	    */
-	template <typename SampleType>
-	int process(const std::vector<SampleType *> &signal,
-		    unsigned int inbuffersize,
-		    const std::vector<SampleType *> &output,
-		    unsigned int outbuffersize);
-	template <typename SampleType>
-	int process(const std::vector<boost::shared_array<SampleType> > &signal,
-		    unsigned int inbuffersize,
-		    const std::vector<boost::shared_array<SampleType> > &output,
-		    unsigned int outbuffersize);
-
 	/**
 	   * @brief Returns the latency of the algorithm. This the number of samples that are sotored
 	   * for further processing the sample that will be supplied in the next call.
@@ -196,6 +42,7 @@ class ShortTimeProcess
 	int getLatency() const;
 	int getMinLatency() const;
 	int getMaxLatency() const;
+	int getBufferSize() const;
 
 	/**
 	 * @brief getWindowSize
@@ -219,11 +66,13 @@ class ShortTimeProcess
 	int getFrameRate() const;
 
 	/**
-	   * @brief The buffer supplied to the process function must have a length
-	   * multiple of the internal frame size.
-	   * @return the internal frame size.
-	   */
-	//        inline int getBufferSize() const {return _windowSize;}
+	 * @brief getAnalysisLength
+	 * Returns the length of the analysis vector. In some cases can be quite different from the
+	 * frame length.
+	 * @return
+	 */
+	int getAnalysisLength() const;
+	void setAnalysisLength();
 
 	/**
 	   * @brief getRate   Returns the frame period for the speech analysis.
@@ -250,125 +99,109 @@ class ShortTimeProcess
 	template <typename sampleType>
 	int getRemainingSpeech(const std::vector<sampleType *> &buffer, unsigned int buffersize);
 	template <typename sampleType>
-	int getRemainingSpeech(const std::vector<boost::shared_array<sampleType> > &buffer, unsigned int buffersize);
+	int getRemainingSpeech(const std::vector<std::shared_ptr<sampleType> > &buffer, unsigned int buffersize);
 
-	/** Auxiliary function that stores a buffer in text format that can be loaded from matlab
-	    @param buff  This signal to be stored
-	    @param buffersize  The length of the singal.
-	    @param file  The name of the file to store the singal
-	  **/
-	//	template <class T> void saveFile(T *buff,  unsigned int buffersize, std::string file) const
-	//	{
-	//	    WARN_STREAM("You should not be writing to disk here, unless you are debugging. (" << file << ")");
-	//	    std::ofstream ofs;
-	//	    util::file::open("test/tmp/"+file,ofs,true,false);
-	//	    for (unsigned int i=0; i<buffersize; ++i)
-	//		ofs << buff[i] << std::endl;
-	//	}
+
+	/** @brief this type is used to set whether the short time process
+	   * has to perform analysis only or need to reconstruct the signal too
+	   * (analysis and synthesis)
+	   **/
+	typedef enum {ANALYSIS, ANALYSIS_SYNTHESIS} Mode;
+
+	ShortTimeProcess(int windowSize,  int analisysLength = 0, int nchannels = 1, Mode mode = ANALYSIS_SYNTHESIS);
+	virtual ~ShortTimeProcess();
+	//        ShortTimeProcess(int windowSize,  int analisysLength, int nchannels, int ndatachannels, Mode mode = ANALYSIS_SYNTHESIS);
 
 	/**
-	   * Auxiliary fuction that plots a signal buffer using gnuplot, by previously saving
-	   * the buffer into a file in the disk. Use only in debug mode.
-	   * @param buffer  buffer to plot
-	   * @param number of samples in the buffer
+	   * @brief Static function to calculate the necessary order for
+	   * the supplied samples Rate.
+	   * Sometimes the FFT order depened on the frameRate as well as the original
+	   * sample rate. This function is called in the constructor so the order of
+	   * the FFT can be obtained before calling the constructor
+	   * @param samplerate  sample rate
+	   * @param frameRate  time between to frames (i.e., frame shift in seconds)
+	   * @return returns the order of the FFT to accomplish as close as possible
+	   * the given requirements.
 	   */
-	//	template <class T> void plotBuffer(T* buffer, int length)
-	//	{
-	//	    if (util::Config::singleton().isDebugged())
-	//	    {
-	//		saveFile(buffer, length, "gnuplot.txt");
-	//		std::string file = "test/tmp/";
-	//		file += "gnuplot.txt";
-	//		std::string command = "gnuplot -e \" plot \'";
-	//		command += file + "\' with lines; pause 2\"";
-	//		std::cout << sys::systemToString(command);
-	//	    }
-	//	}
-};
+	static int calculateOrderFromSampleRate(int samplerate, double frameRate);
+	static int calculateWindowSizeFromSampleRate(int samplerate, double frameRate)
+	{
+	    return (1 << calculateOrderFromSampleRate(samplerate, frameRate));
+	}
 
+	/** Process a full buffer, keeps the last _windowShift samples from the buffer provided in the first call
+	    to be used in the following computation. If is the last call, and no more samples have to be processed. Then
+	    you need to call the getRamainingSpeech function
+	    @param cleanSignal  buffer containing the already cleanned signal
+	    @param noisySignal  buffer containing the signal plus the noise (singal before cleanning it)
+	    @param output  buffer where the processed buffer will be stored.
+	    @param buffer  length of the buffer
+	    @return returns the number of samples writen to the output buffer
+	    */
+	int process(const std::vector<double *> &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<double *> &output,
+		    unsigned int outbuffersize);
+	int process(const std::vector<std::shared_ptr<double> > &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<std::shared_ptr<double> > &output,
+		    unsigned int outbuffersize);
 
-/**
-	 * @brief The ShortTimeAnalysis class
-	 * This class has to be used when only analysis is needed.
-	 * If you use this class, the reconstruction of the signal is not done.
-	 */
-class ShortTimeAnalysis : public ShortTimeProcess
-{
-    public:
-	ShortTimeAnalysis(int windowSize , int analysisLength = 0, int nchannels = 1);
-	virtual ~ShortTimeAnalysis();
+	int process(const std::vector<float *> &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<float *> &output,
+		    unsigned int outbuffersize);
+	int process(const std::vector<std::shared_ptr<float> > &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<std::shared_ptr<float> > &output,
+		    unsigned int outbuffersize);
 
-	template<typename SampleType>
-	int process(const std::vector<SampleType *> &signal, unsigned int buffersize);
+	int process(const std::vector<int16_t *> &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<int16_t *> &output,
+		    unsigned int outbuffersize);
+	int process(const std::vector<std::shared_ptr<int16_t> > &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<std::shared_ptr<int16_t> > &output,
+		    unsigned int outbuffersize);
 
-	template<typename SampleType>
-	int process(const std::vector<boost::shared_array<SampleType> > &signal, unsigned int buffersize);
 
 
     private:
-	// Is empty beacuse resynthesis is not performed in this class.
-	void frameSynthesis(BaseType*, BaseType*, int, int, int){}
-};
+	friend class ShortTimeProcessImpl;
+	std::unique_ptr<ShortTimeProcessImpl> _impl;
 
+	/** Processes on signal frame. Calculates |FFT|^2 of both signals. And generates a binary mask,
+	    following the criteria:
+	    0 if |FFT(cleanFrame)|^2 < |FFT(noiseFrame)|^2, 1 otherwise.
+	    Then the power spectra of cleanFrame is multiplied by the mask, its invers FFT is obtained and
+	    stored on cleanFrame
+	    @param cleanFrame  signal to apply the binary mask to.
+	    @param noiseFrame  signal contained singla + noise.
+	   **/
+	virtual void frameAnalysis (double *inFrame,  double *analysis, int frameLength, int analysisLength, int channel) = 0;
+	virtual void processParametrisation(std::vector<double*> analysisFrames, int analysisLength,
+					    std::vector<double*> dataChannels, int dataLength) = 0;
 
-/**
-	 * @brief An implementation of the ShortTimeProcess
-	 * where the signal is not modificed, is passed to the analysis buffer
-	 * as is, and then copied to the output frame in the reconstruction (synthesis)
-	 * step.
-	 */
-class DummyShortTimeProcess : public ShortTimeProcess
-{
+	/**
+	   * @brief In this function you need to implement the code necessary to reconstruct the signal
+	   * from the information in the analysis buffers.
+	   * @param outFrame  output frame that will be used to reconstruct the signal. Windowing is considered already
+	   * in this class you do not need to care about it.
+	   * @param analysis  array where all the analysis parameters are stored. You might use them
+	   * to reconstruct the signal
+	   * @param frameLength  length of the signal that has to be reconstructed
+	   * @param analysisLength  length of the analyasis
+	   */
+	virtual void frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel) = 0;
 
-    public:
-	DummyShortTimeProcess(int windowSize, bool generateDataChannel = false) :
-	    ShortTimeProcess(windowSize),
-	    _generateDataChannel(generateDataChannel)
-	{
-
-	}
-	~DummyShortTimeProcess()
-	{
-
-	}
-
-    private:
-
-	bool _generateDataChannel;
-	static const int _constant = 1000;
-
-	virtual void frameAnalysis (BaseType *inFrame,  BaseType *analysis, int frameLength, int analysisLength, int)
-	{
-	    int length = (frameLength < analysisLength) ? frameLength : analysisLength;
-	    wipp::copyBuffer(inFrame, analysis, length);
-	}
-
-	virtual void processParametrisation()
-	{
-	    if (_generateDataChannel)
-	    {
-		for (size_t c = 0; c < _nDataChannels; ++c)
-		{
-		    wipp::set(_constant, _dataFrames[c].get(), _windowSize);
-		}
-	    }
-	}
-
-	virtual void frameSynthesis(BaseType *outFrame, BaseType *analysis, int frameLength, int analysisLength, int )
-	{
-	    int length = (frameLength < analysisLength) ? frameLength : analysisLength;
-	    wipp::copyBuffer(analysis, outFrame, length);
-	}
 
 };
-
 
 
 
 }
 
 
-
-#include "ShortTimeProcess.inl"
 
 #endif // __SHORTTIMEProcess_H_

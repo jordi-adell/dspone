@@ -22,9 +22,7 @@
 #ifndef __ISHORTTIMEPROCESS_H_
 #define __ISHORTTIMEPROCESS_H_
 
-#include <dspone/rt/SignalProcessingDispatcher.h>
-#include <boost/shared_array.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <dspone/rt/ProcessDispatcher.h>
 #include <vector>
 
 namespace dsp {
@@ -38,7 +36,7 @@ class ShortTimeAnalysis;
 	 * ShortTimeProcess is the Overlap and Add process of audio signals for
 	 * realtime audio processing.
 	 */
-class SignalProcessor : public SignalProcessingDispatcher<SignalProcessor>
+class SignalProcessor : public ProcessDispatcher<SignalProcessor>
 {
     public:
 
@@ -53,9 +51,9 @@ class SignalProcessor : public SignalProcessingDispatcher<SignalProcessor>
 		    unsigned int inbuffersize,
 		    const std::vector<int16_t *> &output,
 		    unsigned int outbuffersize);
-	int process(const std::vector<boost::shared_array<int16_t> > &signal,
+	int process(const std::vector<std::shared_ptr<int16_t> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<boost::shared_array<int16_t> > &output,
+		    const std::vector<std::shared_ptr<int16_t> > &output,
 		    unsigned int outbuffersize);
 	/**
 	   * @brief process   Process an input signal as decribed in @class SignalProcessingDispatcher
@@ -65,9 +63,9 @@ class SignalProcessor : public SignalProcessingDispatcher<SignalProcessor>
 		    unsigned int inbuffersize,
 		    const std::vector<float *> &output,
 		    unsigned int outbuffersize);
-	int process(const std::vector<boost::shared_array<float> > &signal,
+	int process(const std::vector<std::shared_ptr<float> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<boost::shared_array<float> > &output,
+		    const std::vector<std::shared_ptr<float> > &output,
 		    unsigned int outbuffersize);
 	/**
 	   * @brief process   Process an input signal as decribed in @class SignalProcessingDispatcher
@@ -77,9 +75,9 @@ class SignalProcessor : public SignalProcessingDispatcher<SignalProcessor>
 		    unsigned int inbuffersize,
 		    const std::vector<double *> &output,
 		    unsigned int outbuffersize);
-	int process(const std::vector<boost::shared_array<double> > &signal,
+	int process(const std::vector<std::shared_ptr<double> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<boost::shared_array<double> > &output,
+		    const std::vector<std::shared_ptr<double> > &output,
 		    unsigned int outbuffersize);
 
 
@@ -90,7 +88,7 @@ class SignalProcessor : public SignalProcessingDispatcher<SignalProcessor>
 	virtual int getNumberOfChannels() const;
 
     protected:
-	boost::scoped_ptr<ShortTimeProcess> _impl;  /**< Actual implementation of the algorithm for signal processing. */
+	std::unique_ptr<ShortTimeProcess> _impl;  /**< Actual implementation of the algorithm for signal processing. */
 };
 
 
@@ -101,7 +99,7 @@ class SignalProcessor : public SignalProcessingDispatcher<SignalProcessor>
 	 * ShortTimeProcess is the Overlap and Add process of audio signals for
 	 * realtime audio processing.
 	 */
-class SignalAnalyser : public SignalAnalysisDispatcher<SignalAnalyser>
+class SignalAnalyser : public ProcessDispatcher<SignalAnalyser>
 {
     public:
 
@@ -113,19 +111,19 @@ class SignalAnalyser : public SignalAnalysisDispatcher<SignalAnalyser>
 	   * for int16_t data type.
 	   */
 	virtual int process(const std::vector<int16_t *> &signal, unsigned int buffersize);
-	virtual int process(const std::vector<boost::shared_array<int16_t> > &signal, unsigned int buffersize);
+	virtual int process(const std::vector<std::shared_ptr<int16_t> > &signal, unsigned int buffersize);
 	/**
 	   * @brief process   Process an input signal as decribed in @class SignalProcessingDispatcher
 	   * for float data type.
 	   */
 	virtual int process(const std::vector<float *> &signal, unsigned int buffersize);
-	virtual int process(const std::vector<boost::shared_array<float> > &signal, unsigned int buffersize);
+	virtual int process(const std::vector<std::shared_ptr<float> > &signal, unsigned int buffersize);
 	/**
 	   * @brief process   Process an input signal as decribed in @class SignalProcessingDispatcher
 	   * for double data type.
 	   */
 	virtual int process(const std::vector<double *> &signal, unsigned int buffersize);
-	virtual int process(const std::vector<boost::shared_array<double> > &signal, unsigned int buffersize);
+	virtual int process(const std::vector<std::shared_ptr<double> > &signal, unsigned int buffersize);
 
 
 	/** Latency managment functions **/
@@ -135,7 +133,7 @@ class SignalAnalyser : public SignalAnalysisDispatcher<SignalAnalyser>
 	virtual int getNumberOfChannels() const;
 
     protected:
-	boost::scoped_ptr<ShortTimeAnalysis> _impl; /**< Actual implementation of the algorithm for signal analysis. */
+	std::unique_ptr<ShortTimeAnalysis> _impl; /**< Actual implementation of the algorithm for signal analysis. */
 };
 
 

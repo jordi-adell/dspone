@@ -21,6 +21,9 @@
 */
 #include <dspone/rt/SignalProcessor.h>
 #include <dspone/rt/ShortTimeProcess.h>
+#include <dspone/rt/ShortTimeAnalysis.h>
+
+#include <dspone/rt/DummyShortTimeProcess.h>
 
 namespace dsp {
 
@@ -62,25 +65,25 @@ int SignalProcessor::process(const std::vector<double *> &signal,
 
 
 
-int SignalProcessor::process(const std::vector<boost::shared_array<int16_t> > &signal,
+int SignalProcessor::process(const std::vector<std::shared_ptr<int16_t> > &signal,
 			     unsigned int inbuffersize,
-			     const std::vector<boost::shared_array<int16_t> > &output,
+			     const std::vector<std::shared_ptr<int16_t> > &output,
 			     unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
-int SignalProcessor::process(const std::vector<boost::shared_array<float> > &signal,
+int SignalProcessor::process(const std::vector<std::shared_ptr<float> > &signal,
 			     unsigned int inbuffersize,
-			     const std::vector<boost::shared_array<float> > &output,
+			     const std::vector<std::shared_ptr<float> > &output,
 			     unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
-int SignalProcessor::process(const std::vector<boost::shared_array<double> > &signal,
+int SignalProcessor::process(const std::vector<std::shared_ptr<double> > &signal,
 			     unsigned int inbuffersize,
-			     const std::vector<boost::shared_array<double> > &output,
+			     const std::vector<std::shared_ptr<double> > &output,
 			     unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
@@ -119,17 +122,17 @@ SignalAnalyser::~SignalAnalyser()
   _impl.reset();
 }
 
-int SignalAnalyser::process(const std::vector<boost::shared_array<int16_t> > &signal, unsigned int buffersize)
+int SignalAnalyser::process(const std::vector<std::shared_ptr<int16_t> > &signal, unsigned int buffersize)
 {
   return _impl->process(signal, buffersize);
 }
 
-int SignalAnalyser::process(const std::vector<boost::shared_array<float> > &signal, unsigned int buffersize)
+int SignalAnalyser::process(const std::vector<std::shared_ptr<float> > &signal, unsigned int buffersize)
 {
   return _impl->process(signal, buffersize);
 }
 
-int SignalAnalyser::process(const std::vector<boost::shared_array<double> > &signal, unsigned int buffersize)
+int SignalAnalyser::process(const std::vector<std::shared_ptr<double> > &signal, unsigned int buffersize)
 {
   return _impl->process(signal, buffersize);
 }
