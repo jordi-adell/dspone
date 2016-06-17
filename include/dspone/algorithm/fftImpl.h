@@ -25,6 +25,7 @@
 #include <dspone/dspdefs.h>
 #include <wipp/wippfft.h>
 
+
 namespace dsp {
 
 /**
@@ -40,6 +41,7 @@ class FFTImpl
 
   public:
     FFTImpl(int order);
+    FFTImpl(const FFTImpl &ffti);
     ~FFTImpl();
 
     inline int getOrder() const {return _fftOrder;}

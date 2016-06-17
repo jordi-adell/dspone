@@ -33,6 +33,15 @@ FFTImpl::FFTImpl(int order) :
   init();
 }
 
+FFTImpl::FFTImpl(const FFTImpl &ffti) :
+  _fftOrder(ffti._fftOrder),
+  _fftLength(ffti._fftLength),
+  _oneSidedFFTLength(ffti._oneSidedFFTLength)
+{
+  init();
+}
+
+
 FFTImpl::~FFTImpl()
 {
   wipp::delete_fft(&_fftspec);
