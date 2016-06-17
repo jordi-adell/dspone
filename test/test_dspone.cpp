@@ -23,6 +23,11 @@
 #include <dspone/rt/DummyShortTimeFourier.h>
 #include <dspone/rt/FilterProcess.hpp>
 
+// Implementations
+
+#include <dspone/rt/STFTImpl.h>
+#include <dspone/algorithm/fftImpl.h>
+
 #include <dspone/dspMath.h>
 
 #include <wipp/wippstats.h>
@@ -360,22 +365,22 @@ TEST(DigitalSignalProcessingTest, testDummyShortTimeProcess)
 TEST(DigitalSignalProcessingTest, testDummySTFT)
 {
 
-    DummySTFT *a = new DummySTFT();
-    delete a;
 
-    DummySTFT stft;
-    ShortTimeAnalysis *shortTimeP =dynamic_cast<ShortTimeAnalysis *>(&stft);
+  DummySTFT *a = new DummySTFT();
+  delete a;
+
+  DummySTFT stft;
+  ShortTimeProcess *shortTimeP =dynamic_cast<ShortTimeProcess *>(&stft);
+  shortTimeProcess(*shortTimeP);
 }
 
 TEST(DigitalSignalProcessingTest, testDummySTFTAnalysis)
 {
-
     DummySTFTAnalysis *a = new DummySTFTAnalysis();
     delete a;
 
     DummySTFTAnalysis stft;
-    ShortTimeProcess *shortTimeP =dynamic_cast<ShortTimeProcess *>(&stft);
-    shortTimeProcess(*shortTimeP);
+    ShortTimeAnalysis *shortTimeP =dynamic_cast<ShortTimeAnalysis *>(&stft);
 }
 
 TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
@@ -753,6 +758,14 @@ TEST(DigitalSignalProcessingTest, testIPPGhostsInteractive)
 
 
 
+}
+
+
+TEST(FFT, constructor_destructor)
+{
+
+  dsp::FFTImpl ffti(9);
+  dsp::STFTImpl stfti(4,9);
 }
 
 TEST(DigitalSignalProcessingTest, testPreEmphasisFilter)
