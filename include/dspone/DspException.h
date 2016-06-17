@@ -22,18 +22,15 @@
 #ifndef __DSPEXCEPTION_H_
 #define __DSPEXCEPTION_H_
 
-#include <exception>
+#include <stdexcept>
 #include <string>
 
 namespace dsp {
 
-class DspException : public std::exception
+class DspException : public std::runtime_error
 {
     public:
-	DspException( const std::string msg)
-	{
-	}
-
+	DspException( const std::string &msg);
 	using std::exception::what;
 };
 }

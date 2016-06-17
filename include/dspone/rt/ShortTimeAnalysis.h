@@ -18,7 +18,9 @@
 *
 * You should have received a copy of the GNU General Public License
 * along with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef __SHORT_TIME_ANALYSIS_H_
+*/
+
+#ifndef __SHORT_TIME_ANALYSIS_H_
 #define __SHORT_TIME_ANALYSIS_H_
 
 #include <dspone/rt/ShortTimeProcess.h>

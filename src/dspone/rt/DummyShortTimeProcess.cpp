@@ -23,8 +23,8 @@ void DummyShortTimeProcess::frameAnalysis (BaseType *inFrame,  BaseType *analysi
 }
 
 
-void DummyShortTimeProcess::processParametrisation(std::vector<double*> analysisFrames, int analysisLength,
-						   std::vector<double*> dataChannels, int dataLength)
+void DummyShortTimeProcess::processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+						   std::vector<double *> &dataChannels, int dataLength)
 {
     if (_generateDataChannel)
     {

@@ -38,8 +38,8 @@ class DummySTFT : public STFT
 	DummySTFT();
 	~DummySTFT();
     private:
-	void processParametrisation(std::vector<double *> analysisFrames, int analysisLength,
-				    std::vector<double *> dataChannels, int dataLength);
+	void processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+				    std::vector<double *> &dataChannels, int dataLength);
 };
 
 
@@ -50,8 +50,8 @@ class DummySTFTAnalysis : public STFTAnalysis
 	~DummySTFTAnalysis();
     private:
 	void frameAnalysis();
-	void processParametrisation(std::vector<double *> analysisFrames, int analysisLength,
-				    std::vector<double *> dataChannels, int dataLength);
+	void processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+				    std::vector<double *> &dataChannels, int dataLength);
 };
 
 

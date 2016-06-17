@@ -25,6 +25,8 @@
 
 #include <dspone/algorithm/fft.h>
 
+#include <dspone/dspdefs.h>
+
 #include <wipp/wipputils.h>
 
 #include <math.h>

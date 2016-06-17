@@ -1,5 +1,5 @@
 /*
-* stft.cpp
+* ShortTimeFourierSubBand.cpp
 * Copyright 2016 (c) Jordi Adell
 * Created on: 2015
 * 	Author: Jordi Adell - adellj@gmail.com
@@ -19,42 +19,44 @@
 * You should have received a copy of the GNU General Public License
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <dspone/rt/ShortTimeFourierAnalysis.h>
-#include <dspone/algorithm/fftImpl.h>
-#include <dspone/DspException.h>
 
-#include <wipp/wippdefs.h>
-#include <wipp/wipputils.h>
+#ifndef __SHORTTIME_FOURIER_SUBBAND_H_
+#define __SHORTTIME_FOURIER_SUBBAND_H_
 
-#include <sstream>
-
+#include <dspone/rt/ShortTimeFourierTransform.h>
 
 namespace dsp {
 
+class SubBandSTFTImpl;
 
-class SubBandSTFTAnalysis : public STFTAnalysis
+class SubBandSTFT : public STFT
 {
 
     public:
        typedef enum {MEL, LINEAR} FilterBankType;
-       SubBandSTFTAnalysis(int nbins, int sampleRate, int order, int channels, float minFreq, float maxFreq, FilterBankType type=MEL);
+	SubBandSTFT(int nbins, int sampleRate, int order, int channels,
+		    float minFreq, float maxFreq, FilterBankType type=MEL);
+
+	virtual ~SubBandSTFT();
+
+    private:
+       friend class SubBandSTFTImpl;
+       virtual void processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+					   std::vector<double *> &dataChannels, int dataLength);
+       std::unique_ptr<SubBandSTFTImpl> _impl;
 
     protected:
-       const int _numberOfBins;
-       const int _sampleRate;
-       boost::scoped_ptr<FilterBank> _filterBank;
-       boost::scoped_array<BaseTypeC> _filterCoeficients;
-       int _coeficientsLength;
-       SignalVector _processedAnalysisFrames;
-       SignalVector _subbandAnalysisFrames;
 
+       virtual void processSetup(std::vector<double *> &analysisFrames, int analysisLength,
+				 std::vector<double *> &dataChannels, int dataLength) = 0;
 
-       virtual void processParametrisation();
-       virtual void processSetup() = 0;
-       virtual void processOneSubband(const SignalVector &analysisFrame, int length, int bin) = 0;
-       virtual void processSumamry() = 0;
+       virtual void processOneSubband(std::vector<double*> &analysisFrame, int length, int bin) = 0;
+
+       virtual void processSumamry(std::vector<double *> &analysisFrames, int analysisLength,
+				   std::vector<double *> &dataChannels, int dataLength) = 0;
 
 };
 
 }
 
+#endif

@@ -47,8 +47,8 @@ class DummyShortTimeProcess : public ShortTimeProcess
 	static const int _constant = 1000;
 
 	virtual void frameAnalysis (BaseType *inFrame,  BaseType *analysis, int frameLength, int analysisLength, int);
-	virtual void processParametrisation(std::vector<double*> analysisFrames, int analysisLength,
-					    std::vector<double*> dataChannels, int dataLength);
+	virtual void processParametrisation(std::vector<double*> &analysisFrames, int analysisLength,
+					    std::vector<double*> &dataChannels, int dataLength);
 	virtual void frameSynthesis(BaseType *outFrame, BaseType *analysis, int frameLength, int analysisLength, int );
 };
 

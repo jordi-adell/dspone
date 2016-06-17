@@ -25,8 +25,6 @@
 
 namespace dsp {
 
-/************ Interfaces for models: Obersvation, Prediction and Resmapling **********************/
-
 /**
    * @class IObservationModel
    * @brief This class template is an interface to implement Observation models
@@ -37,8 +35,10 @@ template <class T_ParticleSet, class T_WeightSet=T_ParticleSet>
 class IObservationModel
 {
     public:
-	IObservationModel(){}
+
+	IObservationModel() {}
 	virtual ~IObservationModel() {}
+
 	/**
      * @brief getWeights  calcualte the weight that has to be
      * applied to each particle in the given set.

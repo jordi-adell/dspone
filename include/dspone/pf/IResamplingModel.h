@@ -25,27 +25,27 @@
 
 namespace dsp {
 
-  /**
+/**
    * @brief The IResamplingModel class
    * This class is an interface for a model that selects the most
    * relevant particles in a set to create a new set. The relevance is based on the
    * weights assigned to each particle.
    */
-  template<class T_ParticleSet, class T_WeightSet = T_ParticleSet>
-    class IResamplingModel
-    {
+template<class T_ParticleSet, class T_WeightSet = T_ParticleSet>
+class IResamplingModel
+{
     public:
-    IResamplingModel(){}
-    virtual ~IResamplingModel(){}
-    /**
+	IResamplingModel() {}
+	virtual ~IResamplingModel() {}
+	/**
      * @brief resample   function that resamples the currentSet and generates
      * a new resmapledSet with the most relevant particles in the previous set.
      * @param currentSet  current set of particles
      * @param resampledSet   new set with the chosen particles.
      * @param weights   weights assigned by the observation model to each particle in the current set.
      */
-    virtual void resample(const T_ParticleSet &currentSet,T_ParticleSet  &resampledSet, const T_WeightSet &weights) = 0;
-    };
+	virtual void resample(const T_ParticleSet &currentSet,T_ParticleSet  &resampledSet, const T_WeightSet &weights) = 0;
+};
 
 
 

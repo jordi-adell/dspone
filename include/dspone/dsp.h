@@ -25,9 +25,6 @@
 #include "dspone/rt/SignalProcessor.h"
 #include "dspone/rt/Filters.h"
 
-
-#include <boost/shared_ptr.hpp>
-
 #define __INTERACTION_DSP_DECL  dsp
 
 typedef __INTERACTION_DSP_DECL::ProcessDispatcher<__INTERACTION_DSP_DECL::SignalProcessor> SignalProcessor_t;
@@ -40,9 +37,9 @@ typedef SignalProcessor_t ProcessorModule;
 typedef SignalAnalyser_t AnalyserModule;
 typedef FilterProcessor_t FilterModule;
 
-typedef boost::shared_ptr<ProcessorModule> SignalProcessorModulePtr;
-typedef boost::shared_ptr<AnalyserModule> SignalAnalyserModulePtr;
-typedef boost::shared_ptr<FilterModule> FilterModulePtr;
+typedef std::shared_ptr<ProcessorModule> SignalProcessorModulePtr;
+typedef std::shared_ptr<AnalyserModule> SignalAnalyserModulePtr;
+typedef std::shared_ptr<FilterModule> FilterModulePtr;
 
 
 

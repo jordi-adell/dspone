@@ -22,8 +22,9 @@
 #ifndef __GRALCROSSCORRELATION_H_
 #define __GRALCROSSCORRELATION_H_
 
-#include <dspone/dspdefs.h>
+#include <dspone/complex.h>
 
+#include <memory>
 
 namespace dsp{
 
@@ -64,7 +65,7 @@ class GeneralisedCrossCorrelation
 	   * @param FFTtype  selects the format of the FFT from {ONESIDEDFFT, TWOSIDEDFFT}
 	   * @return  correlation value.
 	   */
-	BaseTypeC calculateCorrelation(const  BaseTypeC *x, const  BaseTypeC *y, int length, BaseType tau, FFTtype usedFFTtype);
+	Complex calculateCorrelation(const Complex *x, const  Complex *y, int length, double tau, FFTtype usedFFTtype);
 
 	/**
 	   * @brief calculateCorrelationForTauVector  Calculates the GCC of a stereo signal for a set of delays
@@ -79,8 +80,8 @@ class GeneralisedCrossCorrelation
 	   * @param numSteps  length of "samplesDelay".
 	   * @param FFTtype  selects the format of the FFT from {ONESIDEDFFT, TWOSIDEDFFT}
 	   */
-	void calculateCorrelationsForTauVector(const BaseTypeC *x, const BaseTypeC *y, BaseTypeC *c, int length,
-					       BaseType *samplesDelay, int numSteps, FFTtype usedFFTtype);
+	void calculateCorrelationsForTauVector(const Complex *x, const Complex *y, Complex *c, int length,
+					       double *samplesDelay, int numSteps, FFTtype usedFFTtype);
 
 	/**
 	   * @brief precomputeTauMatrix  Precomputes a delays matrix which will be used to calculate the GCC using the function
@@ -91,7 +92,7 @@ class GeneralisedCrossCorrelation
 	   * and (N_FFT/2+1) when using one-sided (positive semiaxis) FFT.
 	   * @param FFTtype  selects the format of the FFT from {ONESIDEDFFT, TWOSIDEDFFT}
 	   */
-	void precomputeTauMatrix(BaseType *samplesDelay, int numSteps, int length, FFTtype usedFFTtype);
+	void precomputeTauMatrix(double *samplesDelay, int numSteps, int length, FFTtype usedFFTtype);
 
 	/**
 	   * @brief calculateCorrelationsForPrecomputedTauMatrix  Calculates the GCC of a stereo signal for a set of delays, using
@@ -104,11 +105,11 @@ class GeneralisedCrossCorrelation
 	   * @param numSteps  length of the delays vector used for precomputing the delays matrix.
 	   * @param FFTtype  selects the format of the FFT from {ONESIDEDFFT, TWOSIDEDFFT}
 	   */
-	void calculateCorrelationsForPrecomputedTauMatrix(const BaseTypeC *x, const BaseTypeC *y, BaseTypeC *c, int length,
+	void calculateCorrelationsForPrecomputedTauMatrix(const Complex *x, const Complex *y, Complex *c, int length,
 							  int numSteps, FFTtype usedFFTtype);
 
     private:
-	std::shared_ptr<GeneralisedCrossCorrelationImpl> _impl;
+	std::unique_ptr<GeneralisedCrossCorrelationImpl> _impl;
 };
 
 }

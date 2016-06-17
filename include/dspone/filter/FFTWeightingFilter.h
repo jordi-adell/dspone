@@ -23,8 +23,9 @@
 #define __FFTWEIGHTINGFILTER_H_
 
 #include <dspone/filter/Filter.h>
-#include <dspone/dspdefs.h>
 #include <dspone/dsplogger.h>
+
+#include <boost/shared_array.hpp>
 
 #include <iostream>
 #include <fstream>
@@ -61,9 +62,9 @@ class FFTWeightingFilter : public Filter
 	virtual void filterBuffer(const float  *inbuffer, float  *outbuffer, int length);
 	virtual void filterBuffer(const double *inbuffer, double *outbuffer, int length);
 
-	void spectralWeighting(BaseType *spectrum, int length) const;
-	void fft(const double *signal, int signallength, BaseType *spectrum, int speclength) const;
-	void ifft(const BaseType* spectrum, int speclength, double *signal, int signallength) const;
+	void spectralWeighting(double *spectrum, int length) const;
+	void fft(const double *signal, int signallength, double *spectrum, int speclength) const;
+	void ifft(const double* spectrum, int speclength, double *signal, int signallength) const;
 
 	virtual int getFrameLength() const { return _length;}
 
@@ -72,13 +73,13 @@ class FFTWeightingFilter : public Filter
 	int _length;
 	int _specLength;
 	int _coefsLength;
-	boost::shared_array<BaseType> _coefs;
-	boost::shared_array<BaseType> _spectrum;
+	boost::shared_array<double> _coefs;
+	boost::shared_array<double> _spectrum;
 
 	std::shared_ptr<FFT> _fft;
 
 	/** @brief this function is called by the constructor to initialise the IPP filter data */
-	void initialiseFilter(const BaseType *coefs, int length);
+	void initialiseFilter(const double *coefs, int length);
 
 	/**
 	   * @brief This fucntion performs the actual filtering process.
@@ -87,7 +88,7 @@ class FFTWeightingFilter : public Filter
 	   * @param outbuffer  output signal (is assumed to be already allocated)
 	   * @param length  length of both buffers
 	   */
-	inline void filterBufferCore(const BaseType *inbuffer, BaseType *outbuffer, int length) const;
+	inline void filterBufferCore(const double *inbuffer, double *outbuffer, int length) const;
 
 
 };

@@ -45,6 +45,7 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/dsplogger.cpp
   src/${PROJECT_NAME}/dspHelpers.cpp
   src/${PROJECT_NAME}/dspMath.cpp
+  src/${PROJECT_NAME}/DspException.cpp
   src/${PROJECT_NAME}/algorithm/fft.cpp
   src/${PROJECT_NAME}/algorithm/fftImpl.cpp
   src/${PROJECT_NAME}/algorithm/gralCrossCorrelation.cpp
@@ -64,6 +65,9 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/filter/NotchFilter.cpp
   src/${PROJECT_NAME}/filter/PreEmphasisFilter.cpp
   src/${PROJECT_NAME}/filter/FilterProcess.cpp
+  src/${PROJECT_NAME}/pf/IObservationModel.cpp
+  src/${PROJECT_NAME}/pf/IPredictionModel.cpp
+  src/${PROJECT_NAME}/pf/IResamplingModel.cpp
   src/${PROJECT_NAME}/pf/ParticleFilter.cpp
   src/${PROJECT_NAME}/rt/ShortTimeProcessImpl.cpp
   src/${PROJECT_NAME}/rt/ShortTimeProcess.cpp
@@ -75,6 +79,8 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/rt/STFTImpl.cpp
   src/${PROJECT_NAME}/rt/ShortTimeFourierTransform.cpp
   src/${PROJECT_NAME}/rt/ShortTimeFourierAnalysis.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeFourierSubBand.cpp
+  src/${PROJECT_NAME}/rt/ShortTimeFourierSubBandImpl.cpp
   src/${PROJECT_NAME}/rt/DummyShortTimeFourier.cpp
   src/${PROJECT_NAME}/rt/SignalProcessor.cpp
 )
@@ -109,8 +115,9 @@ install(TARGETS dspone
 
 ## Mark cpp header files for installation
 install(FILES
-  include/${PROJECT_NAME}/dspdefs.h
+  include/${PROJECT_NAME}/complex.h
   include/${PROJECT_NAME}/dsp.h
+  include/${PROJECT_NAME}/dsplogger.h
   DESTINATION ${INCLUDE_DESTINATION}
   COMPONENT dev
   )
@@ -124,16 +131,15 @@ install(FILES
 
 install(FILES
   include/${PROJECT_NAME}/pf/ParticleFilter.hpp
-  include/${PROJECT_NAME}/pf/IObservationModel.h
-  include/${PROJECT_NAME}/pf/IParticleFilterCallback.h
-  include/${PROJECT_NAME}/pf/IParticleSet.h
   include/${PROJECT_NAME}/pf/IPredictionModel.h
   include/${PROJECT_NAME}/pf/IResamplingModel.h
-  include/${PROJECT_NAME}/pf/ObservationModel.hpp
-  include/${PROJECT_NAME}/pf/ParticleFilter.hpp
-  include/${PROJECT_NAME}/pf/ParticleSet.hpp
+  include/${PROJECT_NAME}/pf/IObservationModel.h
+  include/${PROJECT_NAME}/pf/IParticleSet.h
+  include/${PROJECT_NAME}/pf/IParticleFilterCallback.h
   include/${PROJECT_NAME}/pf/PredictionModel.hpp
   include/${PROJECT_NAME}/pf/ResamplingModel.hpp
+  include/${PROJECT_NAME}/pf/ObservationModel.hpp
+  include/${PROJECT_NAME}/pf/ParticleSet.hpp
   DESTINATION ${INCLUDE_DESTINATION}/pf/
   COMPONENT dev
   )
@@ -157,6 +163,8 @@ install(FILES
 
 install(FILES
     include/${PROJECT_NAME}/rt/Filters.h
+    include/${PROJECT_NAME}/rt/ShortTimeProcess.h
+    include/${PROJECT_NAME}/rt/ShortTimeAnalysis.h
     DESTINATION ${INCLUDE_DESTINATION}/rt
     COMPONENT dev
 )

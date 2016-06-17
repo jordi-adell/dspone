@@ -23,11 +23,11 @@
 #define __PARTICLE_F_BASIC_PARTICLE_SET_H_
 
 #include <dspone/pf/IParticleSet.h>
-
 #include <dspone/dspMath.h>
 
-namespace dsp {
+#include <boost/shared_array.hpp>
 
+namespace dsp {
 
 /* --------------------------------------------------------- */
 /* -- Implementation for basic type (float, double, etc ...) */

@@ -26,7 +26,6 @@
 #include <dspone/filter/FIRFilter.h>
 #include <memory>
 
-
 namespace dsp {
 
 struct BandPassFIRFilterImpl;

@@ -35,8 +35,8 @@ template <class T_Particle, class T_ParticleSet>
 class IPredictionModel
 {
     public:
-	IPredictionModel(){}
-	virtual ~IPredictionModel(){}
+	IPredictionModel() {}
+	virtual ~IPredictionModel() {}
 	/**
      * @brief update   This fucntion is intended to generate a new particle set
      * based on the given particle set and previous solutions. It might for example

@@ -41,7 +41,7 @@ STFT::STFT(int nchannels, int order) :
 
 STFT::~STFT()
 {
-
+  _impl.reset();
 }
 
 void STFT::frameAnalysis(double *inFrame, double *analysis, int frameLength, int analysisLength, int channel)

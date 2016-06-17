@@ -1,5 +1,5 @@
 /*
-* dsplogger.h
+* complex.h
 * Copyright 2016 (c) Jordi Adell
 * Created on: 2015
 * 	Author: Jordi Adell - adellj@gmail.com
@@ -19,41 +19,18 @@
 * You should have received a copy of the GNU General Public License
 * along with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __DSPONE_LOGGER_H_
-#define __DSPONE_LOGGER_H_
+#ifndef ___DSP_COMPLEX_H_
+#define ___DSP_COMPLEX_H_
 
-#include <iostream>
-#include <vector>
+namespace dsp
+{
 
+typedef struct {float re; float im;} Complex32f;
+typedef struct {double re; double im;} Complex64f;
+typedef Complex64f Complex;
 
-#ifdef _LOGGER
+}
 
-#include <dspone/dsploggerImpl.h>
-
-#else
-
-#ifndef INFO_STREAM
-#define INFO_STREAM(x)
-#endif
-
-#ifndef WARN_STREAM
-#define WARN_STREAM(x)
-#endif
-
-#ifndef ERROR_STREAM
-#define ERROR_STREAM(x)
-#endif
-
-#ifndef DEBUG_STREAM
-#define DEBUG_STREAM(x)
-#endif
-
-#ifndef TRACE_STREAM
-#define TRACE_STREAM(x)
-#endif
 
 
 #endif
-
-
-#endif //__DSP_LOGGER_H_

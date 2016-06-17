@@ -22,7 +22,7 @@
 #ifndef __FFT_H_
 #define __FFT_H_
 
-#include <dspone/dspdefs.h>
+#include <memory>
 
 namespace dsp {
 
@@ -66,8 +66,8 @@ class FFT
 	   * @param frameLength   length of the frame provided.
 	   * Has to be lower or equal to the value returned by getFFTLength
 	   */
-	void fwdTransform(const BaseType *inFrame, BaseType *fft);
-	void fwdTransform(const BaseType *inFrame, BaseType *fft, int frameLength);
+	void fwdTransform(const double *inFrame, double *fft);
+	void fwdTransform(const double *inFrame, double *fft, int frameLength);
 
 	/**
 	   * @brief invTransfrom   Performed the inverse transform
@@ -78,8 +78,8 @@ class FFT
 	   * @param frameLength   length of the frame provided.
 	   * Has to be lower or equal to the value returned by getFFTLength
 	   */
-	void invTransfrom(BaseType *outFrame, const BaseType *fft);
-	void invTransfrom(BaseType *outFrame, const BaseType *fft, int frameLength);
+	void invTransfrom(double *outFrame, const double *fft);
+	void invTransfrom(double *outFrame, const double *fft, int frameLength);
 
     private:
 	std::unique_ptr<FFTImpl>_impl;

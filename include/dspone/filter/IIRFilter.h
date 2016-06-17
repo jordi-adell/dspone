@@ -26,8 +26,6 @@
 
 #include <string>
 
-class IIRState_64f;
-
 namespace dsp {
 
 class IIRFilter_t_;

@@ -24,14 +24,13 @@
 
 #include <stdint.h>
 
-#include <boost/shared_array.hpp>
 #include <vector>
+#include <boost/shared_array.hpp>
 
+#include <dspone/complex.h>
 
 namespace dsp{
 
-typedef struct {float re; float im;} Complex32f;
-typedef struct {double re; double im;} Complex64f;
 
 // 32 bits float
 typedef float BaseType32;

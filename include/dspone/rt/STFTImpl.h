@@ -48,11 +48,12 @@ class STFTImpl
     private:
 	friend class STFT;
 	friend class STFTAnalysis;
+	friend class SubBandSTFTImpl;
 
 	static int getFFTLength(int order);
 	static int getAnalysisWindowLength(int order);
 
-	FFTImpl _fft;
+	std::vector<FFTImpl> _fft;
 
 	/**
 	   * @brief Performes STFT over the given frame
@@ -72,7 +73,7 @@ class STFTImpl
 	   * @param analysisLength  length of the analysis
 	   */
 	void frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel);
-
+    protected:
 	/**
 	   * @brief getAnalysisLength
 	   * @return the length of the analysis buffer (2^order + 2)
@@ -81,7 +82,8 @@ class STFTImpl
 	   * a compact form it needs to more values.
 	   */
 	int getAnalysisLength() const;
-
+	int getOrder() const;
+	int getNumChannels() const;
 };
 
 

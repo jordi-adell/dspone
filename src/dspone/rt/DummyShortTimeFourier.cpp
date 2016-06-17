@@ -36,8 +36,8 @@ DummySTFT::~DummySTFT()
 
 }
 
-void DummySTFT::processParametrisation(std::vector<double *> analysisFrames, int analysisLength,
-				       std::vector<double *> dataChannels, int dataLength)
+void DummySTFT::processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+				       std::vector<double *> &dataChannels, int dataLength)
 {
 
 }
@@ -55,8 +55,8 @@ DummySTFTAnalysis::~DummySTFTAnalysis()
 }
 
 
-void DummySTFTAnalysis::processParametrisation(std::vector<double *> analysisFrames, int analysisLength,
-					       std::vector<double *> dataChannels, int dataLength)
+void DummySTFTAnalysis::processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+					       std::vector<double *> &dataChannels, int dataLength)
 {
 
 }

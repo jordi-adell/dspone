@@ -24,7 +24,6 @@
 
 #include <dspone/filter/FilterBank.h>
 
-
 namespace dsp {
 
 class FilterBankFIR : public FilterBank
@@ -40,8 +39,6 @@ class FilterBankFIR : public FilterBank
     protected:
 	FilterBankFIR();
 	void initialiseFilters();
-
-
 
 };
 

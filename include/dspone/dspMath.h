@@ -1,7 +1,7 @@
 #ifndef __PARTICLE_FILTER_HELPERS_H_
 #define __PARTICLE_FILTER_HELPERS_H_
 
-#include <dspone/dspdefs.h>
+#include <dspone/complex.h>
 #include <stdint.h>
 
 namespace dsp
@@ -88,8 +88,7 @@ void minmax(double *buffer, int length, double *min, double *max);
 void minmax(float *buffer, int length, float *min, float *max);
 void minmax(int16_t *buffer, int length, int16_t *min, int16_t *max);
 
-void magnitude(BaseType64C *buffer, double *magn, int length);
-//void logn(double *buffer, int length);
+void magnitude(Complex *buffer, double *magn, int length);
 }
 
 

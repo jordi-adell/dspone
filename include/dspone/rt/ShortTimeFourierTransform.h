@@ -74,8 +74,8 @@ class STFT : public ShortTimeProcess
 	   * analysis buffers in order to apply the digital processing algorithm
 	   * to be implemented (core function)
 	   */
-	virtual void processParametrisation(std::vector<double *> analysisFrames, int analysisLength,
-					    std::vector<double *> dataChannels, int dataLength) = 0;
+	virtual void processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+					    std::vector<double *> &dataChannels, int dataLength) = 0;
     protected:
 
 	/**

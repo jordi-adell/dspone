@@ -22,8 +22,7 @@
 #ifndef __SHORTTIMEPROCESS_H_
 #define __SHORTTIMEPROCESS_H_
 
-#include <dspone/rt/ProcessDispatcher.h>
-
+#include <memory>
 #include <vector>
 
 namespace dsp {
@@ -180,8 +179,8 @@ class ShortTimeProcess //: public ProcessDispatcher<ShortTimeProcess>
 	    @param noiseFrame  signal contained singla + noise.
 	   **/
 	virtual void frameAnalysis (double *inFrame,  double *analysis, int frameLength, int analysisLength, int channel) = 0;
-	virtual void processParametrisation(std::vector<double*> analysisFrames, int analysisLength,
-					    std::vector<double*> dataChannels, int dataLength) = 0;
+	virtual void processParametrisation(std::vector<double*> &analysisFrames, int analysisLength,
+					    std::vector<double*> &dataChannels, int dataLength) = 0;
 
 	/**
 	   * @brief In this function you need to implement the code necessary to reconstruct the signal

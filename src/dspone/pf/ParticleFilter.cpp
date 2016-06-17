@@ -19,6 +19,7 @@
 * You should have received a copy of the GNU General Public Licenseº
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include <dspone/pf/ParticleSet.hpp>
 #include <dspone/pf/ParticleFilter.hpp>
 #include <dspone/pf/ObservationModel.hpp>

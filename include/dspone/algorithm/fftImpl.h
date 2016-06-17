@@ -89,10 +89,9 @@ class FFTImpl
   private:
 
     /**
-	    * @brief Auxiliary variable for IPP computing.
+	    * @brief Auxiliary variable for WIPP computing.
 	    */
     FFTspecType *_fftspec;
-    //    boost::scoped_array<Ipp8u> _fftInternalBuffer;
 
     /**
 	    * @brief _fftOrder order of the FFT (i.e., order=10 --> fft length=1024)

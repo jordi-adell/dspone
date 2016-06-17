@@ -26,14 +26,15 @@ namespace dsp {
 
 
 // ------------ STFT -------------------------------------------------
-STFTImpl::STFTImpl(int order) :
-    _fft(order)
+STFTImpl::STFTImpl(int order)
 {
+  _fft.push_back(FFTImpl(order));
 }
 
-STFTImpl::STFTImpl(int nchannels, int order) :
-    _fft(order)
+STFTImpl::STFTImpl(int nchannels, int order)
 {
+  for (size_t i = 0; i < nchannels; ++i)
+    _fft.push_back(FFTImpl(order));
 }
 
 STFTImpl::~STFTImpl()
@@ -41,14 +42,14 @@ STFTImpl::~STFTImpl()
 
 }
 
-void STFTImpl::frameAnalysis(BaseType *inFrame, BaseType *analysis, int frameLength, int, int)
+void STFTImpl::frameAnalysis(BaseType *inFrame, BaseType *analysis, int frameLength, int , int channel)
 {
-  _fft.fwdTransform(inFrame, analysis, frameLength);
+  _fft[channel].fwdTransform(inFrame, analysis, frameLength);
 }
 
-void STFTImpl::frameSynthesis(BaseType *outFrame, BaseType *analysis, int frameLength, int, int)
+void STFTImpl::frameSynthesis(BaseType *outFrame, BaseType *analysis, int frameLength, int, int channel)
 {
-  _fft.invTransfrom(outFrame, analysis, frameLength);
+  _fft[channel].invTransfrom(outFrame, analysis, frameLength);
 }
 
 
@@ -65,7 +66,23 @@ int STFTImpl::getAnalysisWindowLength(int order)
 
 int STFTImpl::getAnalysisLength() const
 {
-  _fft.getAnalysisWindowLength();
+  if (!_fft.empty())
+    return _fft.at(0).getAnalysisWindowLength();
+  else
+    return 0;
+}
+
+int STFTImpl::getOrder() const
+{
+  if (!_fft.empty())
+    return _fft.at(0).getOrder();
+  else
+    return 0;
+}
+
+int STFTImpl::getNumChannels() const
+{
+  return _fft.size();
 }
 
 }

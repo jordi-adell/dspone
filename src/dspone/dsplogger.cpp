@@ -1,3 +1,4 @@
+#define _LOGGER
 #include <dspone/dsplogger.h>
 #include <boost/filesystem.hpp>
 
