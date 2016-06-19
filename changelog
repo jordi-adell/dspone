@@ -1,0 +1,66 @@
+DSPONE project Change Log
+
+## [Unreleased]
+
+## [0.2.0] - 2016-06-19 
+
+### Fixed
+
+- set the correct reference for the preemphasis filter test
+- compilation flags depending on DEBUG property
+- repaired filter bank tests, removed some debug helpers
+- implement the options to choose between rectangular and triangular shape
+- change spectral weighting to use complex multiplication
+- change the name of the power spcetrum function --> power
+- change the order of passing low and high freq to wipp function
+- used sqr functions for power 2
+
+### Added
+
+- add rectangular filter shape
+- added logger
+- removed dependency on FFTW because wipp is shared now
+
+### Changes
+
+- files places under subdirectories for clearness
+- Separate complex declaration from internal base type declarations
+- disable logging for dependant libraries
+- move to std::shared_ptr instead of boost::shared_ptr
+- short time processors refactor to hide implementations
+- hide STFT sub-band analysis implementation 
+- hide wipp implementation
+- hide most boost library usages
+- reorganise the real time modules, so that headers are clean and implementation is hidden.
+- split header in several modules (algorithm, filter, rt, ...)
+- simplified wipp find module
+
+- Contributors: Jordi Adell
+
+## [0.1.8] - 2014-11-17
+
+- Error check for negative FFT orders
+  If order is below 4 (2⁴ = 16 samples) an error is printed.
+  However if order is zero or negative, now an exception is thrown becuase
+  it is not possible to do anything with these FFT orders.
+  This will avoid the hang in refs #10184
+
+- Contributors: Jordi Adell
+
+## [0.1.7] - 2014-11-10
+
+## [0.1.6] - 2014-10-24
+
+- Patch to avoid errors when processing data channels in the case when 
+  there are no input channels given, but there are output channels to be generated.
+
+- Test with a constant signal for shorttimeprocess
+
+- Now you can pass more than nchannels to the shorttimeprocess,
+  or any of its inherit classes.
+  Extra channels are considered datachannels and ar not analysed.
+  Each frame can be modified from processParameterisation function
+  accessing the _dataFrames structure, in the same way that
+  _analysisFrames was used.
+
+- Contributors: Jordi Adell
