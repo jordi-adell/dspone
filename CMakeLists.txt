@@ -118,6 +118,7 @@ install(FILES
   include/${PROJECT_NAME}/complex.h
   include/${PROJECT_NAME}/dsp.h
   include/${PROJECT_NAME}/dsplogger.h
+  include/${PROJECT_NAME}/DspException.h
   DESTINATION ${INCLUDE_DESTINATION}
   COMPONENT dev
   )
@@ -163,8 +164,14 @@ install(FILES
 
 install(FILES
     include/${PROJECT_NAME}/rt/Filters.h
+    include/${PROJECT_NAME}/rt/FilterProcess.hpp
+    include/${PROJECT_NAME}/rt/ProcessDispatcher.h
+    include/${PROJECT_NAME}/rt/ShortTimeFourierTransform.h
+    include/${PROJECT_NAME}/rt/ShortTimeFourierAnalysis.h
+    include/${PROJECT_NAME}/rt/ShortTimeFourierSubBand.h
     include/${PROJECT_NAME}/rt/ShortTimeProcess.h
     include/${PROJECT_NAME}/rt/ShortTimeAnalysis.h
+    include/${PROJECT_NAME}/rt/TimeProcess.h
     DESTINATION ${INCLUDE_DESTINATION}/rt
     COMPONENT dev
 )
