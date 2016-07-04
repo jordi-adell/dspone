@@ -22,25 +22,18 @@
 #ifndef __DSP_H_
 #define __DSP_H_
 
-#include "dspone/rt/SignalProcessor.h"
-#include "dspone/rt/Filters.h"
+#include <dspone/rt/SignalProcessor.h>
+#include <dspone/rt/SignalAnalyser.h>
+#include <dspone/rt/Filters.h>
 
-#define __INTERACTION_DSP_DECL  dsp
+#define _DSP_DECL  dsp
 
-typedef __INTERACTION_DSP_DECL::ProcessDispatcher<__INTERACTION_DSP_DECL::SignalProcessor> SignalProcessor_t;
-typedef __INTERACTION_DSP_DECL::ProcessDispatcher<__INTERACTION_DSP_DECL::FilterProcess  > FilterProcessor_t;
-//typedef __INTERACTION_DSP_DECL::SignalAnalysisDispatcher<__INTERACTION_DSP_DECL::SignalAnalyser> SignalAnalyser_t;
-typedef __INTERACTION_DSP_DECL::ProcessDispatcher<__INTERACTION_DSP_DECL::SignalAnalyser> SignalAnalyser_t;
+typedef _DSP_DECL::SignalProcessor ProcessorModule;
+typedef _DSP_DECL::SignalAnalyser AnalyserModule;
+typedef _DSP_DECL::FilterProcess FilterModule;
 
-
-typedef SignalProcessor_t ProcessorModule;
-typedef SignalAnalyser_t AnalyserModule;
-typedef FilterProcessor_t FilterModule;
-
-typedef std::shared_ptr<ProcessorModule> SignalProcessorModulePtr;
-typedef std::shared_ptr<AnalyserModule> SignalAnalyserModulePtr;
+typedef std::shared_ptr<ProcessorModule> ProcessorModulePtr;
+typedef std::shared_ptr<AnalyserModule> AnalyserModulePtr;
 typedef std::shared_ptr<FilterModule> FilterModulePtr;
-
-
 
 #endif // __DSP_H_
