@@ -114,10 +114,11 @@ install(TARGETS dspone
 
 ## Mark cpp header files for installation
 install(FILES
-  include/${PROJECT_NAME}/complex.h
   include/${PROJECT_NAME}/dsp.h
   include/${PROJECT_NAME}/dsplogger.h
+  include/${PROJECT_NAME}/dspMath.h
   include/${PROJECT_NAME}/DspException.h
+  include/${PROJECT_NAME}/complex.h
   DESTINATION ${INCLUDE_DESTINATION}
   COMPONENT dev
   )
