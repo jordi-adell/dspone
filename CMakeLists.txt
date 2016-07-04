@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5.2)
-project(dspone VERSION 0.2.0)
+project(dspone VERSION 0.3.0)
 
 ###########################
 ## Configure compilation ##
