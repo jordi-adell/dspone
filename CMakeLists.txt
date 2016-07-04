@@ -171,6 +171,8 @@ install(FILES
     include/${PROJECT_NAME}/rt/ShortTimeProcess.h
     include/${PROJECT_NAME}/rt/ShortTimeAnalysis.h
     include/${PROJECT_NAME}/rt/TimeProcess.h
+    include/${PROJECT_NAME}/rt/SignalProcessor.h
+    include/${PROJECT_NAME}/rt/SignalAnalyser.h
     DESTINATION ${INCLUDE_DESTINATION}/rt
     COMPONENT dev
 )
