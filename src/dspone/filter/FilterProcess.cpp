@@ -55,6 +55,41 @@ int FilterProcess::getNumberOfChannels() const
   return _filters.size();
 }
 
+int FilterProcess::process(const std::vector<double*> &signal,
+			   unsigned int inbuffersize,
+			   const std::vector<double*> &output,
+			   unsigned int outbuffersize)
+{
+    process_core(signal, inbuffersize, output, outbuffersize);
+}
+
+int FilterProcess::process(const std::vector<float*> &signal,
+			   unsigned int inbuffersize,
+			   const std::vector<float*> &output,
+			   unsigned int outbuffersize)
+{
+    process_core(signal, inbuffersize, output, outbuffersize);
+
+}
+
+int FilterProcess::process(const std::vector<int16_t*> &signal,
+			   unsigned int inbuffersize,
+			   const std::vector<int16_t*> &output,
+			   unsigned int outbuffersize)
+{
+    process_core(signal, inbuffersize, output, outbuffersize);
+}
+
+int FilterProcess::process(const std::vector<uint16_t*> &signal,
+			   unsigned int inbuffersize,
+			   const std::vector<uint16_t*> &output,
+			   unsigned int outbuffersize)
+{
+    process_core(signal, inbuffersize, output, outbuffersize);
+}
+
+
+
 
 
 }

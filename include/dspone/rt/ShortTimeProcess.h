@@ -22,6 +22,8 @@
 #ifndef __SHORTTIMEPROCESS_H_
 #define __SHORTTIMEPROCESS_H_
 
+
+#include <dspone/rt/SignalProcessor.h>
 #include <memory>
 #include <vector>
 
@@ -29,7 +31,7 @@ namespace dsp {
 
 class ShortTimeProcessImpl;
 
-class ShortTimeProcess //: public ProcessDispatcher<ShortTimeProcess>
+class ShortTimeProcess : public SignalProcessor
 {
 
     public:
