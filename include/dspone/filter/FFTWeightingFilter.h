@@ -59,6 +59,7 @@ class FFTWeightingFilter : public Filter
 	   * of the coeficients vector supplied (at least), this is the length of the FFT.
 	   */
 	virtual void filterBuffer(const int16_t *inbuffer, int16_t *outbuffer, int length);
+	virtual void filterBuffer(const uint16_t *inbuffer, uint16_t *outbuffer, int length);
 	virtual void filterBuffer(const float  *inbuffer, float  *outbuffer, int length);
 	virtual void filterBuffer(const double *inbuffer, double *outbuffer, int length);
 

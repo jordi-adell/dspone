@@ -107,6 +107,15 @@ void IIRFilter::filterBuffer(const int16_t *insignal, int16_t *outsignal, int le
   wipp::copyBuffer(hiresout, outsignal, length);
 }
 
+void IIRFilter::filterBuffer(const uint16_t *insignal, uint16_t *outsignal, int length)
+{
+  double hiresin[length];
+  double hiresout[length];
+  wipp::copyBuffer(insignal, hiresin, length);
+  filterBuffer(hiresin, hiresout, length);
+  wipp::copyBuffer(hiresout, outsignal, length);
+}
+
 void IIRFilter::filterBuffer(const double *insignal, double *outsignal, int length)
 {
   if (_iir_filter == NULL)

@@ -207,6 +207,11 @@ void BandPassFIRFilter::filterBuffer(const int16_t *inbuffer, int16_t *outbuffer
   filterBufferCore(inbuffer, outbuffer, length);
 }
 
+void BandPassFIRFilter::filterBuffer(const uint16_t *inbuffer, uint16_t *outbuffer, int length)
+{
+  filterBufferCore(inbuffer, outbuffer, length);
+}
+
 template <class T> void BandPassFIRFilter::filterBufferCore(const T *inbuffer, T *outbuffer, int length)
 {
   _impl->_firFilter->filterBuffer(inbuffer, outbuffer, length);

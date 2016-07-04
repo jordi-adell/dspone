@@ -45,6 +45,11 @@ int ShortTimeAnalysis::process(const std::vector<int16_t *> &signal, unsigned in
 }
 
 
+int ShortTimeAnalysis::process(const std::vector<uint16_t *> &signal, unsigned int buffersize)
+{
+  _impl->process(signal, buffersize);
+}
+
 int ShortTimeAnalysis::process(const std::vector<std::shared_ptr<double> > &signal, unsigned int buffersize)
 {
   _impl->process(signal, buffersize);

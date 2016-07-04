@@ -148,6 +148,12 @@ int ShortTimeProcess::process(const std::vector<int16_t *> &signal, unsigned int
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
+int ShortTimeProcess::process(const std::vector<uint16_t *> &signal, unsigned int inbuffersize,
+			      const std::vector<uint16_t *> &output, unsigned int outbuffersize)
+{
+  return _impl->process(signal, inbuffersize, output, outbuffersize);
+}
+
 int ShortTimeProcess::process(const std::vector<std::shared_ptr<double> > &signal, unsigned int inbuffersize,
 			      const std::vector<std::shared_ptr<double> > &output, unsigned int outbuffersize)
 {
@@ -162,6 +168,12 @@ int ShortTimeProcess::process(const std::vector<std::shared_ptr<float> > &signal
 
 int ShortTimeProcess::process(const std::vector<std::shared_ptr<int16_t> > &signal, unsigned int inbuffersize,
 			      const std::vector<std::shared_ptr<int16_t> > &output, unsigned int outbuffersize)
+{
+  return _impl->process(signal, inbuffersize, output, outbuffersize);
+}
+
+int ShortTimeProcess::process(const std::vector<std::shared_ptr<uint16_t> > &signal, unsigned int inbuffersize,
+			      const std::vector<std::shared_ptr<uint16_t> > &output, unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }

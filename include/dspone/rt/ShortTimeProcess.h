@@ -164,6 +164,14 @@ class ShortTimeProcess //: public ProcessDispatcher<ShortTimeProcess>
 		    const std::vector<std::shared_ptr<int16_t> > &output,
 		    unsigned int outbuffersize);
 
+	int process(const std::vector<uint16_t *> &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<uint16_t *> &output,
+		    unsigned int outbuffersize);
+	int process(const std::vector<std::shared_ptr<uint16_t> > &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<std::shared_ptr<uint16_t> > &output,
+		    unsigned int outbuffersize);
 
 
     private:

@@ -57,6 +57,7 @@ class BandPassFFTWFilter : public BandPassFilter
 	   * @param length  length of both input and output signals.
 	   */
 	virtual void filterBuffer(const int16_t *inbuffer, int16_t *outbuffer, int length);
+	virtual void filterBuffer(const uint16_t *inbuffer, uint16_t *outbuffer, int length);
 	virtual void filterBuffer(const double *inbuffer, double *outbuffer, int length);
 	virtual void filterBuffer(const float  *inbuffer, float  *outbuffer, int length);
 

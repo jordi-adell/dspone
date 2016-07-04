@@ -90,6 +90,16 @@ void FFTWeightingFilter::filterBuffer(const int16_t *inbuffer, int16_t *outbuffe
   wipp::copyBuffer(out64buffer, outbuffer, length);
 }
 
+void FFTWeightingFilter::filterBuffer(const uint16_t *inbuffer, uint16_t *outbuffer, int length)
+{
+  BaseType in64buffer[_length];
+  BaseType out64buffer[_length];
+
+  wipp::copyBuffer(inbuffer, in64buffer, length);
+  filterBufferCore(in64buffer, out64buffer, length);
+  wipp::copyBuffer(out64buffer, outbuffer, length);
+}
+
 inline void FFTWeightingFilter::filterBufferCore(const BaseType *inbuffer, BaseType *outbuffer, int length) const
 {
   if (length != _length)
