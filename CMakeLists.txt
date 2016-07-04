@@ -82,8 +82,7 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/rt/ShortTimeFourierSubBand.cpp
   src/${PROJECT_NAME}/rt/ShortTimeFourierSubBandImpl.cpp
   src/${PROJECT_NAME}/rt/DummyShortTimeFourier.cpp
-  src/${PROJECT_NAME}/rt/SignalProcessor.cpp
-)
+ )
 
 set_target_properties(dspone
 PROPERTIES
