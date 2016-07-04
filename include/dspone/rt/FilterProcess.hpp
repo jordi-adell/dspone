@@ -22,8 +22,8 @@
 #ifndef __FILTER_PROCESS_H_
 #define __FILTER_PROCESS_H_
 
+#include <dspone/rt/SignalProcessor.h>
 #include <dspone/filter/Filter.h>
-#include <dspone/rt/ProcessDispatcher.h>
 #include <dspone/DspException.h>
 #if BOOST_FOUND
 #include <boost/type_traits.hpp>
@@ -43,7 +43,7 @@ typedef std::unique_ptr<Filter> FilterPtr;
        * I the case a specific frame length is used, getBufferSize
        * will return the length of the frame or -1 if it does not care.
        */
-class FilterProcess : public ProcessDispatcher<FilterProcess>
+class FilterProcess : SignalProcessor
 {
 
     public:
@@ -110,18 +110,24 @@ class FilterProcess : public ProcessDispatcher<FilterProcess>
 	 */
 	void constructFilters(int order);
 
-
-
-	template <typename SampleType>
-	int process(const std::vector<SampleType *> &signal,
+	virtual int process(const std::vector<double*> &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<SampleType *> &output,
+		    const std::vector<double*> &output,
 		    unsigned int outbuffersize);
 
-	template <typename SampleType>
-	int process(const std::vector<boost::shared_array<SampleType> > &signal,
+	virtual int process(const std::vector<float*> &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<boost::shared_array<SampleType> > &output,
+		    const std::vector<float*> &output,
+		    unsigned int outbuffersize);
+
+	virtual int process(const std::vector<int16_t*> &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<int16_t*> &output,
+		    unsigned int outbuffersize);
+
+	virtual int process(const std::vector<uint16_t*> &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<uint16_t*> &output,
 		    unsigned int outbuffersize);
 
 	virtual int getLatency() const;
@@ -135,6 +141,18 @@ class FilterProcess : public ProcessDispatcher<FilterProcess>
 	int _nchannels;
 	std::vector<FilterPtr> _filters;
 
+
+	template <typename SampleType>
+	int process_core(const std::vector<SampleType *> &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<SampleType *> &output,
+		    unsigned int outbuffersize);
+
+	template <typename SampleType>
+	int process_core(const std::vector<boost::shared_array<SampleType> > &signal,
+		    unsigned int inbuffersize,
+		    const std::vector<boost::shared_array<SampleType> > &output,
+		    unsigned int outbuffersize);
 };
 
 
@@ -162,11 +180,14 @@ template <class F > void  FilterProcess::constructFilters(int order)
     }
 }
 
+
+
+
 template <typename SampleType>
-int FilterProcess::process(const std::vector<boost::shared_array<SampleType> > &signal,
-			   unsigned int inbuffersize,
-			   const std::vector<boost::shared_array<SampleType> > &output,
-			   unsigned int outbuffersize)
+int FilterProcess::process_core(const std::vector<boost::shared_array<SampleType> > &signal,
+				unsigned int inbuffersize,
+				const std::vector<boost::shared_array<SampleType> > &output,
+				unsigned int outbuffersize)
 {
     if (inbuffersize != outbuffersize)
     {
@@ -184,10 +205,10 @@ int FilterProcess::process(const std::vector<boost::shared_array<SampleType> > &
 }
 
 template <typename SampleType>
-int FilterProcess::process(const std::vector<SampleType*> &signal,
-			   unsigned int inbuffersize,
-			   const std::vector<SampleType*> &output,
-			   unsigned int outbuffersize)
+int FilterProcess::process_core(const std::vector<SampleType*> &signal,
+				unsigned int inbuffersize,
+				const std::vector<SampleType*> &output,
+				unsigned int outbuffersize)
 {
     if (inbuffersize != outbuffersize)
     {
