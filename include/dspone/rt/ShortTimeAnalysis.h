@@ -23,6 +23,7 @@
 #ifndef __SHORT_TIME_ANALYSIS_H_
 #define __SHORT_TIME_ANALYSIS_H_
 
+#include <dspone/rt/SignalAnalyser.h>
 #include <dspone/rt/ShortTimeProcess.h>
 
 namespace dsp
@@ -35,25 +36,32 @@ class ShortTimeAnalysisImpl;
 	 * This class has to be used when only analysis is needed.
 	 * If you use this class, the reconstruction of the signal is not done.
 	 */
-class ShortTimeAnalysis : public ShortTimeProcess
+class ShortTimeAnalysis : public SignalAnalyser, ShortTimeProcess
 {
     public:
 	ShortTimeAnalysis(int windowSize , int analysisLength = 0, int nchannels = 1);
 	virtual ~ShortTimeAnalysis();
 
-	int process(const std::vector<double *> &signal, unsigned int buffersize);
+	virtual int process(const std::vector<double *> &signal, unsigned int buffersize);
 	int process(const std::vector<std::shared_ptr<double> > &signal, unsigned int buffersize);
 
-	int process(const std::vector<float*> &signal, unsigned int buffersize);
+	virtual int process(const std::vector<float*> &signal, unsigned int buffersize);
 	int process(const std::vector<std::shared_ptr<float> > &signal, unsigned int buffersize);
 
-	int process(const std::vector<int16_t*> &signal, unsigned int buffersize);
+	virtual int process(const std::vector<int16_t*> &signal, unsigned int buffersize);
 	int process(const std::vector<std::shared_ptr<int16_t> > &signal, unsigned int buffersize);
+
+	virtual int process(const std::vector<uint16_t*> &signal, unsigned int buffersize);
+	int process(const std::vector<std::shared_ptr<uint16_t> > &signal, unsigned int buffersize);
 
     private:
 	virtual void frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel);
 	std::unique_ptr<ShortTimeAnalysisImpl> _impl;
 
+	virtual int getLatency() const;
+	virtual int getMaxLatency() const;
+	virtual int getBufferSize() const;
+	virtual int getNumberOfChannels() const;
 };
 
 

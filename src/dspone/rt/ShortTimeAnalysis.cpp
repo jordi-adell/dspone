@@ -8,7 +8,7 @@ namespace dsp
 {
 
 ShortTimeAnalysis::ShortTimeAnalysis(int windowSize, int analysisLength, int nchannels) :
-    ShortTimeProcess(windowSize, analysisLength, nchannels, ANALYSIS)
+  ShortTimeProcess(windowSize, analysisLength, nchannels, ANALYSIS)
 {
   _impl.reset(new ShortTimeAnalysisImpl(this, windowSize, analysisLength, nchannels));
 }
@@ -68,5 +68,32 @@ int ShortTimeAnalysis::process(const std::vector<std::shared_ptr<int16_t> > &sig
 {
   _impl->process(signal, buffersize);
 }
+
+int ShortTimeAnalysis::process(const std::vector<std::shared_ptr<uint16_t> > &signal, unsigned int buffersize)
+{
+  _impl->process(signal, buffersize);
+}
+
+
+int ShortTimeAnalysis::getLatency() const
+{
+  _impl->getLatency();
+}
+
+int ShortTimeAnalysis::getMaxLatency() const
+{
+  _impl->getMaxLatency();
+}
+
+int ShortTimeAnalysis::getBufferSize() const
+{
+  _impl->getFrameSize();
+}
+
+int ShortTimeAnalysis::getNumberOfChannels() const
+{
+  _impl->getNumberOfChannels();
+}
+
 
 }
