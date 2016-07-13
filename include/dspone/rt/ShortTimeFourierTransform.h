@@ -86,13 +86,9 @@ class STFT : public ShortTimeProcess
 	   * a compact form it needs to more values.
 	   */
 	virtual int getAnalysisLength() const;
-
+	int getFFTOrder() const;
+	int getOneSidedFFTLength() const;
 };
 
-
-
-
 }
-
-
 #endif // __STFT_H_

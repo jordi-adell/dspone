@@ -85,5 +85,13 @@ int STFTImpl::getNumChannels() const
   return _fft.size();
 }
 
+int STFTImpl::getOneSidedFFTLength() const
+{
+  if (!_fft.empty())
+    return _fft.at(0).getOneSidedFFTLength();
+  else
+    return 0;
+}
+
 }
 

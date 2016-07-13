@@ -84,6 +84,7 @@ class STFTImpl
 	int getAnalysisLength() const;
 	int getOrder() const;
 	int getNumChannels() const;
+	int getOneSidedFFTLength() const;
 };
 
 

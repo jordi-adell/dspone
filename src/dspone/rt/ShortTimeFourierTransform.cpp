@@ -57,7 +57,18 @@ void STFT::frameSynthesis(double *outFrame, double *analysis, int frameLength, i
 
 int STFT::getAnalysisLength() const
 {
-  _impl->getAnalysisLength();
+  return  _impl->getAnalysisLength();
+}
+
+int STFT::getFFTOrder() const
+{
+  return _impl->getOrder();
+}
+
+
+int STFT::getOneSidedFFTLength() const
+{
+  return _impl->getOneSidedFFTLength();
 }
 
 }
