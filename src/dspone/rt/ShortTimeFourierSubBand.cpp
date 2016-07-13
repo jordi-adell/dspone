@@ -24,6 +24,26 @@
 
 namespace dsp {
 
+SubBandSTFTAnalysis::SubBandSTFTAnalysis(int nbins, int sampleRate,
+			 int order, int channels, float minFreq, float maxFreq, SubBandSTFT::FilterBankType type) :
+  STFTAnalysis(channels, order)
+{
+  _impl.reset(new SubBandSTFTImpl(this, nbins, sampleRate, order, channels, minFreq, maxFreq, type));
+}
+
+SubBandSTFTAnalysis::~SubBandSTFTAnalysis()
+{
+  _impl.reset();
+}
+
+void SubBandSTFTAnalysis::processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+					 std::vector<double *> &dataChannels, int dataLength)
+{
+  _impl->processParametrisation(analysisFrames, analysisLength, dataChannels, dataLength);
+}
+
+
+
 
 SubBandSTFT::SubBandSTFT(int nbins, int sampleRate,
 			 int order, int channels, float minFreq, float maxFreq, FilterBankType type) :

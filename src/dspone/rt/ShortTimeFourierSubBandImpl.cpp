@@ -44,8 +44,32 @@ SubBandSTFTImpl::SubBandSTFTImpl(
     _nchannels(channels),
     _order(order),
     _analysisLength(STFTImpl::getFFTLength(_order)),
-    _owner(owner)
+    _owner(owner),
+    _owner_a(nullptr)
 {
+  init(type, minFreq, maxFreq, sampleRate);
+}
+
+SubBandSTFTImpl::SubBandSTFTImpl(
+    SubBandSTFTAnalysis *owner,
+    int nbins, int sampleRate, int order, int channels,
+    float minFreq, float maxFreq, FilterBankType type
+    ) :
+    _numberOfBins(nbins),
+    _sampleRate(sampleRate),
+    _nchannels(channels),
+    _order(order),
+    _analysisLength(STFTImpl::getFFTLength(_order)),
+    _owner(nullptr),
+    _owner_a(owner)
+{
+  init(type, minFreq, maxFreq, sampleRate);
+}
+
+
+void SubBandSTFTImpl::init(FilterBankType type, float minFreq, float maxFreq, float sampleRate)
+{
+
   _coeficientsLength = _numberOfBins * _analysisLength/2;
 
   switch(type)
@@ -103,6 +127,19 @@ SubBandSTFTImpl::~SubBandSTFTImpl()
 void SubBandSTFTImpl::processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
 					     std::vector<double *> &dataChannels, int dataLength)
 {
+  if (_owner)
+  {
+    processParametrisation_core(analysisFrames, analysisLength, dataChannels, dataLength);
+  }
+  else if (_owner_a)
+  {
+    processParametrisation_core_a(analysisFrames, analysisLength, dataChannels, dataLength);
+  }
+}
+
+void SubBandSTFTImpl::processParametrisation_core(std::vector<double *> &analysisFrames, int analysisLength,
+					     std::vector<double *> &dataChannels, int dataLength)
+{
   _owner->processSetup(analysisFrames, analysisLength, dataChannels, dataLength);
   for (int bin = 0; bin < _numberOfBins; ++bin) // Residual should not be processed (i<_nBins) instead of (i<=_nBins)
   {
@@ -118,6 +155,29 @@ void SubBandSTFTImpl::processParametrisation(std::vector<double *> &analysisFram
 
   _owner->processSumamry(analysisFrames, analysisLength, dataChannels, dataLength);
 }
+
+void SubBandSTFTImpl::processParametrisation_core_a(std::vector<double *> &analysisFrames, int analysisLength,
+					     std::vector<double *> &dataChannels, int dataLength)
+{
+  _owner_a->processSetup(analysisFrames, analysisLength, dataChannels, dataLength);
+  for (int bin = 0; bin < _numberOfBins; ++bin) // Residual should not be processed (i<_nBins) instead of (i<=_nBins)
+  {
+    for (unsigned int c = 0; c < _nchannels; ++c)
+    {
+      wipp::mult(reinterpret_cast<wipp::wipp_complex_t*>(analysisFrames[c]),
+		 reinterpret_cast<wipp::wipp_complex_t*>(&(_filterCoeficients.get()[bin*analysisLength/2])),
+	  reinterpret_cast<wipp::wipp_complex_t*>(_subbandAnalysisFrames[c].get()),
+	  analysisLength/2);
+    }
+    _owner_a->processOneSubband(_subbandAnalysisFramesPtr, _analysisLength, bin);
+  }
+
+  _owner_a->processSumamry(analysisFrames, analysisLength, dataChannels, dataLength);
+}
+
+
+
+
 
 
 }

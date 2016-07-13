@@ -24,10 +24,13 @@
 #define __SHORTTIME_FOURIER_SUBBAND_H_
 
 #include <dspone/rt/ShortTimeFourierTransform.h>
+#include <dspone/rt/ShortTimeFourierAnalysis.h>
 
 namespace dsp {
 
 class SubBandSTFTImpl;
+
+
 
 class SubBandSTFT : public STFT
 {
@@ -56,6 +59,34 @@ class SubBandSTFT : public STFT
 				   std::vector<double *> &dataChannels, int dataLength) = 0;
 
 };
+
+
+class SubBandSTFTAnalysis : public STFTAnalysis
+{
+    public:
+	SubBandSTFTAnalysis(int nbins, int sampleRate, int order, int channels,
+		    float minFreq, float maxFreq, SubBandSTFT::FilterBankType type= SubBandSTFT::MEL);
+
+	virtual ~SubBandSTFTAnalysis();
+
+    private:
+       friend class SubBandSTFTImpl;
+       virtual void processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
+					   std::vector<double *> &dataChannels, int dataLength);
+       std::unique_ptr<SubBandSTFTImpl> _impl;
+
+    protected:
+
+       virtual void processSetup(std::vector<double *> &analysisFrames, int analysisLength,
+				 std::vector<double *> &dataChannels, int dataLength) = 0;
+
+       virtual void processOneSubband(std::vector<double*> &analysisFrame, int length, int bin) = 0;
+
+       virtual void processSumamry(std::vector<double *> &analysisFrames, int analysisLength,
+				   std::vector<double *> &dataChannels, int dataLength) = 0;
+
+};
+
 
 }
 

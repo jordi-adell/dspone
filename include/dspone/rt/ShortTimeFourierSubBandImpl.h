@@ -45,6 +45,12 @@ class SubBandSTFTImpl
 		int channels, float minFreq, float maxFreq,
 		FilterBankType type=SubBandSTFT::MEL);
 
+	SubBandSTFTImpl(SubBandSTFTAnalysis *owner,
+		int nbins, int sampleRate, int order,
+		int channels, float minFreq, float maxFreq,
+		FilterBankType type=SubBandSTFT::MEL);
+
+
 	~SubBandSTFTImpl();
 
 	virtual void processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
@@ -65,6 +71,14 @@ class SubBandSTFTImpl
        std::vector<BaseType*> _subbandAnalysisFramesPtr;
 
        SubBandSTFT *_owner;
+       SubBandSTFTAnalysis *_owner_a;
+       void init(FilterBankType type, float minFreq, float maxFreq, float sampleRate);
+
+       void processParametrisation_core(std::vector<double *> &analysisFrames, int analysisLength,
+					std::vector<double *> &dataChannels, int dataLength);
+
+       void processParametrisation_core_a(std::vector<double *> &analysisFrames, int analysisLength,
+					  std::vector<double *> &dataChannels, int dataLength);
 
 
 };
