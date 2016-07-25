@@ -30,6 +30,11 @@ GeneralisedCrossCorrelation::GeneralisedCrossCorrelation(int length, FFTtype use
   _impl.reset(new GeneralisedCrossCorrelationImpl(length, usedFFTtype));
 }
 
+GeneralisedCrossCorrelation::~GeneralisedCrossCorrelation()
+{
+  _impl.reset();
+}
+
 
 BaseTypeC GeneralisedCrossCorrelation::calculateCorrelation(const  BaseTypeC *x, const  BaseTypeC *y,
 							    int length, BaseType tau, FFTtype usedFFTtype)

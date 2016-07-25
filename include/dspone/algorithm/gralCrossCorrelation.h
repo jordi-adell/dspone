@@ -54,6 +54,7 @@ class GeneralisedCrossCorrelation
 	   * @param FFTtype  selects the format of the FFT from {ONESIDEDFFT, TWOSIDEDFFT}
 	   */
 	GeneralisedCrossCorrelation(int length, FFTtype usedFFTtype);
+	virtual ~GeneralisedCrossCorrelation();
 
 	/**
 	   * @brief calculateCorrelation  Calculates the GCC of a stereo signal for a given delay "tau"
