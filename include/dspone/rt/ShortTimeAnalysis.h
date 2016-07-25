@@ -36,7 +36,7 @@ class ShortTimeAnalysisImpl;
 	 * This class has to be used when only analysis is needed.
 	 * If you use this class, the reconstruction of the signal is not done.
 	 */
-class ShortTimeAnalysis : public SignalAnalyser, ShortTimeProcess
+class ShortTimeAnalysis : public SignalAnalyser, public ShortTimeProcess
 {
     public:
 	ShortTimeAnalysis(int windowSize , int analysisLength = 0, int nchannels = 1);
@@ -54,14 +54,18 @@ class ShortTimeAnalysis : public SignalAnalyser, ShortTimeProcess
 	virtual int process(const std::vector<uint16_t*> &signal, unsigned int buffersize);
 	int process(const std::vector<std::shared_ptr<uint16_t> > &signal, unsigned int buffersize);
 
-    private:
-	virtual void frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel);
-	std::unique_ptr<ShortTimeAnalysisImpl> _impl;
+    protected:
 
 	virtual int getLatency() const;
 	virtual int getMaxLatency() const;
 	virtual int getBufferSize() const;
 	virtual int getNumberOfChannels() const;
+
+
+    private:
+	virtual void frameSynthesis(double *outFrame, double *analysis, int frameLength, int analysisLength, int channel);
+	std::unique_ptr<ShortTimeAnalysisImpl> _impl;
+
 };
 
 
