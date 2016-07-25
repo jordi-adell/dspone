@@ -58,6 +58,8 @@ class SubBandSTFT : public STFT
        virtual void processSumamry(std::vector<double *> &analysisFrames, int analysisLength,
 				   std::vector<double *> &dataChannels, int dataLength) = 0;
 
+       int getNumberOfBins() const;
+
 };
 
 
@@ -85,6 +87,7 @@ class SubBandSTFTAnalysis : public STFTAnalysis
        virtual void processSumamry(std::vector<double *> &analysisFrames, int analysisLength,
 				   std::vector<double *> &dataChannels, int dataLength) = 0;
 
+       int getNumberOfBins() const;
 };
 
 

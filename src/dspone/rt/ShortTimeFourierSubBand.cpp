@@ -43,6 +43,10 @@ void SubBandSTFTAnalysis::processParametrisation(std::vector<double *> &analysis
 }
 
 
+int SubBandSTFTAnalysis::getNumberOfBins() const
+{
+  return _impl->getNumberOfBins();
+}
 
 
 SubBandSTFT::SubBandSTFT(int nbins, int sampleRate,
@@ -64,6 +68,10 @@ void SubBandSTFT::processParametrisation(std::vector<double *> &analysisFrames, 
 }
 
 
+int SubBandSTFT::getNumberOfBins() const
+{
+  return _impl->getNumberOfBins();
+}
 
 }
 

@@ -56,6 +56,8 @@ class SubBandSTFTImpl
 	virtual void processParametrisation(std::vector<double *> &analysisFrames, int analysisLength,
 					    std::vector<double *> &dataChannels, int dataLength);
 
+	int getNumberOfBins() const;
+
     private:
        const int _numberOfBins;
        const int _sampleRate;

@@ -177,7 +177,10 @@ void SubBandSTFTImpl::processParametrisation_core_a(std::vector<double *> &analy
 
 
 
-
+int SubBandSTFTImpl::getNumberOfBins() const
+{
+  return _numberOfBins;
+}
 
 
 }
