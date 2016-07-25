@@ -19,16 +19,22 @@
 * You should have received a copy of the GNU General Public License
 * alogn with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include <dspone/dspHelpers.h>
 #include <wipp/wipputils.h>
 #include <wipp/wippstats.h>
 #include <wipp/wippsignal.h>
 #include <wipp/wippdefs.h>
 
-
 namespace dsp {
 
-BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
+
+
+
+
+
+template <class T, typename U>
+U calculateLinearPowerTemporal_core(const std::vector<T*> &analysisFrames, int analysisLength, unsigned int nchannels)
 {
   double meanPower = 0;
 
@@ -49,6 +55,17 @@ BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int an
 
   wipp::mean(channelPower.get(), nchannels, &meanPower);
   return meanPower;
+}
+
+
+BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
+{
+  return calculateLinearPowerTemporal(analysisFrames, analysisLength, nchannels);
+}
+
+BaseType calculateLinearPowerTemporal(const std::vector<BaseType*> &analysisFrames, int analysisLength, unsigned int nchannels)
+{
+  return calculateLinearPowerTemporal(analysisFrames, analysisLength, nchannels);
 }
 
 BaseType calculateLogPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
