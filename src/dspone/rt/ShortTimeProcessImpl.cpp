@@ -223,6 +223,21 @@ int ShortTimeProcessImpl::calculateOrderFromSampleRate(int sampleRate, double fr
   return order;
 }
 
+
+void ShortTimeProcessImpl::unwindowFrame(double *frame, size_t length) const
+{
+  wipp::mult(_iwindow.get(), frame, ((length < _windowSize) ? length : _windowSize));
+}
+
+void ShortTimeProcessImpl::unwindowFrame(double *frame, double *unwindowed, size_t length) const
+{
+  wipp::setZeros(unwindowed, length);
+  wipp::copyBuffer(frame, unwindowed, length);
+  wipp::mult(_iwindow.get(), frame, ((length < _windowSize) ? length : _windowSize));
+}
+
+
+
 int ShortTimeProcessImpl::getLatency() const
 {
   size_t occupancy;

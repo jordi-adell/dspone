@@ -130,6 +130,9 @@ class ShortTimeProcess : public SignalProcessor
 	    return (1 << calculateOrderFromSampleRate(samplerate, frameRate));
 	}
 
+	void unwindowFrame(double *frame, size_t length) const;
+	void unwindowFrame(double *frame, double *unwindowed, size_t length) const;
+
 	/** Process a full buffer, keeps the last _windowShift samples from the buffer provided in the first call
 	    to be used in the following computation. If is the last call, and no more samples have to be processed. Then
 	    you need to call the getRamainingSpeech function

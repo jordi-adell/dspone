@@ -153,6 +153,7 @@ class ShortTimeProcessImpl
 	    return (1 << calculateOrderFromSampleRate(samplerate, frameRate));
 	}
 
+
     public:
 	ShortTimeProcessImpl(ShortTimeProcess *frameProcessor,
 		int windowSize,
@@ -249,6 +250,8 @@ class ShortTimeProcessImpl
 	template <typename sampleType>
 	int getRemainingSpeech(const std::vector<boost::shared_array<sampleType> > &buffer, unsigned int buffersize);
 
+	void unwindowFrame(double *frame, size_t length) const;
+	void unwindowFrame(double *frame, double *unwindow, size_t length) const;
 
 
 };

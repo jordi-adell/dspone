@@ -89,6 +89,17 @@ int ShortTimeProcess::calculateOrderFromSampleRate(int sampleRate, double frameR
   return order;
 }
 
+
+void ShortTimeProcess::unwindowFrame(double *frame, double *unwindowed, size_t length) const
+{
+  _impl->unwindowFrame(frame, unwindowed, length);
+}
+
+void ShortTimeProcess::unwindowFrame(double *frame, size_t length) const
+{
+  _impl->unwindowFrame(frame, length);
+}
+
 int ShortTimeProcess::getLatency() const
 {
   return _impl->getLatency();
