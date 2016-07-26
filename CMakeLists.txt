@@ -50,6 +50,7 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/algorithm/fftImpl.cpp
   src/${PROJECT_NAME}/algorithm/gralCrossCorrelation.cpp
   src/${PROJECT_NAME}/algorithm/gralCrossCorrelationImpl.cpp
+  src/${PROJECT_NAME}/algorithm/signalPower.cpp
   src/${PROJECT_NAME}/filter/BandPassFFTWFilter.cpp
   src/${PROJECT_NAME}/filter/BandPassFFTWFilterImpl.cpp
   src/${PROJECT_NAME}/filter/BandPassFilter.cpp
@@ -126,6 +127,7 @@ install(FILES
 install(FILES
   include/${PROJECT_NAME}/algorithm/fft.h
   include/${PROJECT_NAME}/algorithm/gralCrossCorrelation.h
+  include/${PROJECT_NAME}/algorithm/signalPower.h
   DESTINATION ${INCLUDE_DESTINATION}/algorithm
   COMPONENT dev
   )
