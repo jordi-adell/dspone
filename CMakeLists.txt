@@ -60,6 +60,8 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/filter/FilterBankFFTW.cpp
   src/${PROJECT_NAME}/filter/FilterBankFIR.cpp
   src/${PROJECT_NAME}/filter/FilterBankMelScale.cpp
+  src/${PROJECT_NAME}/filter/MedianFilterImpl.cpp
+  src/${PROJECT_NAME}/filter/MedianFilter.cpp
   src/${PROJECT_NAME}/filter/Filter.cpp
   src/${PROJECT_NAME}/filter/FIRFilter.cpp
   src/${PROJECT_NAME}/filter/IIRFilter.cpp
@@ -160,6 +162,7 @@ install(FILES
   include/${PROJECT_NAME}/filter/FilterBankFIR.h
   include/${PROJECT_NAME}/filter/FilterBankMelScale.h
   include/${PROJECT_NAME}/filter/PreEmphasisFilter.h
+  include/${PROJECT_NAME}/filter/MedianFilter.h
   DESTINATION ${INCLUDE_DESTINATION}/filter
   COMPONENT dev
 )

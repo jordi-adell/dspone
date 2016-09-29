@@ -17,6 +17,7 @@
 #include <dspone/filter/FilterBankFFTW.h>
 #include <dspone/filter/FilterBankMelScale.h>
 #include <dspone/filter/PreEmphasisFilter.h>
+#include <dspone/filter/MedianFilter.h>
 
 #include <dspone/pf/ParticleFilter.hpp>
 #include <dspone/pf/PredictionModel.hpp>
@@ -284,6 +285,30 @@ TEST(DigitalSignalProcessingTest, interactiveIIRShape)
     std::cin >> file;
 
 }
+
+
+
+TEST(DigitalSignalProcessingTest, testMedianFilter)
+{
+  int length = 20;
+  int buffer[] =    {1, 2, 3, 20, 5, 6, -60, 8, 9, 10, 12, 9, 8, 7, 2, 5, 4, 3,-30, 1};
+  int reference[] = {1, 2, 3,  5, 5, 6,   6, 8, 9,  9,  9, 9, 8, 7, 5, 4, 3, 3,  3, 1};
+  int obuffer[length];
+  dsp::MedianFilter filter(5);
+
+  filter.filterBuffer(buffer, obuffer, length);
+
+#ifdef _LOGGER
+  std::cout << "LOGGER" << std::endl;
+#endif
+
+  for (size_t i = 0; i < length; ++i)
+  {
+    EXPECT_EQ(reference[i], obuffer[i]);
+    ERROR_STREAM("REF: " << reference[i] << "\t VAL: " << obuffer[i]);
+  }
+}
+
 
 TEST(DigitalSignalProcessingTest, testFIRFilerInteractiveCommandLine)
 {
