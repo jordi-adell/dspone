@@ -60,6 +60,11 @@ void PreEmphasisFilter::filterBuffer(const int16_t *insignal, int16_t *outsignal
   _filterImpl->filterBuffer(insignal, outsignal, length);
 }
 
+void PreEmphasisFilter::filterBuffer(const int32_t *insignal, int32_t *outsignal, int length)
+{
+  _filterImpl->filterBuffer(insignal, outsignal, length);
+}
+
 void PreEmphasisFilter::filterBuffer(const uint16_t *insignal, uint16_t *outsignal, int length)
 {
   _filterImpl->filterBuffer(insignal, outsignal, length);

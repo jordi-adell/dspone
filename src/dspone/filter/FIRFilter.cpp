@@ -54,6 +54,7 @@ class FIRFilterImpl
 	  @param outBuffer place to store the desired signal, must be already allocated and of size length
 	  **/
     void filter(const int16_t *inBuffer, int16_t *outBuffer, int length);
+    void filter(const int32_t *inBuffer, int32_t *outBuffer, int length);
     void filter(const uint16_t *inBuffer, uint16_t *outBuffer, int length);
     void filter(const float  *inBuffer, float  *outBuffer, int length);
     void filter(const double *inBuffer, double *outBuffer, int length);
@@ -188,6 +189,15 @@ void FIRFilterImpl::filter(const int16_t *inBuffer, int16_t *outBuffer, int leng
   wipp::copyBuffer(dest, outBuffer, length);
 }
 
+void FIRFilterImpl::filter(const int32_t *inBuffer, int32_t *outBuffer, int length)
+{
+  BaseType source[length];
+  BaseType dest[length];
+
+  wipp::copyBuffer(inBuffer, source, length);
+  filterCore(source, dest, length);
+  wipp::copyBuffer(dest, outBuffer, length);
+}
 
 void FIRFilterImpl::filter(const float *inBuffer, float *outBuffer, int length)
 {
@@ -249,6 +259,11 @@ void FIRFilter::filterBuffer(const float *inBuffer, float *outBuffer, int length
 }
 
 void FIRFilter::filterBuffer(const int16_t *inBuffer, int16_t *outBuffer, int length)
+{
+  _impl->filter(inBuffer, outBuffer, length);
+}
+
+void FIRFilter::filterBuffer(const int32_t *inBuffer, int32_t *outBuffer, int length)
 {
   _impl->filter(inBuffer, outBuffer, length);
 }

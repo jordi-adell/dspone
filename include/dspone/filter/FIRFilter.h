@@ -51,6 +51,7 @@ class FIRFilter : public Filter
 	  @param outBuffer place to store the desired signal, must be already allocated and of size length
 	  **/
 	virtual void filterBuffer(const int16_t *inBuffer, int16_t *outBuffer, int length);
+	virtual void filterBuffer(const int32_t *inBuffer, int32_t *outBuffer, int length);
 	virtual void filterBuffer(const uint16_t *inBuffer, uint16_t *outBuffer, int length);
 	virtual void filterBuffer(const float  *inBuffer, float  *outBuffer, int length);
 	virtual void filterBuffer(const double *inBuffer, double *outBuffer, int length);

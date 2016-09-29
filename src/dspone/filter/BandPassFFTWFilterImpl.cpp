@@ -170,6 +170,11 @@ namespace dsp {
     filterBufferCore(inbuffer, outbuffer, length);
   }
 
+  void BandPassFFTWFilterImpl::filterBuffer(const int32_t *inbuffer, int32_t *outbuffer, int length)
+  {
+    filterBufferCore(inbuffer, outbuffer, length);
+  }
+
   void BandPassFFTWFilterImpl::filterBuffer(const uint16_t *inbuffer, uint16_t *outbuffer, int length)
   {
     filterBufferCore(inbuffer, outbuffer, length);

@@ -63,6 +63,7 @@ class PreEmphasisFilter : public Filter
 	 * @param length  length of both buffers.
 	 */
 	virtual void filterBuffer(const int16_t *insignal, int16_t *outsignal, int length);
+	virtual void filterBuffer(const int32_t *insignal, int32_t *outsignal, int length);
 	virtual void filterBuffer(const uint16_t *insignal, uint16_t *outsignal, int length);
 	virtual void filterBuffer(const double *inbuffer, double *outbuffer, int length);
 	virtual void filterBuffer(const float *inbuffer, float *outbuffer, int length);

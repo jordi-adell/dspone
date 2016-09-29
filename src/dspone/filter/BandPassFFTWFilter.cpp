@@ -53,6 +53,11 @@ void BandPassFFTWFilter::filterBuffer(const int16_t *inbuffer, int16_t *outbuffe
   _impl->filterBuffer(inbuffer, outbuffer, length);
 }
 
+void BandPassFFTWFilter::filterBuffer(const int32_t *inbuffer, int32_t *outbuffer, int length)
+{
+  _impl->filterBuffer(inbuffer, outbuffer, length);
+}
+
 void BandPassFFTWFilter::filterBuffer(const uint16_t *inbuffer, uint16_t *outbuffer, int length)
 {
   _impl->filterBuffer(inbuffer, outbuffer, length);

@@ -59,6 +59,7 @@ class BandPassFIRFilter : public BandPassFilter
 	   * @param length  number of samples in the input (and output) filter
 	   */
 	virtual void filterBuffer(const int16_t *inbuffer, int16_t *outbuffer, int length);
+	virtual void filterBuffer(const int32_t *inbuffer, int32_t *outbuffer, int length);
 	virtual void filterBuffer(const uint16_t *inbuffer, uint16_t *outbuffer, int length);
 	virtual void filterBuffer(const float  *inbuffer, float  *outbuffer, int length);
 	virtual void filterBuffer(const double *inbuffer, double *outbuffer, int length);

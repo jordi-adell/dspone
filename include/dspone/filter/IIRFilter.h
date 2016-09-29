@@ -70,6 +70,7 @@ class IIRFilter : public Filter
 	   * @param length  length of the input array
 	   */
 	void filter(int16_t *signal, int length);
+	void filter(int32_t *signal, int length);
 	void filter(float *signal, int length);
 	void filter(double *signal, int length);
 
@@ -80,6 +81,7 @@ class IIRFilter : public Filter
 	   * @param length     number of values in input signal and output signal.
 	   */
 	virtual void filterBuffer(const int16_t *insignal, int16_t *outsignal, int length);
+	virtual void filterBuffer(const int32_t *insignal, int32_t *outsignal, int length);
 	virtual void filterBuffer(const uint16_t *insignal, uint16_t *outsignal, int length);
 	virtual void filterBuffer(const double *insignal, double *outsignal, int length);
 	virtual void filterBuffer(const float *insignal, float *outsignal, int length);
