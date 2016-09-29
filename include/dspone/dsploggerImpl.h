@@ -25,6 +25,9 @@
 #include <iostream>
 #include <vector>
 
+#ifdef DEBUG
+#undef DEBUG
+#endif
 
 namespace dsp
 {
@@ -33,6 +36,7 @@ class Logger
 {
     public:
 	typedef enum{FATAL  = 0, ERROR = 1, WARNING = 2, INFO = 3, DEBUG = 4, TRACE = 5} LogLevel;
+
 	Logger(LogLevel level = FATAL, bool enable = true, std::ostream &os = std::cout);
 
 	std::ostream &log(LogLevel level, const char *file, int line);
