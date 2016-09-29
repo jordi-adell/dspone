@@ -111,7 +111,7 @@ namespace dsp {
 	if (triangleLength == 0)
 	  WARN_STREAM("Band-pass filter with a band bas of " << triangleLength << " samples in the FFT. In fact, is a nothing-pass filter." <<
 			  "This is normal if this filter is part of a mel-scale filter bank, otherwise may indicate serious problems.");
-	triangleFreq = 0.499999;
+	triangleLength = 2;
       }
 
     if (triangleAsym <= -M_PI)
@@ -123,7 +123,7 @@ namespace dsp {
       trianglePhase = 0;
 
     wipp::set(0, coefs, length);
-    wipp::triangle(&coefs[startId], triangleLength, triangleLength, 0, triangleAsym, 0);
+    wipp::triangle(&coefs[startId], triangleLength, triangleLength, trianglePhase, triangleAsym, 0);
 
     // We adjust the maximum,
     // to minimise the problems of overlaping triangles not summing 1
