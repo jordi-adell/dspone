@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 if(DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
-    add_definitions("-DWIPP_DEBUG")
+    add_definitions("-DDEBUG")
     message(STATUS "DEBUG mode")
 else(DEBUG)
   set(OPT_FLAGS, "-O3 -msse4")

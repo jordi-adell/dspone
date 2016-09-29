@@ -1,6 +1,11 @@
+#ifdef DEBUG
+#define _LOGGER
+#endif
+
 #include <dspone/dsp.h>
 #include <dspone/dspHelpers.h>
 #include <dspone/DspException.h>
+#include <dspone/dsplogger.h>
 
 #include <dspone/algorithm/fft.h>
 
