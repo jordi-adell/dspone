@@ -52,7 +52,7 @@ void FilterBankFFTW::initialiseFilters()
   std::vector<double>::iterator it = _centerFreqs.begin();
   double initialFreq = 0;
   double centerFreq = *it;
-  double endFreq = centerFreq;
+  double endFreq;
 
   for (++it; it != _centerFreqs.end(); ++it)
   {
