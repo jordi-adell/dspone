@@ -1,10 +1,36 @@
-DSPONE project Change Log
+## [0.4.0] - (2016-10-05)
 
-## [Unreleased]
+### New
 
-## [0.2.0] - 2016-06-19 
+- documentation configuration for doxygen
+- MedianFilter
+- filters support for int32_t
+- SignalPower class with several power calculation functions
+- support for SubBandSTFT analysis
 
-### Fixed
+### Fixes
+
+- fixed the call to wipp::triangle
+- shorttimeprocess inheritage made public
+
+## [0.3.0] - (2016-07-04)
+
+### New
+- interface for signal analysis
+- support for processing uint16_t signal buffers
+
+### Changes
+- redefinition of dsp modules by removing the inheritance from ProcessDispatcher
+- removed templates from the public API
+- now shorttime and shorttimeanalysis process inherits from shorttimeprocessor
+- SigalProcessor converter into a higher level interface
+
+### Fixes
+- missing headers for installation
+
+## [0.2.0] - 2016-06-19
+
+### Fixes
 
 - set the correct reference for the preemphasis filter test
 - compilation flags depending on DEBUG property
@@ -15,7 +41,7 @@ DSPONE project Change Log
 - change the order of passing low and high freq to wipp function
 - used sqr functions for power 2
 
-### Added
+### New
 
 - add rectangular filter shape
 - added logger
