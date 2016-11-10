@@ -1,0 +1,4 @@
+<map id="dsp::FilterBankFIR" name="dsp::FilterBankFIR">
+<area shape="rect" id="node3" href="$d1/de7/classdsp_1_1FilterBankFIRMelScale.html" title="{dsp::FilterBankFIRMelScale\n||+ FilterBankFIRMelScale()\l+ FilterBankFIRMelScale()\l}" alt="" coords="5,478,192,570"/>
+<area shape="rect" id="node2" href="$dd/dde/classdsp_1_1FilterBank.html" title="The FilterBank class This class can be used to filter signal by a pool of several filters (a filter b..." alt="" coords="9,5,188,259"/>
+</map>

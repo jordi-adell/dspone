@@ -1,0 +1,4 @@
+<map id="PreEmphasisFilterModule" name="PreEmphasisFilterModule">
+<area shape="rect" id="node2" href="$d2/dda/classdsp_1_1FilterProcess.html" title="The FilterProcess class This class is used to wrap all algorithms for filtering. It is different from..." alt="" coords="13,264,187,547"/>
+<area shape="rect" id="node3" href="$da/db7/classdsp_1_1SignalProcessor.html" title="{dsp::SignalProcessor\n||+ SignalProcessor()\l+ ~SignalProcessor()\l+ process()\l+ process()\l+ process()\l+ process()\l+ getLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getNumberOfChannels()\l}" alt="" coords="13,6,187,215"/>
+</map>

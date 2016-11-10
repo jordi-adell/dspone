@@ -1,0 +1,6 @@
+<map id="dsp::BandPassFilter" name="dsp::BandPassFilter">
+<area shape="rect" id="node3" href="$df/d51/classdsp_1_1BandPassFFTWFilter.html" title="implementation of a band pass filter using the spectrum weighting technique. By default uses a triang..." alt="" coords="5,435,181,688"/>
+<area shape="rect" id="node4" href="$d4/d5f/classdsp_1_1BandPassFFTWFilterImpl.html" title="implementation of a band pass filter using the spectrum weighting technique. By default uses a triang..." alt="" coords="207,449,409,673"/>
+<area shape="rect" id="node5" href="$d3/d7f/classdsp_1_1BandPassFIRFilter.html" title="This class implements a band pass filter using the FIR approach. The design of the filter specificati..." alt="" coords="433,449,596,673"/>
+<area shape="rect" id="node2" href="$d9/d40/classdsp_1_1Filter.html" title="The Filter class This is an interface for a filter, it could be a band pass, low pas, IIR, FIR .... any filter. The specification here is that there is an input buffer the is modified and the result is placed in the output buffer. A filter outputs as many samples as the ones contained in the input buffer. " alt="" coords="240,6,375,186"/>
+</map>

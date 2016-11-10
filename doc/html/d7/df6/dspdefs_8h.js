@@ -1,0 +1,25 @@
+var dspdefs_8h =
+[
+    [ "BaseType", "d7/df6/dspdefs_8h.html#a50315d0212e0993865e978a57935fc5f", null ],
+    [ "BaseType16s", "d7/df6/dspdefs_8h.html#a6db8861e8ff7f6e708e15077076d1655", null ],
+    [ "BaseType32", "d7/df6/dspdefs_8h.html#a96817a74ddfa249613f4cb003a271423", null ],
+    [ "BaseType32C", "d7/df6/dspdefs_8h.html#ada4da682ee2af0b98623e6be69a717dc", null ],
+    [ "BaseType64", "d7/df6/dspdefs_8h.html#a1aa4c6e53fdcdf706488033ee4eb0592", null ],
+    [ "BaseType64C", "d7/df6/dspdefs_8h.html#ac5bf2fd2d14d85a8cd16d7f7325bfd6b", null ],
+    [ "BaseTypeC", "d7/df6/dspdefs_8h.html#a5cdcaf0db4c318525e0de940edc28eb5", null ],
+    [ "BaseTypeCPtr", "d7/df6/dspdefs_8h.html#addd1ce705ad3540dfdb33c364f94508c", null ],
+    [ "BaseTypePtr", "d7/df6/dspdefs_8h.html#aedff1c3de950b9b9adc3f86034e356b2", null ],
+    [ "Ipp16s_", "d7/df6/dspdefs_8h.html#a2b6580134f5ce2491a737f92199c9e1f", null ],
+    [ "SignalCPtr", "d7/df6/dspdefs_8h.html#a1e2b8d7c6f9ba528e621868c94879b57", null ],
+    [ "SignalCPtr32", "d7/df6/dspdefs_8h.html#a815f1f78d6f5059ab513495606b46dfc", null ],
+    [ "SignalCPtr64", "d7/df6/dspdefs_8h.html#a30c5aa36e91c824a61e3890f162b33af", null ],
+    [ "SignalCVector", "d7/df6/dspdefs_8h.html#a948fd93a97ff8a9905a5c6cdc0801dd7", null ],
+    [ "SignalCVector32", "d7/df6/dspdefs_8h.html#aa885919e1c703a512bb2e29b59c85579", null ],
+    [ "SignalCVector64", "d7/df6/dspdefs_8h.html#a0ce402ed1caba42ec4a238d07d9174a2", null ],
+    [ "SignalPtr", "d7/df6/dspdefs_8h.html#a4450fc0fe43acf35b538531907ec0109", null ],
+    [ "SignalPtr32", "d7/df6/dspdefs_8h.html#a011f3fadb094eb640a34302684f32609", null ],
+    [ "SignalPtr64", "d7/df6/dspdefs_8h.html#a686cae73008a81ee3264f7e4502bd24c", null ],
+    [ "SignalVector", "d7/df6/dspdefs_8h.html#ac653fa5a4d6dfe743b4b531ab3475d84", null ],
+    [ "SignalVector32", "d7/df6/dspdefs_8h.html#a913821482704aee66129bc51ffc2d6e6", null ],
+    [ "SignalVector64", "d7/df6/dspdefs_8h.html#abb0dad6b596f03dd83aa7eeabb586ead", null ]
+];

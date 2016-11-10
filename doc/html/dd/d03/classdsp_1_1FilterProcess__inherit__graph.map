@@ -1,0 +1,8 @@
+<map id="dsp::FilterProcess" name="dsp::FilterProcess">
+<area shape="rect" id="node3" href="$de/dfe/classBandPassFFTWFilterModule.html" title="{BandPassFFTWFilterModule\n||+ BandPassFFTWFilterModule()\l}" alt="" coords="5,595,215,672"/>
+<area shape="rect" id="node4" href="$d3/d1c/classBandPassFIRFilterModule.html" title="{BandPassFIRFilterModule\n||+ BandPassFIRFilterModule()\l}" alt="" coords="240,595,435,672"/>
+<area shape="rect" id="node5" href="$d8/d6c/classFIRFilterModule.html" title="{FIRFilterModule\n||+ FIRFilterModule()\l}" alt="" coords="459,595,593,672"/>
+<area shape="rect" id="node6" href="$dc/dac/classIIRFilterModule.html" title="{IIRFilterModule\n||+ IIRFilterModule()\l}" alt="" coords="619,595,748,672"/>
+<area shape="rect" id="node7" href="$d5/dab/classPreEmphasisFilterModule.html" title="{PreEmphasisFilterModule\n||+ PreEmphasisFilterModule()\l}" alt="" coords="774,595,964,672"/>
+<area shape="rect" id="node2" href="$da/db7/classdsp_1_1SignalProcessor.html" title="{dsp::SignalProcessor\n||+ SignalProcessor()\l+ ~SignalProcessor()\l+ process()\l+ process()\l+ process()\l+ process()\l+ getLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getNumberOfChannels()\l}" alt="" coords="439,6,613,215"/>
+</map>

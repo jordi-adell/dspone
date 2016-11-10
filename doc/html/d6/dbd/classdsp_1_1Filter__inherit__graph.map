@@ -1,0 +1,12 @@
+<map id="dsp::Filter" name="dsp::Filter">
+<area shape="rect" id="node2" href="$d1/df3/classdsp_1_1BandPassFilter.html" title="The BandPassFilter class This is an abstract class that sets general specifications for a band&#45;pass f..." alt="" coords="238,279,377,430"/>
+<area shape="rect" id="node6" href="$d5/d87/classdsp_1_1FFTWeightingFilter.html" title="This class filters a signal by calculating the FFT of the buffer, multiplies the spectrum by the vect..." alt="" coords="403,243,565,467"/>
+<area shape="rect" id="node7" href="$d0/d9f/classdsp_1_1FIRFilter.html" title="{dsp::FIRFilter\n||+ FIRFilter()\l+ FIRFilter()\l+ ~FIRFilter()\l+ filterBuffer()\l+ filterBuffer()\l+ filterBuffer()\l+ filterBuffer()\l+ filterBuffer()\l+ getFrameLength()\l+ getOrder()\l}" alt="" coords="589,250,724,459"/>
+<area shape="rect" id="node8" href="$db/d24/classdsp_1_1IIRFilter.html" title="The IIRFilter class. " alt="" coords="749,235,884,474"/>
+<area shape="rect" id="node9" href="$da/d87/classdsp_1_1MedianFilter.html" title="{dsp::MedianFilter\n||+ MedianFilter()\l+ ~MedianFilter()\l+ filterBuffer()\l+ filterBuffer()\l+ filterBuffer()\l+ filterBuffer()\l+ filterBuffer()\l+ getFrameLength()\l}" alt="" coords="909,265,1044,445"/>
+<area shape="rect" id="node10" href="$de/d85/classdsp_1_1NotchFilter.html" title="{dsp::NotchFilter\n||+ NotchFilter()\l+ ~NotchFilter()\l+ filter()\l+ filterBuffer()\l+ filterBuffer()\l+ filterBuffer()\l}" alt="" coords="1069,279,1184,430"/>
+<area shape="rect" id="node11" href="$d1/dbe/classdsp_1_1PreEmphasisFilter.html" title="The PreEmphasisFilter class This can be used as a premphasis filter to pre&#45;process speech samples..." alt="" coords="1209,257,1367,452"/>
+<area shape="rect" id="node3" href="$df/d51/classdsp_1_1BandPassFFTWFilter.html" title="implementation of a band pass filter using the spectrum weighting technique. By default uses a triang..." alt="" coords="5,523,181,776"/>
+<area shape="rect" id="node4" href="$d4/d5f/classdsp_1_1BandPassFFTWFilterImpl.html" title="implementation of a band pass filter using the spectrum weighting technique. By default uses a triang..." alt="" coords="207,537,409,761"/>
+<area shape="rect" id="node5" href="$d3/d7f/classdsp_1_1BandPassFIRFilter.html" title="This class implements a band pass filter using the FIR approach. The design of the filter specificati..." alt="" coords="433,537,596,761"/>
+</map>

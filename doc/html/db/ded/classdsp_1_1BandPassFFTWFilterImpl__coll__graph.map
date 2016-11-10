@@ -1,0 +1,4 @@
+<map id="dsp::BandPassFFTWFilterImpl" name="dsp::BandPassFFTWFilterImpl">
+<area shape="rect" id="node2" href="$d1/df3/classdsp_1_1BandPassFilter.html" title="The BandPassFilter class This is an abstract class that sets general specifications for a band&#45;pass f..." alt="" coords="37,235,176,386"/>
+<area shape="rect" id="node3" href="$d9/d40/classdsp_1_1Filter.html" title="The Filter class This is an interface for a filter, it could be a band pass, low pas, IIR, FIR .... any filter. The specification here is that there is an input buffer the is modified and the result is placed in the output buffer. A filter outputs as many samples as the ones contained in the input buffer. " alt="" coords="39,6,173,186"/>
+</map>

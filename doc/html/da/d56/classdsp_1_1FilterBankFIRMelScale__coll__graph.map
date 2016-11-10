@@ -1,0 +1,6 @@
+<map id="dsp::FilterBankFIRMelScale" name="dsp::FilterBankFIRMelScale">
+<area shape="rect" id="node2" href="$d9/d7d/classdsp_1_1FilterBankFIR.html" title="{dsp::FilterBankFIR\n||+ FilterBankFIR()\l+ FilterBankFIR()\l# FilterBankFIR()\l# initialiseFilters()\l}" alt="" coords="86,705,217,826"/>
+<area shape="rect" id="node3" href="$dd/dde/classdsp_1_1FilterBank.html" title="The FilterBank class This class can be used to filter signal by a pool of several filters (a filter b..." alt="" coords="63,429,241,653"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="121,147,236,224"/>
+<area shape="rect" id="node8" href="$d3/d3f/classdsp_1_1FilterBankMelScale.html" title="This class implements a filter bank using the spectral weighting technique. However, band&#45;pass filters are equally spaced in the mel&#45;scale. So, in the linear scale filters are close to ecah other for low frequencies and more separated for high frequencies. " alt="" coords="242,719,405,811"/>
+</map>

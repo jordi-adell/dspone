@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['bandpassfftwfilter',['BandPassFFTWFilter',['../df/d51/classdsp_1_1BandPassFFTWFilter.html#ab68ba2e4721bb5178decbc4949a4108f',1,'dsp::BandPassFFTWFilter::BandPassFFTWFilter(const int &amp;order, const double &amp;lowFreq, const double &amp;highFreq, filterShape shape=RECTANGULAR)'],['../df/d51/classdsp_1_1BandPassFFTWFilter.html#a8c551200c7ce16591b410ec17e34a601',1,'dsp::BandPassFFTWFilter::BandPassFFTWFilter(const int &amp;order, const double &amp;lowFreq, const double &amp;highFreq, const double &amp;centerFreq)']]],
+  ['bandpassfftwfilterimpl',['BandPassFFTWFilterImpl',['../d4/d5f/classdsp_1_1BandPassFFTWFilterImpl.html#ad30bf27e9bfd70bc2bb06cd305222ebd',1,'dsp::BandPassFFTWFilterImpl::BandPassFFTWFilterImpl(const int &amp;order, const double &amp;lowFreq, const double &amp;highFreq, BandPassFFTWFilter::filterShape shape)'],['../d4/d5f/classdsp_1_1BandPassFFTWFilterImpl.html#ab75787ea6ac780f705de7f63de99eea2',1,'dsp::BandPassFFTWFilterImpl::BandPassFFTWFilterImpl(const int &amp;order, const double &amp;lowFreq, const double &amp;highFreq, const double &amp;centerFreq)']]],
+  ['bandpassfftwfiltermodule',['BandPassFFTWFilterModule',['../de/dfe/classBandPassFFTWFilterModule.html#a37ca8e5b533bcd266c04d975f5baadc7',1,'BandPassFFTWFilterModule']]],
+  ['bandpassfilter',['BandPassFilter',['../d1/df3/classdsp_1_1BandPassFilter.html#a8c34bcf2909af372a066961d29ea242d',1,'dsp::BandPassFilter::BandPassFilter()'],['../d1/df3/classdsp_1_1BandPassFilter.html#aa86d8915c7890b2b7e643e61bf348ba6',1,'dsp::BandPassFilter::BandPassFilter(const int &amp;order, const double &amp;lowFreq, const double &amp;highFreq)']]],
+  ['bandpassfirfilter',['BandPassFIRFilter',['../d3/d7f/classdsp_1_1BandPassFIRFilter.html#a2a8d4e5b119c3ef132edb9c60372a649',1,'dsp::BandPassFIRFilter']]],
+  ['bandpassfirfiltermodule',['BandPassFIRFilterModule',['../d3/d1c/classBandPassFIRFilterModule.html#a3efcfeb353b9764aefd0d5fdbc6e11d1',1,'BandPassFIRFilterModule']]]
+];

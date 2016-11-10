@@ -1,0 +1,4 @@
+<map id="dsp::IResamplingModel&lt; T_ParticleSet, T_WeightSet &gt;" name="dsp::IResamplingModel&lt; T_ParticleSet, T_WeightSet &gt;">
+<area shape="rect" id="node2" href="$db/d0d/classdsp_1_1IResamplingModel.html" title="{dsp::IResamplingModel\l\&lt; T_ParticleSet \&gt;\n||+ IResamplingModel()\l+ ~IResamplingModel()\l+ resample()\l}" alt="" coords="30,193,188,314"/>
+<area shape="rect" id="node3" href="$da/d9b/classdsp_1_1ResamplingModel.html" title="The ResamplingModel class This class implements a resampling algorimth for the IResamplingModel the r..." alt="" coords="9,366,209,487"/>
+</map>

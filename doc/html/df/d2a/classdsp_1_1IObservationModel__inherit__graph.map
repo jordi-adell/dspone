@@ -1,0 +1,4 @@
+<map id="dsp::IObservationModel&lt; T_ParticleSet, T_WeightSet &gt;" name="dsp::IObservationModel&lt; T_ParticleSet, T_WeightSet &gt;">
+<area shape="rect" id="node2" href="$de/d17/classdsp_1_1IObservationModel.html" title="{dsp::IObservationModel\l\&lt; ParticleSet\&lt; T_Particle\l \&gt;, ParticleSet\&lt; T_Weight \&gt; \&gt;\n||+ IObservationModel()\l+ ~IObservationModel()\l+ getWeights()\l+ updateModel()\l}" alt="" coords="10,219,208,370"/>
+<area shape="rect" id="node3" href="$db/db5/classdsp_1_1ObservationModel.html" title="The ObservationModel class Dummy class for testing purposes. The observation model depens on the taks..." alt="" coords="25,421,193,557"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="dsp::FilterBank" name="dsp::FilterBank">
+<area shape="rect" id="node2" href="$df/d13/classdsp_1_1FilterBankFFTW.html" title="This class implements a filter bank using a set of spectral weigthing band&#45;pass filters. The band pass filters are constructed using overlaped triangular windows in the frequency domain. " alt="" coords="26,307,203,487"/>
+<area shape="rect" id="node4" href="$d9/d7d/classdsp_1_1FilterBankFIR.html" title="{dsp::FilterBankFIR\n||+ FilterBankFIR()\l+ FilterBankFIR()\l# FilterBankFIR()\l# initialiseFilters()\l}" alt="" coords="247,337,379,458"/>
+<area shape="rect" id="node3" href="$dc/d68/classdsp_1_1FilterBankFFTWMelScale.html" title="{dsp::FilterBankFFTWMelScale\n||+ FilterBankFFTWMelScale()\l+ FilterBankFFTWMelScale()\l}" alt="" coords="5,537,205,629"/>
+<area shape="rect" id="node5" href="$d1/de7/classdsp_1_1FilterBankFIRMelScale.html" title="{dsp::FilterBankFIRMelScale\n||+ FilterBankFIRMelScale()\l+ FilterBankFIRMelScale()\l}" alt="" coords="231,537,417,629"/>
+</map>

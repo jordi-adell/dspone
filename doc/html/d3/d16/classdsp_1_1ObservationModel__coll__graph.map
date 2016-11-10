@@ -1,0 +1,4 @@
+<map id="dsp::ObservationModel&lt; T_Weight, T_Particle &gt;" name="dsp::ObservationModel&lt; T_Weight, T_Particle &gt;">
+<area shape="rect" id="node2" href="$de/d17/classdsp_1_1IObservationModel.html" title="{dsp::IObservationModel\l\&lt; ParticleSet\&lt; T_Particle\l \&gt;, ParticleSet\&lt; T_Weight \&gt; \&gt;\n||+ IObservationModel()\l+ ~IObservationModel()\l+ getWeights()\l+ updateModel()\l}" alt="" coords="10,219,208,370"/>
+<area shape="rect" id="node3" href="$de/d17/classdsp_1_1IObservationModel.html" title="This class template is an interface to implement Observation models for the particle filter..." alt="" coords="5,5,213,141"/>
+</map>

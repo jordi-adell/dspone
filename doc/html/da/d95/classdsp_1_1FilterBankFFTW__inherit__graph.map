@@ -1,0 +1,4 @@
+<map id="dsp::FilterBankFFTW" name="dsp::FilterBankFFTW">
+<area shape="rect" id="node3" href="$dc/d68/classdsp_1_1FilterBankFFTWMelScale.html" title="{dsp::FilterBankFFTWMelScale\n||+ FilterBankFFTWMelScale()\l+ FilterBankFFTWMelScale()\l}" alt="" coords="5,537,205,629"/>
+<area shape="rect" id="node2" href="$dd/dde/classdsp_1_1FilterBank.html" title="The FilterBank class This class can be used to filter signal by a pool of several filters (a filter b..." alt="" coords="16,5,195,259"/>
+</map>
