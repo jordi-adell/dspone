@@ -7,6 +7,7 @@
 #include <dspone/DspException.h>
 #include <dspone/dsplogger.h>
 
+#include <dspone/algorithm/signalPower.h>
 #include <dspone/algorithm/fft.h>
 
 #include <dspone/filter/FIRFilter.h>
@@ -840,6 +841,83 @@ TEST(DigitalSignalProcessingTest, testPreEmphasisFilter)
   {
     EXPECT_FLOAT_EQ(referencesignal[i], filteredsignal[i]);
   }
+
+}
+
+
+TEST(signal_power, helpers)
+{
+  const int length = 1024;
+  double *signal = new double[length];
+
+  SignalPtr signal_ptr(signal);
+  SignalVector vptr_signal;
+  std::vector<BaseType*> vsignal;
+  vsignal.push_back(signal);
+  vptr_signal.push_back(signal_ptr);
+
+  wipp::wipp_rand_t *rand_state;
+  wipp::init_rand_gaussian(&rand_state, 0, 100);
+  wipp::rand(rand_state, signal, length);
+
+  dsp::calculateLinearPowerFFT(signal, length);
+  dsp::calculateLinearPowerFFT(vsignal, length);
+  dsp::calculateLinearPowerFFT(signal_ptr, length);
+
+  dsp::calculateLogPowerFFT(signal, length);
+  dsp::calculateLogPowerFFT(vsignal, length);
+  dsp::calculateLogPowerFFT(signal_ptr, length);
+
+  dsp::calculateLinearPowerTemporal(signal, length);
+  dsp::calculateLinearPowerTemporal(vsignal, length);
+  dsp::calculateLinearPowerTemporal(signal_ptr, length);
+
+  dsp::calculateLogPowerTemporal(signal, length);
+  dsp::calculateLogPowerTemporal(vsignal, length);
+  dsp::calculateLogPowerTemporal(signal_ptr, length);
+
+
+}
+
+TEST(signal_power, class_api)
+{
+  const int length = 1024;
+
+  /// --- Check that all functions return at least
+  /// the exact same value.
+
+  double *signal = new double[length];
+  SignalPtr signal_ptr(signal);
+  SignalVector vptr_signal;
+  std::vector<BaseType*> vsignal;
+  vsignal.push_back(signal);
+  vptr_signal.push_back(signal_ptr);
+
+  wipp::wipp_rand_t *rand_state;
+  wipp::init_rand_gaussian(&rand_state, 0, 100);
+  wipp::rand(rand_state, signal, length);
+
+  dsp::SignalPower::FFTLogPower(signal, length);
+  dsp::SignalPower::FFTLogPower(signal_ptr, length);
+  dsp::SignalPower::FFTLogPower(vptr_signal, length);
+  dsp::SignalPower::FFTLogPower(vsignal, length);
+
+  dsp::SignalPower::FFTPower(signal, length);
+  dsp::SignalPower::FFTPower(vsignal, length);
+  dsp::SignalPower::FFTPower(vptr_signal, length);
+  dsp::SignalPower::FFTPower(signal_ptr, length);
+
+  dsp::SignalPower::logPower(signal, length);
+  dsp::SignalPower::logPower(signal_ptr, length);
+  dsp::SignalPower::logPower(vptr_signal, length);
+  dsp::SignalPower::logPower(vsignal, length);
+
+  dsp::SignalPower::power(signal, length);
+  dsp::SignalPower::power(vsignal, length);
+  dsp::SignalPower::power(vptr_signal, length);
+  dsp::SignalPower::power(signal_ptr, length);
+
+
 
 }
 
