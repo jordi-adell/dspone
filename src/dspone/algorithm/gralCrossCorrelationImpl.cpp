@@ -28,6 +28,8 @@
 #include <wipp/wippsignal.h>
 #include <wipp/wippstats.h>
 
+#include <boost/shared_array.hpp>
+
 #include <math.h>
 
 
@@ -133,7 +135,7 @@ void GeneralisedCrossCorrelationImpl::precomputeTauMatrix(BaseType *samplesDelay
 
   for(int i = 0; i < numSteps; i++)
   {
-    _delayMatrix.push_back(boost::shared_array<BaseTypeC>(new BaseTypeC[_length]));
+    _delayMatrix.push_back(SignalCPtr(new BaseTypeC[_length]));
     computePhaseRamp(samplesDelay[i]);
     wipp::copyBuffer(reinterpret_cast<wipp::wipp_complex_t*>(_delay.get()),
 		     reinterpret_cast<wipp::wipp_complex_t*>(_delayMatrix[i].get()), _length);

@@ -24,6 +24,9 @@
 
 
 #include <dspone/rt/SignalProcessor.h>
+
+#include <boost/shared_array.hpp>
+
 #include <memory>
 #include <vector>
 
@@ -100,7 +103,7 @@ class ShortTimeProcess : public SignalProcessor
 	template <typename sampleType>
 	int getRemainingSpeech(const std::vector<sampleType *> &buffer, unsigned int buffersize);
 	template <typename sampleType>
-	int getRemainingSpeech(const std::vector<std::shared_ptr<sampleType> > &buffer, unsigned int buffersize);
+	int getRemainingSpeech(const std::vector<boost::shared_array<sampleType> > &buffer, unsigned int buffersize);
 
 
 	/** @brief this type is used to set whether the short time process
@@ -146,36 +149,36 @@ class ShortTimeProcess : public SignalProcessor
 		    unsigned int inbuffersize,
 		    const std::vector<double *> &output,
 		    unsigned int outbuffersize);
-	int process(const std::vector<std::shared_ptr<double> > &signal,
+	int process(const std::vector<boost::shared_array<double> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<std::shared_ptr<double> > &output,
+		    const std::vector<boost::shared_array<double> > &output,
 		    unsigned int outbuffersize);
 
 	int process(const std::vector<float *> &signal,
 		    unsigned int inbuffersize,
 		    const std::vector<float *> &output,
 		    unsigned int outbuffersize);
-	int process(const std::vector<std::shared_ptr<float> > &signal,
+	int process(const std::vector<boost::shared_array<float> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<std::shared_ptr<float> > &output,
+		    const std::vector<boost::shared_array<float> > &output,
 		    unsigned int outbuffersize);
 
 	int process(const std::vector<int16_t *> &signal,
 		    unsigned int inbuffersize,
 		    const std::vector<int16_t *> &output,
 		    unsigned int outbuffersize);
-	int process(const std::vector<std::shared_ptr<int16_t> > &signal,
+	int process(const std::vector<boost::shared_array<int16_t> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<std::shared_ptr<int16_t> > &output,
+		    const std::vector<boost::shared_array<int16_t> > &output,
 		    unsigned int outbuffersize);
 
 	int process(const std::vector<uint16_t *> &signal,
 		    unsigned int inbuffersize,
 		    const std::vector<uint16_t *> &output,
 		    unsigned int outbuffersize);
-	int process(const std::vector<std::shared_ptr<uint16_t> > &signal,
+	int process(const std::vector<boost::shared_array<uint16_t> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<std::shared_ptr<uint16_t> > &output,
+		    const std::vector<boost::shared_array<uint16_t> > &output,
 		    unsigned int outbuffersize);
 
 

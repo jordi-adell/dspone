@@ -18,7 +18,8 @@
 *
 * You should have received a copy of the GNU General Public License
 * along with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef __SHORTTIME_ANALISYS_IMPL_H_
+*/
+#ifndef __SHORTTIME_ANALISYS_IMPL_H_
 #define __SHORTTIME_ANALISYS_IMPL_H_
 
 #include <dspone/rt/ShortTimeAnalysis.h>
@@ -43,7 +44,7 @@ class ShortTimeAnalysisImpl : public ShortTimeProcessImpl
 	int process(const std::vector<SampleType *> &signal, unsigned int buffersize);
 
 	template<typename SampleType>
-	int process(const std::vector<std::shared_ptr<SampleType> > &signal, unsigned int buffersize);
+	int process(const std::vector<boost::shared_array<SampleType> > &signal, unsigned int buffersize);
 
 };
 
@@ -51,7 +52,7 @@ class ShortTimeAnalysisImpl : public ShortTimeProcessImpl
 
 
 template<typename SampleType>
-int ShortTimeAnalysisImpl::process(const std::vector<std::shared_ptr<SampleType> > &signal,
+int ShortTimeAnalysisImpl::process(const std::vector<boost::shared_array<SampleType> > &signal,
 			       unsigned int buffersize)
 {
     unsigned int signalSize = signal.size();

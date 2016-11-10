@@ -180,9 +180,9 @@ class ShortTimeProcessImpl
 		    const std::vector<SampleType *> &output,
 		    unsigned int outbuffersize);
 	template <typename SampleType>
-	int process(const std::vector<std::shared_ptr<SampleType> > &signal,
+	int process(const std::vector<boost::shared_array<SampleType> > &signal,
 		    unsigned int inbuffersize,
-		    const std::vector<std::shared_ptr<SampleType> > &output,
+		    const std::vector<boost::shared_array<SampleType> > &output,
 		    unsigned int outbuffersize);
 
 	/**

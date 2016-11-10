@@ -50,26 +50,26 @@ int ShortTimeAnalysis::process(const std::vector<uint16_t *> &signal, unsigned i
   _impl->process(signal, buffersize);
 }
 
-int ShortTimeAnalysis::process(const std::vector<std::shared_ptr<double> > &signal, unsigned int buffersize)
+int ShortTimeAnalysis::process(const std::vector<boost::shared_array<double> > &signal, unsigned int buffersize)
 {
   _impl->process(signal, buffersize);
 }
 
 
 
-int ShortTimeAnalysis::process(const std::vector<std::shared_ptr<float> > &signal, unsigned int buffersize)
+int ShortTimeAnalysis::process(const std::vector<boost::shared_array<float> > &signal, unsigned int buffersize)
 {
   _impl->process(signal, buffersize);
 }
 
 
 
-int ShortTimeAnalysis::process(const std::vector<std::shared_ptr<int16_t> > &signal, unsigned int buffersize)
+int ShortTimeAnalysis::process(const std::vector<boost::shared_array<int16_t> > &signal, unsigned int buffersize)
 {
   _impl->process(signal, buffersize);
 }
 
-int ShortTimeAnalysis::process(const std::vector<std::shared_ptr<uint16_t> > &signal, unsigned int buffersize)
+int ShortTimeAnalysis::process(const std::vector<boost::shared_array<uint16_t> > &signal, unsigned int buffersize)
 {
   _impl->process(signal, buffersize);
 }

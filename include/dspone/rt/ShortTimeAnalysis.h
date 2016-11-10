@@ -43,16 +43,16 @@ class ShortTimeAnalysis : public SignalAnalyser, public ShortTimeProcess
 	virtual ~ShortTimeAnalysis();
 
 	virtual int process(const std::vector<double *> &signal, unsigned int buffersize);
-	int process(const std::vector<std::shared_ptr<double> > &signal, unsigned int buffersize);
+	int process(const std::vector<boost::shared_array<double> > &signal, unsigned int buffersize);
 
 	virtual int process(const std::vector<float*> &signal, unsigned int buffersize);
-	int process(const std::vector<std::shared_ptr<float> > &signal, unsigned int buffersize);
+	int process(const std::vector<boost::shared_array<float> > &signal, unsigned int buffersize);
 
 	virtual int process(const std::vector<int16_t*> &signal, unsigned int buffersize);
-	int process(const std::vector<std::shared_ptr<int16_t> > &signal, unsigned int buffersize);
+	int process(const std::vector<boost::shared_array<int16_t> > &signal, unsigned int buffersize);
 
 	virtual int process(const std::vector<uint16_t*> &signal, unsigned int buffersize);
-	int process(const std::vector<std::shared_ptr<uint16_t> > &signal, unsigned int buffersize);
+	int process(const std::vector<boost::shared_array<uint16_t> > &signal, unsigned int buffersize);
 
     protected:
 

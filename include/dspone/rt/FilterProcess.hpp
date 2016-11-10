@@ -29,6 +29,8 @@
 #include <boost/type_traits.hpp>
 #endif
 
+#include <boost/shared_array.hpp>
+
 #include <vector>
 
 namespace dsp {

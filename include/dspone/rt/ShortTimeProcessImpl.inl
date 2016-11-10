@@ -24,8 +24,8 @@ int ShortTimeProcessImpl::process(const std::vector<SampleType *> &signal,
 
 
 template <typename SampleType>
-int ShortTimeProcessImpl::process(const std::vector<std::shared_ptr<SampleType> > &signal, unsigned int inbuffersize,
-			      const std::vector<std::shared_ptr<SampleType> > &output, unsigned int outbuffersize)
+int ShortTimeProcessImpl::process(const std::vector<boost::shared_array<SampleType> > &signal, unsigned int inbuffersize,
+			      const std::vector<boost::shared_array<SampleType> > &output, unsigned int outbuffersize)
 {
     unsigned int signalSize = signal.size();
     unsigned int outputSize = output.size();

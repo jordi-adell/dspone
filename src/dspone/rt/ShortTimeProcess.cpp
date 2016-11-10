@@ -165,26 +165,26 @@ int ShortTimeProcess::process(const std::vector<uint16_t *> &signal, unsigned in
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
-int ShortTimeProcess::process(const std::vector<std::shared_ptr<double> > &signal, unsigned int inbuffersize,
-			      const std::vector<std::shared_ptr<double> > &output, unsigned int outbuffersize)
+int ShortTimeProcess::process(const std::vector<boost::shared_array<double> > &signal, unsigned int inbuffersize,
+			      const std::vector<boost::shared_array<double> > &output, unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
-int ShortTimeProcess::process(const std::vector<std::shared_ptr<float> > &signal, unsigned int inbuffersize,
-			      const std::vector<std::shared_ptr<float> > &output, unsigned int outbuffersize)
+int ShortTimeProcess::process(const std::vector<boost::shared_array<float> > &signal, unsigned int inbuffersize,
+			      const std::vector<boost::shared_array<float> > &output, unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
-int ShortTimeProcess::process(const std::vector<std::shared_ptr<int16_t> > &signal, unsigned int inbuffersize,
-			      const std::vector<std::shared_ptr<int16_t> > &output, unsigned int outbuffersize)
+int ShortTimeProcess::process(const std::vector<boost::shared_array<int16_t> > &signal, unsigned int inbuffersize,
+			      const std::vector<boost::shared_array<int16_t> > &output, unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
-int ShortTimeProcess::process(const std::vector<std::shared_ptr<uint16_t> > &signal, unsigned int inbuffersize,
-			      const std::vector<std::shared_ptr<uint16_t> > &output, unsigned int outbuffersize)
+int ShortTimeProcess::process(const std::vector<boost::shared_array<uint16_t> > &signal, unsigned int inbuffersize,
+			      const std::vector<boost::shared_array<uint16_t> > &output, unsigned int outbuffersize)
 {
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }

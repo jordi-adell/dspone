@@ -25,7 +25,6 @@
 #include <vector>
 #include <stdint.h>
 
-#include <boost/shared_array.hpp>
 
 namespace dsp {
 

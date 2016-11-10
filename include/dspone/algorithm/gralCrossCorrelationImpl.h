@@ -68,7 +68,7 @@ class GeneralisedCrossCorrelationImpl
 	SignalCPtr _generalisedcc; /**< used to compute the correlation */
 	SignalCPtr _fullx; /**< used to store the two-sided FFT (only when using one-side FFT) */
 	SignalCPtr _fully; /**< used to store the two-sided FFT (only when using one-side FFT) */
-	std::vector<SignalCPtr> _delayMatrix; /**< matrix used to store the precomupted phase ramps (for optimization purposes) */
+	SignalCVector _delayMatrix; /**< matrix used to store the precomupted phase ramps (for optimization purposes) */
 
 
 	/**
