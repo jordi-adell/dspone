@@ -26,6 +26,8 @@
 #include <wipp/wippsignal.h>
 #include <wipp/wippdefs.h>
 
+#include <boost/shared_array.hpp>
+
 namespace dsp {
 
 
@@ -33,13 +35,13 @@ namespace dsp {
 
 
 
-template <class T, typename U>
-U calculateLinearPowerTemporal_core(const std::vector<T*> &analysisFrames, int analysisLength, unsigned int nchannels)
+template <typename T, typename U>
+U calculateLinearPowerTemporal_core(const std::vector<const T*> &analysisFrames, int analysisLength, unsigned int nchannels)
 {
   double meanPower = 0;
 
-  SignalPtr signalPower;
-  SignalPtr channelPower;
+  boost::shared_array<double> signalPower;
+  boost::shared_array<double> channelPower;
 
   signalPower.reset(new BaseType[analysisLength]);
   channelPower.reset(new BaseType[nchannels]);
@@ -49,7 +51,7 @@ U calculateLinearPowerTemporal_core(const std::vector<T*> &analysisFrames, int a
 
   for (unsigned int c = 0; c < nchannels; ++c)
   {
-    wipp::sqr(analysisFrames[c].get(), signalPower.get(), analysisLength);
+    wipp::sqr(analysisFrames[c], signalPower.get(), analysisLength);
     wipp::mean(signalPower.get(), analysisLength, &channelPower[c]);
   }
 
@@ -57,27 +59,12 @@ U calculateLinearPowerTemporal_core(const std::vector<T*> &analysisFrames, int a
   return meanPower;
 }
 
-
-BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
+template <typename T, typename U>
+U calculateLinearPowerFFT_core(const std::vector<const T*> &analysisFrames, int analysisLength, unsigned int nchannels)
 {
-  return calculateLinearPowerTemporal(analysisFrames, analysisLength, nchannels);
-}
-
-BaseType calculateLinearPowerTemporal(const std::vector<BaseType*> &analysisFrames, int analysisLength, unsigned int nchannels)
-{
-  return calculateLinearPowerTemporal(analysisFrames, analysisLength, nchannels);
-}
-
-BaseType calculateLogPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
-{
-  return 10*log10(calculateLinearPowerTemporal(analysisFrames, analysisLength, nchannels)+1e-10);
-}
-
-BaseType calculateLinearPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
-{
-  SignalPtr signalPower;
-  SignalPtr channelPower;
-  BaseType meanPower;
+  boost::shared_array<double> signalPower;
+  boost::shared_array<double> channelPower;
+  double meanPower;
   int complexFFTCCSLength = analysisLength/2;
 
   signalPower.reset(new BaseType[complexFFTCCSLength]);
@@ -91,13 +78,51 @@ BaseType calculateLinearPowerFFT(const SignalVector &analysisFrames, int analysi
     // This implies that the sum is directly the mean power (see Parseval's theorem).
     // We multiply x2 the result because we are working with one-sided FFT.
 
-    wipp::power(reinterpret_cast<wipp::wipp_complex_t*>(analysisFrames[c].get()), signalPower.get(), complexFFTCCSLength);
+    wipp::power(reinterpret_cast<const wipp::wipp_complex_t*>(analysisFrames[c]), signalPower.get(), complexFFTCCSLength);
     wipp::sum(signalPower.get(), complexFFTCCSLength, &(channelPower[c]));
     channelPower.get()[c] = 2*channelPower[c] - signalPower[0] - signalPower[complexFFTCCSLength-1];
   }
 
   wipp::mean(channelPower.get(), nchannels, &meanPower);
   return meanPower;
+}
+
+BaseType calculateLinearPowerTemporal(const std::vector<BaseType *> signal, int length)
+{
+  std::vector<const BaseType*> vsignal;
+  for (auto it = signal.begin(); it != signal.end(); ++it)
+    vsignal.push_back(*it);
+  return calculateLinearPowerTemporal_core<BaseType, BaseType>(vsignal, length, signal.size());
+}
+
+BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
+{
+  std::vector<const BaseType*> vsignal;
+  for (auto it = analysisFrames.begin(); it != analysisFrames.end(); ++it)
+    vsignal.push_back(it->get());
+
+  if (vsignal.size()  < nchannels)
+    nchannels = vsignal.size();
+  return calculateLinearPowerTemporal_core<BaseType, BaseType>(vsignal, analysisLength, nchannels);
+}
+
+BaseType calculateLinearPowerTemporal(const std::vector<BaseType*> &analysisFrames, int analysisLength, unsigned int nchannels)
+{
+  std::vector<const BaseType*> vsignal;
+  for (auto it = analysisFrames.begin(); it != analysisFrames.end(); ++it)
+    vsignal.push_back(*it);
+
+  return calculateLinearPowerTemporal_core<BaseType, BaseType>(vsignal, analysisLength, nchannels);
+}
+
+BaseType calculateLogPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
+{
+  return 10*log10(calculateLinearPowerTemporal(analysisFrames, analysisLength, nchannels)+1e-10);
+}
+
+BaseType calculateLogPowerTemporal(const std::vector<BaseType*> signal, int length)
+{
+  return 10*log10(calculateLinearPowerTemporal(signal, length));
 }
 
 BaseType calculateLogPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
@@ -163,12 +188,48 @@ BaseType calculateLinearPowerFFT(const SignalPtr &signal, int length)
   return power;
 }
 
+
+BaseType calculateLinearPowerFFT(const std::vector<BaseType*> &signal, int length)
+{
+  std::vector<const BaseType*> vsignal;
+  for (auto it = signal.begin(); it != signal.end(); ++it)
+    vsignal.push_back(*it);
+  return calculateLinearPowerFFT_core<BaseType, const BaseType>(vsignal, length, signal.size());
+}
+
+BaseType calculateLinearPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels)
+{
+  std::vector<const BaseType*> vsignal;
+  for (auto it = analysisFrames.begin(); it != analysisFrames.end(); ++it)
+    vsignal.push_back(it->get());
+
+  if (vsignal.size()  < nchannels)
+    nchannels = vsignal.size();
+
+  return calculateLinearPowerFFT_core<BaseType, BaseType>(vsignal, analysisLength, vsignal.size());
+}
+
+BaseType calculateLinearPowerFFT(const BaseType *signal, int length)
+{
+  std::vector<const BaseType*> vsignal;
+  vsignal.push_back(signal);
+  return calculateLinearPowerFFT_core<BaseType, BaseType>(vsignal, length, 1);
+}
+
 BaseType calculateLogPowerFFT(const SignalPtr &signal, int length)
 {
-  return 10*log10(calculateLinearPowerFFT(signal, length));
+  return 10*log10((signal, length));
+}
+
+BaseType calculateLogPowerFFT(const BaseType* signal, int length)
+{
+  return 10*log10(calculateLinearPowerFFT(signal, length) + 1e-100);
+}
+
+BaseType calculateLogPowerFFT(const std::vector<BaseType*> &signal, int length)
+{
+  return 10*log10(calculateLinearPowerFFT(signal, length) + 1e-100);
 }
 
 
 }
-
-

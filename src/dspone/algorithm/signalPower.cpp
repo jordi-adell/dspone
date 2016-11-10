@@ -53,6 +53,7 @@ double SignalPower::power(const std::vector<boost::shared_array<double> > &signa
     return calculateLinearPowerTemporal(signal, length, signal.size());
 }
 
+
 double SignalPower::logPower(const std::vector<boost::shared_array<double> > &signal, int length)
 {
     return calculateLogPowerTemporal(signal, length, signal.size());
@@ -79,26 +80,56 @@ double SignalPower::logPower(const int16_t *signal, int length)
     return calculateLogPowerTemporal(signal, length);
 }
 
-//double SignalPower::power(const std::vector<boost::shared_array<int16_t> > &signal, int length)
-//{
-//    return calculateLinearPowerTemporal(signal, length, signal.size());
-//}
+double SignalPower::logPower(const std::vector<double *> &signal, int length)
+{
+  return calculateLogPowerTemporal(signal, length);
+}
 
-//double SignalPower::logPower(const std::vector<boost::shared_array<int16_t> > &signal, int length)
-//{
-//    return calculateLogPowerTemporal(signal, length, signal.size());
-//}
+double SignalPower::power(const std::vector<double *> &signal, int length)
+{
+  return calculateLinearPowerTemporal(signal, length);
+}
 
+double SignalPower::FFTPower(const double *fft, int fft_length)
+{
+  return calculateLinearPowerFFT(fft, fft_length);
+}
 
-//double SignalPower::power(const boost::shared_array<int16_t> &signal, int length)
-//{
-//    return calculateLinearPowerTemporal(signal, length);
-//}
+double SignalPower::FFTPower(const boost::shared_array<double> &fft, int fft_length)
+{
+  return calculateLinearPowerFFT(fft, fft_length);
+}
 
-//double SignalPower::logPower(const boost::shared_array<int16_t> &signal, int length)
-//{
-//    return calculateLogPowerTemporal(signal, length);
-//}
+double SignalPower::FFTPower(const std::vector<double*> &fft, int fft_length)
+{
+  return calculateLinearPowerFFT(fft, fft_length);
+}
+
+double SignalPower::FFTLogPower(const std::vector<double*> &fft, int fft_length)
+{
+  return calculateLogPowerFFT(fft, fft_length);
+}
+
+double SignalPower::FFTPower(const std::vector<boost::shared_array<double> > &fft, int fft_length)
+{
+  return calculateLinearPowerFFT(fft, fft_length, fft.size());
+}
+
+double SignalPower::FFTLogPower(const double *fft, int fft_length)
+{
+  return calculateLogPowerFFT(fft, fft_length);
+}
+
+double SignalPower::FFTLogPower(const boost::shared_array<double>  &fft, int fft_length)
+{
+  return calculateLogPowerFFT(fft, fft_length);
+}
+
+double SignalPower::FFTLogPower(const std::vector<boost::shared_array<double> > &fft, int fft_length)
+{
+  return calculateLogPowerFFT(fft, fft_length, fft.size());
+}
+
 
 
 

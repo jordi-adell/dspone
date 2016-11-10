@@ -26,20 +26,32 @@
 
 namespace dsp {
 
-BaseType calculateLinearPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
-BaseType calculateLogPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
-BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
-BaseType calculateLinearPowerTemporal(const std::vector<BaseType*> &analysisFrames, int analysisLength, unsigned int nchannels);
-BaseType calculateLogPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
 
+BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
 BaseType calculateLinearPowerTemporal(const BaseType* signal, int length);
-BaseType calculateLinearPowerTemporal(const BaseType16s *signal, int length);
 BaseType calculateLinearPowerTemporal(const SignalPtr &signal, int length);
+BaseType calculateLinearPowerTemporal(const std::vector<BaseType*> &analysisFrames, int analysisLength, unsigned int nchannels);
+BaseType calculateLinearPowerTemporal(const std::vector<BaseType *> signal, int length);
+
+BaseType calculateLinearPowerTemporal(const BaseType16s *signal, int length);
+
+BaseType calculateLogPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
 BaseType calculateLogPowerTemporal(const BaseType *signal, int length);
-BaseType calculateLogPowerTemporal(const BaseType16s *signal, int length);
 BaseType calculateLogPowerTemporal(const SignalPtr &signal, int length);
+BaseType calculateLogPowerTemporal(const std::vector<BaseType*> signal, int length);
+
+BaseType calculateLogPowerTemporal(const BaseType16s *signal, int length);
+
+BaseType calculateLinearPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
 BaseType calculateLinearPowerFFT(const SignalPtr &signal, int length);
+BaseType calculateLinearPowerFFT(const BaseType* signal, int length);
+BaseType calculateLinearPowerFFT(const std::vector<BaseType*> &signal, int length);
+
+BaseType calculateLogPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
+BaseType calculateLogPowerFFT(const BaseType* signal, int length);
+BaseType calculateLogPowerFFT(const std::vector<BaseType*> &signal, int length);
 BaseType calculateLogPowerFFT(const SignalPtr &signal, int length);
+
 
 }
 

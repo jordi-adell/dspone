@@ -45,17 +45,24 @@ class SignalPower
 	static double power(const boost::shared_array<double> &signal, int length);
 	static double logPower(const boost::shared_array<double> &signal, int length);
 
-	static double power(const std::vector<double*> signal, int length);
-	static double logPower(const std::vector<double*> signal, int length);
+	static double power(const std::vector<double*> &signal, int length);
+	static double logPower(const std::vector<double*> &signal, int length);
+
 	static double power(const std::vector<int16_t*> signal, int length);
 	static double logPower(const std::vector<int16_t*> signal, int length);
 
 	static double power(const std::vector<boost::shared_array<double> > &signal, int length);
 	static double logPower(const std::vector<boost::shared_array<double> > &signal, int length);
 
+
+	static double FFTPower(const double* fft, int fft_length);
 	static double FFTPower(const std::vector<double*> &fft, int fft_length);
-	static double FFTLogPower(const std::vector<double*> &fft, int fft_length);
+	static double FFTPower(const boost::shared_array<double> &fft, int fft_length);
 	static double FFTPower(const std::vector<boost::shared_array<double> > &fft, int fft_length);
+
+	static double FFTLogPower(const double* fft, int fft_length);
+	static double FFTLogPower(const std::vector<double*> &fft, int fft_length);
+	static double FFTLogPower(const boost::shared_array<double> &fft, int fft_length);
 	static double FFTLogPower(const std::vector<boost::shared_array<double> > &fft, int fft_length);
 
 };
