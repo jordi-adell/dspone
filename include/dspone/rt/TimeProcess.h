@@ -64,7 +64,8 @@ class Timeprocess : public ShortTimeProcess
 	* if they were time-frames for each input channel.
 	* No analysis frames in done here.
 	*/
-	virtual void processParametrisation() = 0;
+	virtual void processParametrisation(std::vector<double*> &analysisFrames, int analysisLength,
+					    std::vector<double*> &dataChannels, int dataLength) = 0;
 
 };
 
