@@ -6,6 +6,8 @@ DSPONE is a library for real-time digital signal processing of uni-dimensional d
 
 It is oriented to process sta in real-time and is aimed at allowing the devlopment of new algorithm by provinding a framework of processor modules that can be easily concatenated. 
 
+## Documentation
+http://jordi-adell.github.io/dspone
 
 ## Licensing
 --------------------------------------------------------------------------------
