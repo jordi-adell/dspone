@@ -1,8 +1,28 @@
+/*
+* dspplotQwt.h
+* Copyright 2017 (c) Jordi Adell
+* Created on: 2017
+* 	Author: Jordi Adell - adellj@gmail.com
+*
+* This file is part of DSPONE
+*
+* DSPONE is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* DSPONE is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef __DSPPLOTQWT_H__
 #define __DSPPLOTQWT_H__
 
-#include <dspone/plot/dspplotimpl.h>
-#include <dspone/DspException.h>
 #include <dspone/rt/ShortTimeProcess.h>
 #include <dspone/rt/ShortTimeProcessImpl.h>
 
@@ -12,7 +32,6 @@
 #include <qgridlayout.h>
 #include <qelapsedtimer.h>
 
-#include <qt4/Qt/qapplication.h>
 
 #include <memory>
 #include <thread>
@@ -21,16 +40,6 @@
 namespace dsp
 {
 
-class DspGui
-{
-	DspGui()
-	{
-
-	}
-
-
-	std::unique_ptr<QApplication> qt_app_;
-};
 
 
 class DspPlot : public QObject
