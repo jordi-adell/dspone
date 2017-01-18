@@ -47,6 +47,9 @@ include_directories(
   ${Qwt_INCLUDE_DIR}
 )
 
+set(MOC_HEADERS
+    include/${PROJECT_NAME}/plot/dspplotQwt.h
+    )
 
 QT4_WRAP_CPP(MOC_SRCS ${MOC_HEADERS})
 
@@ -55,10 +58,12 @@ QT4_WRAP_CPP(MOC_SRCS ${MOC_HEADERS})
 ###################################
 
 add_library(dspone SHARED
+    ${MOC_SRCS}
   src/${PROJECT_NAME}/dsplogger.cpp
   src/${PROJECT_NAME}/dspHelpers.cpp
   src/${PROJECT_NAME}/dspMath.cpp
   src/${PROJECT_NAME}/DspException.cpp
+  src/${PROJECT_NAME}/plot/dspplotQwt.cpp
   src/${PROJECT_NAME}/algorithm/fft.cpp
   src/${PROJECT_NAME}/algorithm/fftImpl.cpp
   src/${PROJECT_NAME}/algorithm/gralCrossCorrelation.cpp
