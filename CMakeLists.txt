@@ -96,7 +96,7 @@ SOVERSION ${PROJECT_VERSION_MAJOR}
 ## Specify libraries to link a library or executable target against
 target_link_libraries(dspone
   ${Boost_LIBRARIES}
-  ${WIPP_LIBRARY}
+  ${WIPP_LIBRARIES}
 )
 
 #############
