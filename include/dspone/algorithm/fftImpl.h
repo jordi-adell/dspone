@@ -102,9 +102,16 @@ class FFTImpl
 
     /**
 	    * @brief _fftLength  length of the FFT.
-	    * I alsways equal to (1 << _fftOrder)
+	    * Is always equal to (1 << _fftOrder)
 	    */
     const int _fftLength;
+
+    /**
+     * @brief _frameLength
+     * Length of the frame to be processed (in samples in time domain)
+     * It is usually _fftLength - 2 due to CCS format.
+     */
+    const int _frameLength;
 
     /**
 	    * @brief _onseSidedFFTLength  length of the equivalent FFT for one-sided transform

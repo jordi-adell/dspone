@@ -27,7 +27,8 @@ namespace dsp {
 
 FFTImpl::FFTImpl(int order) :
   _fftOrder(order),
-  _fftLength(FFTImpl::getFFTLength(order)), // (+2) because of the CCS format in IPP library.
+  _fftLength(FFTImpl::getFFTLength(order)), // (+2) because of the CCS format in WIPP library.
+  _frameLength(1 << _fftOrder),
   _oneSidedFFTLength(_fftLength/2)
 {
   init();
@@ -36,6 +37,7 @@ FFTImpl::FFTImpl(int order) :
 FFTImpl::FFTImpl(const FFTImpl &ffti) :
   _fftOrder(ffti._fftOrder),
   _fftLength(ffti._fftLength),
+  _frameLength(ffti._frameLength),
   _oneSidedFFTLength(ffti._oneSidedFFTLength)
 {
   init();
@@ -56,12 +58,12 @@ void FFTImpl::init()
 
 void FFTImpl::fwdTransform(const BaseType *inFrame, BaseType *fft, int frameLength)
 {
-  if (frameLength > _fftLength)
+  if (frameLength > _frameLength)
   {
     ERROR_STREAM("Frame length larger than FFT length (2^order +2 )");
     wipp::setZeros(reinterpret_cast<wipp::wipp_complex_t*>(fft), _fftLength);
   }
-  else if (frameLength == _fftLength)
+  else if (frameLength == _frameLength)
   {
     fwdTransform(inFrame, fft);
   }
@@ -77,7 +79,7 @@ void FFTImpl::fwdTransform(const BaseType *inFrame, BaseType *fft, int frameLeng
 void FFTImpl::invTransfrom(BaseType *outFrame, const BaseType *fft, int frameLength)
 {
 
-  if (frameLength == _fftLength)
+  if (frameLength == _frameLength)
   {
     invTransfrom(outFrame, fft);
   }
