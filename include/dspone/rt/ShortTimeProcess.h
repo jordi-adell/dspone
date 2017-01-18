@@ -33,7 +33,7 @@
 namespace dsp {
 
 class ShortTimeProcessImpl;
-class qtApp;
+class DspPlot;
 
 class ShortTimeProcess : public SignalProcessor
 {
@@ -195,7 +195,7 @@ class ShortTimeProcess : public SignalProcessor
 
     private:
 	friend class ShortTimeProcessImpl;
-	friend class qtApp;
+	friend class DspPlot;
 	std::unique_ptr<ShortTimeProcessImpl> _impl;
 
 	/** Processes on signal frame. Calculates |FFT|^2 of both signals. And generates a binary mask,

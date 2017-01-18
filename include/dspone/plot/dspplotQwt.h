@@ -33,7 +33,7 @@ class DspGui
 };
 
 
-class DspPLot : public QObject
+class DspPlot : public QObject
 {
 	Q_OBJECT
     public:
