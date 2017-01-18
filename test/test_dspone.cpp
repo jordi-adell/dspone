@@ -28,7 +28,7 @@
 #include <dspone/rt/DummyShortTimeFourier.h>
 #include <dspone/rt/FilterProcess.hpp>
 #include <dspone/rt/TimeProcess.h>
-
+#include <dspone/rt/DummyTimeProcess.h>
 
 // Implementations
 
@@ -37,7 +37,7 @@
 
 #include <dspone/dspMath.h>
 
-#include <dspone/plot/dspplotQwt.h>
+#include <dspone/plot/dspgui.h>
 
 #include <wipp/wippstats.h>
 #include <wipp/wipputils.h>
@@ -1063,54 +1063,7 @@ TEST(signal_power, class_api)
 }
 
 
-void plot_signal_pocessing_run(ShortTimeProcess *process)
-{
-  int length = 200*1024;
-  int outlength = length + process->getMaxLatency();
-  double data[length];
-  double out_data[outlength];
 
-  std::vector<double*> in_channels, out_channels;
-  in_channels.push_back(data);
-  out_channels.push_back(out_data);
-
-
-  for (double freq = 0; freq < M_PI; freq += M_PI/50 )
-  {
-    for (int i = 0; i < length; ++i)
-    {
-      data[i] = cos(i*freq/8);
-    }
-    process->process(in_channels, length, out_channels, outlength);
-  }
-}
-
-
-void test_qt(ShortTimeProcess *process)
-{
-  std::string title="QT Gui";
-  int argc = 1;
-  char *argv[argc];
-  argv[0] = const_cast<char*>(title.c_str());
-
-  QApplication app(argc, argv);
-  DspPlot plot(&plot_signal_pocessing_run, process);
-
-  app.exec();
-}
-
-TEST(plot, plot_stft)
-{
-  DummySTFT stft;
-  test_qt(&stft);
-}
-
-
-TEST(plot, plot_timep)
-{
-  DummyShortTimeProcess stp(512);
-  test_qt(&stp);
-}
 
 void shortTimeProcess(ShortTimeProcess &shortTimeP)
 {
