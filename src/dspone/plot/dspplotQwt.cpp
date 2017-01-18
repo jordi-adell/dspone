@@ -13,7 +13,7 @@ namespace dsp
 {
 
 
-qtApp::qtApp(thread_processing_run_t *f, ShortTimeProcess *stp) :
+DspPlot::DspPlot(thread_processing_run_t *f, ShortTimeProcess *stp) :
   processing_run(f),
   process_(stp)
 {
@@ -23,48 +23,48 @@ qtApp::qtApp(thread_processing_run_t *f, ShortTimeProcess *stp) :
   init();
 }
 
-qtApp::~qtApp()
+DspPlot::~DspPlot()
 {
   if (signal_process_thread_->joinable())
     signal_process_thread_->join();
 }
 
-void qtApp::init()
+void DspPlot::init()
 {
   config();
 
   if (!signal_process_thread_)
   {
-    signal_process_thread_.reset(new std::thread(&qtApp::signal_process, this));
+    signal_process_thread_.reset(new std::thread(&DspPlot::signal_process, this));
     signal_process_thread_->detach();
   }
 
 }
 
 
-void qtApp::plot_input_analysis(std::vector<double> signal)
+void DspPlot::plot_input_analysis(std::vector<double> signal)
 {
 //  std::cout << "called input analysis " << std::endl;
   plot(signal, qwtc_in_anal_);
 }
 
-void qtApp::plot_output_analysis(std::vector<double> signal)
+void DspPlot::plot_output_analysis(std::vector<double> signal)
 {
 //  std::cout << "called output analysis " << std::endl;
   plot(signal, qwtc_out_anal_);
 }
 
-void qtApp::plot_input_signal(std::vector<double> signal)
+void DspPlot::plot_input_signal(std::vector<double> signal)
 {
   plot(signal, qwtc_in_signal_);
 }
 
-void qtApp::plot_output_signal(std::vector<double> signal)
+void DspPlot::plot_output_signal(std::vector<double> signal)
 {
   plot(signal, qwtc_out_signal_);
 }
 
-void qtApp::plot(std::vector<double> signal, QwtPlotCurve &qwtc)
+void DspPlot::plot(std::vector<double> signal, QwtPlotCurve &qwtc)
 {
   QVector<double> y;
   QVector<double> x;
@@ -90,7 +90,7 @@ void qtApp::plot(std::vector<double> signal, QwtPlotCurve &qwtc)
   }
 }
 
-void qtApp::plot(std::vector<double*> signal,
+void DspPlot::plot(std::vector<double*> signal,
 		 int length,
 		 QwtPlotCurve &qwtc,
 		 std::shared_ptr<double> &x,
@@ -122,12 +122,12 @@ void qtApp::plot(std::vector<double*> signal,
 }
 
 
-void qtApp::initQwtCurve(QwtPlotCurve &qwtc)
+void DspPlot::initQwtCurve(QwtPlotCurve &qwtc)
 {
 
 }
 
-void qtApp::initQwtPlot(QwtPlot &qwtPlot)
+void DspPlot::initQwtPlot(QwtPlot &qwtPlot)
 {
   qwtPlot.setAutoReplot(false);
   qwtPlot.setCanvasBackground(QBrush(Qt::white));
@@ -135,7 +135,7 @@ void qtApp::initQwtPlot(QwtPlot &qwtPlot)
   qwtPlot.setAutoFillBackground(true);
 }
 
-void qtApp::config()
+void DspPlot::config()
 {
 
   qRegisterMetaType<std::shared_ptr<double> >("shared_ptr_double");
@@ -201,7 +201,7 @@ void qtApp::config()
 }
 
 
-void qtApp::signal_process()
+void DspPlot::signal_process()
 {
   if (process_)
     (*processing_run)(process_);
