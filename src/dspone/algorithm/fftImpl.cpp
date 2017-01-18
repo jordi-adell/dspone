@@ -98,6 +98,7 @@ void FFTImpl::invTransfrom(BaseType *outFrame, const BaseType *fft, int frameLen
 void FFTImpl::fwdTransform(const BaseType *inFrame, BaseType *fft)
 {
   wipp::fft(inFrame, fft, _fftspec);
+  wipp::divC(wipp::get_fft_length(_fftspec), fft, _fftLength);
 }
 
 void FFTImpl::invTransfrom(BaseType *outFrame, const BaseType *fft)
