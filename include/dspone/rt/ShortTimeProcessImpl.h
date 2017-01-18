@@ -33,6 +33,13 @@
 #include <wipp/wippsignal.h>
 #include <wipp/wippfilter.h>
 
+#ifdef DEBUG
+#ifdef QT_FOUND
+#define QT_DEBUG
+#include <qt4/Qt/qapplication.h>
+#endif
+#endif
+
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -41,7 +48,21 @@
 namespace dsp {
 
 class ShortTimeProcessImpl
+#ifdef QT_DEBUG
+: public QObject
+#endif
 {
+
+#ifdef QT_DEBUG
+	Q_OBJECT
+    signals:
+	void plot_input_signal(std::vector<double> analysis);
+	void plot_output_signal(std::vector<double> analysis);
+	void plot_input_analysis(std::vector<double> analysis);
+	void plot_output_analysis(std::vector<double> analysis);
+
+
+#endif
 
     protected:
 

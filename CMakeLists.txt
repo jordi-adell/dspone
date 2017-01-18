@@ -48,6 +48,7 @@ include_directories(
 
 set(MOC_HEADERS
     include/${PROJECT_NAME}/plot/dspplotQwt.h
+    include/${PROJECT_NAME}/rt/ShortTimeProcessImpl.h
     )
 
 QT4_WRAP_CPP(MOC_SRCS ${MOC_HEADERS})
