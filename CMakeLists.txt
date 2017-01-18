@@ -64,6 +64,7 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/dspMath.cpp
   src/${PROJECT_NAME}/DspException.cpp
   src/${PROJECT_NAME}/plot/dspplotQwt.cpp
+  src/${PROJECT_NAME}/plot/dspgui.cpp
   src/${PROJECT_NAME}/algorithm/fft.cpp
   src/${PROJECT_NAME}/algorithm/fftImpl.cpp
   src/${PROJECT_NAME}/algorithm/gralCrossCorrelation.cpp
@@ -255,16 +256,26 @@ if (test)
     find_package(Threads REQUIRED COMPONENTS system)
 
     add_executable(${PROJECT_NAME}-test test/test_dspone.cpp)
-    target_link_libraries(${PROJECT_NAME}-test dspone)
-    target_link_libraries(${PROJECT_NAME}-test ${WIPP_LIBRARY})
-    target_link_libraries(${PROJECT_NAME}-test ${GTEST_BOTH_LIBRARIES})
-    target_link_libraries(${PROJECT_NAME}-test ${Boost_LIBRARIES})
-    target_link_libraries(${PROJECT_NAME}-test ${CMAKE_THREAD_LIBS_INIT})
-    target_link_libraries(${PROJECT_NAME}-test ${Qwt-Qt4_LIBRARY})
-    target_link_libraries(${PROJECT_NAME}-test ${QT_QTCORE_LIBRARY})
-    target_link_libraries(${PROJECT_NAME}-test ${QT_QTGUI_LIBRARY})
+    add_executable(dspgui-test test/test_dspgui.cpp)
 
-    add_custom_target(tests DEPENDS ${PROJECT_NAME}-test)
+    set(TEST_DEPENDENCIES
+	dspone
+	${WIPP_LIBRARY}
+	${GTEST_BOTH_LIBRARIES}
+	${Boost_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT}
+	${Qwt-Qt4_LIBRARY}
+	${QT_QTCORE_LIBRARY}
+	${QT_QTGUI_LIBRARY}
+	)
+
+    target_link_libraries(${PROJECT_NAME}-test ${TEST_DEPENDENCIES})
+    target_link_libraries(dspgui-test ${TEST_DEPENDENCIES})
+
+    add_custom_target(tests DEPENDS
+	${PROJECT_NAME}-test
+	dspgui-test
+	)
 
     add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
 endif()
