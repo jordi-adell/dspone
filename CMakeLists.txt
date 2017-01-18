@@ -27,16 +27,28 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 find_package(WIPP REQUIRED)
+find_package(Qwt)
+find_package(Qt COMPONENTS QtCore QtGui)
+
 
 if (Boost_FOUND)
     add_definitions(-DBOOST_FOUND)
 endif()
 
+if (Qt4_FOUND)
+    add_definitions(-DQT_FOUND)
+endif(Qt4_FOUND)
+
 include_directories(
   include
   ${WIPP_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+  ${QT_INCLUDES}
+  ${Qwt_INCLUDE_DIR}
 )
+
+
+QT4_WRAP_CPP(MOC_SRCS ${MOC_HEADERS})
 
 ###################################
 ## Declare and configure targets ##
@@ -86,7 +98,7 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/rt/ShortTimeFourierSubBand.cpp
   src/${PROJECT_NAME}/rt/ShortTimeFourierSubBandImpl.cpp
   src/${PROJECT_NAME}/rt/DummyShortTimeFourier.cpp
- )
+  )
 
 set_target_properties(dspone
 PROPERTIES
@@ -98,6 +110,8 @@ SOVERSION ${PROJECT_VERSION_MAJOR}
 target_link_libraries(dspone
   ${Boost_LIBRARIES}
   ${WIPP_LIBRARIES}
+  ${Qwt-Qt4_LIBRARY}
+  ${QT_QTCORE_LIBRARY}
 )
 
 #############
@@ -241,6 +255,9 @@ if (test)
     target_link_libraries(${PROJECT_NAME}-test ${GTEST_BOTH_LIBRARIES})
     target_link_libraries(${PROJECT_NAME}-test ${Boost_LIBRARIES})
     target_link_libraries(${PROJECT_NAME}-test ${CMAKE_THREAD_LIBS_INIT})
+    target_link_libraries(${PROJECT_NAME}-test ${Qwt-Qt4_LIBRARY})
+    target_link_libraries(${PROJECT_NAME}-test ${QT_QTCORE_LIBRARY})
+    target_link_libraries(${PROJECT_NAME}-test ${QT_QTGUI_LIBRARY})
 
     add_custom_target(tests DEPENDS ${PROJECT_NAME}-test)
 
