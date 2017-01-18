@@ -236,6 +236,16 @@ class ShortTimeProcessImpl
 	 */
 	virtual int getNumberOfChannels() const;
 
+	/**
+	 * @brief getNumberOfDataChannels
+	 * @return the number of channels that do not contain signal.
+	 * They are no processed, it maybe used to lables signals and pass
+	 * this information from one module to the next one.
+	 * User should define de meaning of the information stored in the
+	 * data channels.
+	 */
+	virtual int getNumberOfDataChannels() const;
+
 	/** Returns the number of samples that are kept internally and can be obtained by calling the getRemainingSpeech function **/
 	int getAmountOfRemainingSamples();
 

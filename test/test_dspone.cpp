@@ -29,6 +29,8 @@
 #include <dspone/rt/DummyShortTimeProcess.h>
 #include <dspone/rt/DummyShortTimeFourier.h>
 #include <dspone/rt/FilterProcess.hpp>
+#include <dspone/rt/TimeProcess.h>
+
 
 // Implementations
 
@@ -79,6 +81,23 @@ void testFilterBank(int order,  FilterBank &filterBank);
 void testBandPassFilter(BandPassFilter &filter, double *filterGaindB, double *freqs);
 void checkFilterBankBinsOverlap(double *coefs, int length, int nbins);
 
+
+class DummyTimeProcess : public dsp::Timeprocess
+{
+  public:
+    DummyTimeProcess(int nchannels, int frameLength) : dsp::Timeprocess(nchannels, frameLength)
+    {
+
+    }
+    virtual ~DummyTimeProcess() {}
+
+    virtual void processParametrisation(std::vector<double*> &analysisFrames, int analysisLength,
+					std::vector<double*> &dataChannels, int dataLength)
+    {
+      int a = 1;
+    }
+
+};
 
 TEST(DigitalSignalProcessingTest, testFIRFilter)
 {
@@ -791,6 +810,47 @@ TEST(DigitalSignalProcessingTest, testIPPGhostsInteractive)
 
 }
 
+TEST(TimeProcess, constructor_destructor)
+{
+
+  DummyTimeProcess *dtp;
+  dtp = new DummyTimeProcess(1, 1024);
+  delete dtp;
+}
+
+
+TEST(TimeProcess, process)
+{
+  int frame_length = 1 << 10;
+  DummyTimeProcess dtp(1, frame_length);
+  int nframes = 500;
+  double constant = 1000;
+  int length = nframes*frame_length;
+
+  double buffer[length];
+  double output[length + dtp.getMaxLatency()];
+
+  wipp::wipp_rand_t *rand;
+  wipp::init_rand_gaussian(&rand, 0, 100);
+  wipp::rand(rand, buffer, length);
+
+  wipp::set(constant, buffer, length);
+  wipp::setZeros(output, length);
+
+  std::vector<double*> in_channels, out_channels;
+
+  in_channels.push_back(buffer);
+  out_channels.push_back(output);
+
+  dtp.process(in_channels, length, out_channels, length);
+
+  double mean, stddev;
+  wipp::mean(output, length, &mean);
+  wipp::stddev(output, length, &stddev);
+
+  EXPECT_NEAR(mean, constant, 0.03*constant);
+  EXPECT_LT(stddev, 0.08*constant);
+}
 
 TEST(FFT, constructor_destructor)
 {
@@ -798,6 +858,42 @@ TEST(FFT, constructor_destructor)
   dsp::FFTImpl ffti(9);
   dsp::STFTImpl stfti(4,9);
 }
+
+
+TEST(FFT, dummyfft)
+{
+  int frame_length = 1 << 10;
+  int nframes = 20;
+  int length = frame_length*nframes;
+  double buffer[length];
+  dsp::DummySTFT dSTFT;
+  double output[length+dSTFT.getMaxLatency()];
+
+  double constant = 1000;
+
+  std::vector<double*> in_channels, out_channels;
+
+  in_channels.push_back(buffer);
+  out_channels.push_back(output);
+
+  wipp::wipp_rand_t *rand;
+  wipp::init_rand_gaussian(&rand, 0, 15);
+  wipp::rand(rand, buffer, length);
+
+  wipp::set(constant, buffer, length);
+
+  dSTFT.process(in_channels, length, out_channels, length);
+
+  double mean, stddev;
+  wipp::mean(output, length, &mean);
+  wipp::stddev(output, length, &stddev);
+
+  EXPECT_NEAR(mean, constant, 0.03*constant);
+  EXPECT_LT(stddev, 0.15*constant);
+
+
+}
+
 
 TEST(DigitalSignalProcessingTest, testPreEmphasisFilter)
 {
@@ -962,6 +1058,8 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	outVectorSignal.push_back(outDatabuffer);
 
 	bool firstcall = true;
+
+	EXPECT_TRUE(ifs) << "Unable to open file " << infile;
 
 	while(ifs)
 	{

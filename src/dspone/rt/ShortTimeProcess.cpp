@@ -51,7 +51,12 @@ double ShortTimeProcess::getRate() const
 
 int ShortTimeProcess::getNumberOfChannels() const
 {
-  return _impl->getNumberOfChannels();;
+  return _impl->getNumberOfChannels();
+}
+
+int ShortTimeProcess::getNumberOfDataChannels() const
+{
+  return _impl->getNumberOfDataChannels();
 }
 
 ShortTimeProcess::~ShortTimeProcess()

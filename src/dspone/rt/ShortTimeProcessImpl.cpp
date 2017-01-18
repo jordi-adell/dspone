@@ -22,6 +22,7 @@
 #include <dspone/rt/ShortTimeProcessImpl.h>
 #include <dspone/rt/ShortTimeProcess.h>
 
+
 namespace dsp {
 
 ShortTimeProcessImpl::ShortTimeProcessImpl(ShortTimeProcess *frameProcessor,
@@ -56,6 +57,11 @@ double ShortTimeProcessImpl::getRate() const
 int ShortTimeProcessImpl::getNumberOfChannels() const
 {
   return _nchannels;
+}
+
+int ShortTimeProcessImpl::getNumberOfDataChannels() const
+{
+  return _nDataChannels;
 }
 
 ShortTimeProcessImpl::~ShortTimeProcessImpl()
