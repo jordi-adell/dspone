@@ -22,8 +22,10 @@
 #ifndef __SHORTTIMEPROCESSIMPL_H_
 #define __SHORTTIMEPROCESSIMPL_H_
 
-
 #include <dspone/rt/ShortTimeProcess.h>
+
+#include <dspone/plot/qtDebug.h>
+
 #include <dspone/DspException.h>
 #include <dspone/dspdefs.h>
 #include <dspone/dsplogger.h>
@@ -33,13 +35,6 @@
 #include <wipp/wippsignal.h>
 #include <wipp/wippfilter.h>
 
-#ifdef DEBUG
-#ifdef QT_FOUND
-#define QT_DEBUG
-#include <qt4/Qt/qapplication.h>
-#endif
-#endif
-
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -47,25 +42,12 @@
 
 namespace dsp {
 
+
+
 class ShortTimeProcessImpl
-#ifdef QT_DEBUG
-: public QObject
-#endif
 {
 
-#ifdef QT_DEBUG
-	Q_OBJECT
-    signals:
-	void plot_input_signal(std::vector<double> analysis);
-	void plot_output_signal(std::vector<double> analysis);
-	void plot_input_analysis(std::vector<double> analysis);
-	void plot_output_analysis(std::vector<double> analysis);
-
-
-#endif
-
     protected:
-
 	typedef ShortTimeProcess::Mode Mode;
 
 	//@TODO set it at run time
@@ -283,8 +265,8 @@ class ShortTimeProcessImpl
 
 	void unwindowFrame(double *frame, size_t length) const;
 	void unwindowFrame(double *frame, double *unwindow, size_t length) const;
-
-
+    public:
+	QtDebug _qtdebug; /*<- This is public to be access by the ShortTimePrcess frien class DspGui */
 };
 
 

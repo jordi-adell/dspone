@@ -26,6 +26,8 @@
 #include <dspone/rt/ShortTimeProcess.h>
 #include <dspone/rt/ShortTimeProcessImpl.h>
 
+#include <qt4/Qt/qobject.h>
+
 #include <qwt/qwt_plot.h>
 #include <qwt/qwt_plot_curve.h>
 #include <qwt/qwt_global.h>
@@ -92,8 +94,6 @@ class DspPlot : public QObject
 	std::shared_ptr<double> y_out_anal_;
 
 
-
-
 	int length_;
 	const QObject *dspplot_;
 	ShortTimeProcess *process_;
@@ -104,6 +104,9 @@ class DspPlot : public QObject
 	QwtPlot qwtPlot_out_signal_;
 	QwtPlot qwtPlot_in_anal_;
 	QwtPlot qwtPlot_out_anal_;
+	QwtPlot qwtPlot_in_frame_;
+	QwtPlot qwtPlot_out_frame_;
+
 	QElapsedTimer timer_;
 
 };
