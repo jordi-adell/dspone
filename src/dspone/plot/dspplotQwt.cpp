@@ -1,4 +1,5 @@
 #include <dspone/plot/dspplotQwt.h>
+#include <dspone/plot/qtDebug.h>
 
 #include <qwt_sampling_thread.h>
 #include <qwt_plot_layout.h>
@@ -141,25 +142,25 @@ void DspPlot::config()
   qRegisterMetaType<std::shared_ptr<double> >("shared_ptr_double");
   qRegisterMetaType<std::vector<double*> >("vector_double_ptr");
 
-  connect(process_->_impl.get(),
+  connect(&(process_->_impl.get()->_qtdebug),
 	  SIGNAL(plot_input_analysis(std::vector<double>)),
 	  this,
 	  SLOT(plot_input_analysis(std::vector<double>)),
 	  Qt::BlockingQueuedConnection);
 
-  connect(process_->_impl.get(),
+  connect(&(process_->_impl.get()->_qtdebug),
 	  SIGNAL(plot_output_analysis(std::vector<double>)),
 	  this,
 	  SLOT(plot_output_analysis(std::vector<double>)),
 	  Qt::BlockingQueuedConnection);
 
-  connect(process_->_impl.get(),
+  connect(&(process_->_impl.get()->_qtdebug),
 	  SIGNAL(plot_input_signal(std::vector<double>)),
 	  this,
 	  SLOT(plot_input_signal(std::vector<double>)),
 	  Qt::BlockingQueuedConnection);
 
-  connect(process_->_impl.get(),
+  connect(&(process_->_impl.get()->_qtdebug),
 	  SIGNAL(plot_output_signal(std::vector<double>)),
 	  this,
 	  SLOT(plot_output_signal(std::vector<double>)),

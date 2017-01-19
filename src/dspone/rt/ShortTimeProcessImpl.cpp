@@ -289,34 +289,21 @@ void ShortTimeProcessImpl::frameAnalysis(BaseType *inFrame,
 					 int analysisLength,
 					 int channel)
 {
-#ifdef QT_DEBUG
 if (channel == 0)
-{
-  std::vector<double> v;
-  for (int i = 0; i < frameLength; ++i)
-    v.push_back(inFrame[i]);
-  emit plot_input_signal(v);
-}
-#endif
-  _frameProcessor->frameAnalysis(inFrame, analysis, frameLength, analysisLength, channel);
+  _qtdebug.plot(inFrame, frameLength, QtDebug::IN_FRAME);
+
+_frameProcessor->frameAnalysis(inFrame, analysis, frameLength, analysisLength, channel);
 
 }
 
 void ShortTimeProcessImpl::processParametrisation()
 {
-#ifdef QT_DEBUG
-  std::vector<double> v;
-  for (int i = 0; i < _analysisLength; ++i)
-    v.push_back(_analysisFrames.at(0)[i]);
-  emit plot_input_analysis(v);
-#endif
+
+  _qtdebug.plot(_analysisFrames, _analysisLength, QtDebug::IN_ANALYSIS);
+
   _frameProcessor->processParametrisation(_analysisFramesPtr, _analysisLength, _dataFramesPtr, _windowSize);
-#ifdef QT_DEBUG
-  v.clear();
-  for (int i = 0; i < _analysisLength; ++i)
-    v.push_back(_analysisFrames.at(0)[i]);
-  emit plot_output_analysis(v);
-#endif
+
+  _qtdebug.plot(_analysisFrames, _analysisLength, QtDebug::OUT_ANALYSIS);
 }
 
 
@@ -327,16 +314,7 @@ void ShortTimeProcessImpl::frameSynthesis(BaseType *outFrame,
 					  int channel)
 {
   _frameProcessor->frameSynthesis(outFrame, analysis, frameLength, analysisLength, channel);
-#ifdef QT_DEBUG
-if (channel == 0)
-{
-  std::vector<double> v;
-  for (int i = 0; i < frameLength; ++i)
-    v.push_back(outFrame[i]);
-  emit plot_output_signal(v);
-}
-#endif
-
+  _qtdebug.plot(outFrame, frameLength, QtDebug::OUT_FRAME);
 }
 
 
