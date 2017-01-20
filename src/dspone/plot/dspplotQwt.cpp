@@ -45,13 +45,11 @@ void DspPlot::init()
 
 void DspPlot::plot_input_analysis(std::vector<double> signal)
 {
-//  std::cout << "called input analysis " << std::endl;
   plot(signal, qwtc_in_anal_);
 }
 
 void DspPlot::plot_output_analysis(std::vector<double> signal)
 {
-//  std::cout << "called output analysis " << std::endl;
   plot(signal, qwtc_out_anal_);
 }
 
@@ -143,6 +141,18 @@ void DspPlot::config()
   qRegisterMetaType<std::vector<double*> >("vector_double_ptr");
 
   connect(&(process_->_impl.get()->_qtdebug),
+	  SIGNAL(plot_input_signal(std::vector<double>)),
+	  this,
+	  SLOT(plot_input_signal(std::vector<double>)),
+	  Qt::BlockingQueuedConnection);
+
+  connect(&(process_->_impl.get()->_qtdebug),
+	  SIGNAL(plot_input_frame(std::vector<double>)),
+	  this,
+	  SLOT(plot_input_frame(std::vector<double>)),
+	  Qt::BlockingQueuedConnection);
+
+  connect(&(process_->_impl.get()->_qtdebug),
 	  SIGNAL(plot_input_analysis(std::vector<double>)),
 	  this,
 	  SLOT(plot_input_analysis(std::vector<double>)),
@@ -155,9 +165,9 @@ void DspPlot::config()
 	  Qt::BlockingQueuedConnection);
 
   connect(&(process_->_impl.get()->_qtdebug),
-	  SIGNAL(plot_input_signal(std::vector<double>)),
+	  SIGNAL(plot_output_frame(std::vector<double>)),
 	  this,
-	  SLOT(plot_input_signal(std::vector<double>)),
+	  SLOT(plot_output_frame(std::vector<double>)),
 	  Qt::BlockingQueuedConnection);
 
   connect(&(process_->_impl.get()->_qtdebug),
@@ -170,7 +180,11 @@ void DspPlot::config()
   initQwtCurve(qwtc_out_anal_);
   initQwtCurve(qwtc_in_signal_);
   initQwtCurve(qwtc_out_signal_);
+  initQwtCurve(qwtc_in_frame_);
+  initQwtCurve(qwtc_out_frame_);
 
+  initQwtPlot(qwtPlot_in_frame_);
+  initQwtPlot(qwtPlot_out_frame_);
   initQwtPlot(qwtPlot_in_anal_);
   initQwtPlot(qwtPlot_out_anal_);
   initQwtPlot(qwtPlot_in_signal_);
@@ -182,21 +196,28 @@ void DspPlot::config()
   qwtc_out_anal_.attach(&qwtPlot_out_anal_);
   qwtc_in_signal_.attach(&qwtPlot_in_signal_);
   qwtc_out_signal_.attach(&qwtPlot_out_signal_);
+  qwtc_in_frame_.attach(&qwtPlot_in_frame_);
+  qwtc_out_frame_.attach(&qwtPlot_out_frame_);
 
   qwtc_in_anal_.setPen(QPen(Qt::green));
   qwtc_out_anal_.setPen(QPen(Qt::red));
   qwtc_in_signal_.setPen(QPen(Qt::blue));
+  qwtc_in_frame_.setPen(QPen(Qt::blue));
+  qwtc_out_frame_.setPen(QPen(Qt::red));
 
   qwtPlot_in_anal_.setTitle(QString("Input analysis"));
   qwtPlot_out_anal_.setTitle(QString("Output analysis"));
+  qwtPlot_in_frame_.setTitle(QString("Input frame"));
+  qwtPlot_out_frame_.setTitle(QString("Output frame"));
   qwtPlot_in_signal_.setTitle(QString("Input signal"));
   qwtPlot_out_signal_.setTitle(QString("Output signal"));
 
-  layout_->addWidget(&qwtPlot_in_anal_,0,1);
-  layout_->addWidget(&qwtPlot_out_anal_,1,1);
-  layout_->addWidget(&qwtPlot_in_signal_,0,0);
-  layout_->addWidget(&qwtPlot_out_signal_,1,0);
-
+  layout_->addWidget(&qwtPlot_in_frame_,  0, 0, 1, 1);
+  layout_->addWidget(&qwtPlot_out_frame_, 1, 0, 1, 1);
+  layout_->addWidget(&qwtPlot_in_anal_,   0, 2, 2, 1);
+  layout_->addWidget(&qwtPlot_out_anal_,  0, 3, 2, 1);
+  layout_->addWidget(&qwtPlot_in_signal_, 2, 0, 1, 4);
+  layout_->addWidget(&qwtPlot_out_signal_,3, 0, 1, 4);
 
   widget_->show();
 }
