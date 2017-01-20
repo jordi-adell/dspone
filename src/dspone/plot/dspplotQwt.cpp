@@ -18,6 +18,10 @@ DspPlot::DspPlot(thread_processing_run_t *f, ShortTimeProcess *stp) :
   processing_run(f),
   process_(stp)
 {
+
+  wipp::init_cirular_buffer<double>(&cbuffer_in_signal_, 500);
+  wipp::init_cirular_buffer<double>(&cbuffer_out_signal_, 500);
+
   widget_.reset(new QWidget());
   layout_.reset(new QGridLayout(widget_.get()));
   timer_.start();
@@ -43,6 +47,16 @@ void DspPlot::init()
 }
 
 
+void DspPlot::plot_input_frame(std::vector<double> signal)
+{
+  plot(signal, qwtc_in_frame_);
+}
+
+void DspPlot::plot_output_frame(std::vector<double> signal)
+{
+  plot(signal, qwtc_out_frame_);
+}
+
 void DspPlot::plot_input_analysis(std::vector<double> signal)
 {
   plot(signal, qwtc_in_anal_);
@@ -55,30 +69,66 @@ void DspPlot::plot_output_analysis(std::vector<double> signal)
 
 void DspPlot::plot_input_signal(std::vector<double> signal)
 {
-  plot(signal, qwtc_in_signal_);
+  plot(signal, cbuffer_in_signal_,  qwtc_in_signal_);
 }
 
 void DspPlot::plot_output_signal(std::vector<double> signal)
 {
-  plot(signal, qwtc_out_signal_);
+  plot(signal, cbuffer_out_signal_ ,qwtc_out_signal_);
+}
+
+
+
+void DspPlot::plot(std::vector<double> signal, wipp::wipp_circular_buffer_t *cbuffer, QwtPlotCurve &qwtc)
+{
+
+  size_t consumed = 0;
+  size_t free, skipped, size, stored;
+
+  while (consumed < signal.size())
+  {
+    wipp::cf_free(cbuffer, &free);
+    if (free < signal.size() - consumed)
+      wipp::cf_skip(cbuffer, signal.size() - consumed, &skipped);
+    wipp::cf_write(cbuffer, &signal[0], signal.size(), &stored);
+    consumed += stored;
+  }
+
+  wipp::cf_size(cbuffer, &size);
+  QVector<double> y(size, 0);
+  QVector<double> x(size, 0);
+
+  wipp::cf_read(cbuffer, &y[0], size, &stored);
+
+  for (int i = 0; i < size; ++i)
+    x[i] = i;
+
+  plot(x, y, qwtc);
 }
 
 void DspPlot::plot(std::vector<double> signal, QwtPlotCurve &qwtc)
 {
-  QVector<double> y;
-  QVector<double> x;
+  int size = signal.size();
+  QVector<double> y(size);
+  QVector<double> x(size);
 
   y = QVector<double>::fromStdVector(signal);
 
-  if (signal.size() > 0)
-  {
-    for (int i = 0; i < signal.size(); ++i)
-    {
-      x.push_back(i);
-      }
-  }
-  qwtc.setSamples(x, y);
+  for (int i = 0; i < signal.size(); ++i)
+    x[i] = i;
 
+  plot(x, y, qwtc);
+}
+
+
+void DspPlot::plot(const QVector<double> &x, const QVector<double> &y, QwtPlotCurve &qwtc)
+{
+  qwtc.setSamples(x, y);
+  update_plots();
+}
+
+void DspPlot::update_plots()
+{
   if (timer_.hasExpired(75))
   {
     timer_.restart();
@@ -86,37 +136,9 @@ void DspPlot::plot(std::vector<double> signal, QwtPlotCurve &qwtc)
     qwtPlot_out_anal_.replot();
     qwtPlot_in_signal_.replot();
     qwtPlot_out_signal_.replot();
-  }
-}
-
-void DspPlot::plot(std::vector<double*> signal,
-		 int length,
-		 QwtPlotCurve &qwtc,
-		 std::shared_ptr<double> &x,
-		 std::shared_ptr<double> &y)
-{
-  if (timer_.hasExpired(15))
-  {
-    std::shared_ptr<double> x_tmp(new double[length]);
-    std::shared_ptr<double> y_tmp(new double[length]);
-
-    if (signal.size() > 0)
-    {
-      for (int i = 0; i < length; ++i)
-      {
-	x_tmp.get()[i] = i;
-	y_tmp.get()[i] = signal[0][i];
-      }
-    }
-
-    qwtc.setRawSamples(x_tmp.get(), y_tmp.get(), length);
-
-  x = x_tmp;
-  y = y_tmp;
-
-  length_ = length;
-
-  timer_.restart();
+    qwtPlot_in_frame_.replot();
+    qwtPlot_out_frame_.replot();
+    timer_.restart();
   }
 }
 
