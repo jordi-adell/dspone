@@ -34,6 +34,7 @@
 #include <qgridlayout.h>
 #include <qelapsedtimer.h>
 
+#include <wipp/wippsignal.h>
 
 #include <memory>
 #include <thread>
@@ -52,31 +53,32 @@ class DspPlot : public QObject
 	DspPlot(thread_processing_run_t *f, ShortTimeProcess *stp);
 	virtual ~DspPlot();
 
-
-
     private:
 	void init();
 	void signal_process();
 	void initQwtCurve(QwtPlotCurve &qwtc);
 	void initQwtPlot(QwtPlot &qwtPlot);
+	void plot(std::vector<double> signal, wipp::wipp_circular_buffer_t *cbuffer, QwtPlotCurve &qwtc);
 	void plot(std::vector<double> signal, QwtPlotCurve &qwtc);
-	void plot(std::vector<double*> signal,
-		  int length,
-		  QwtPlotCurve &qwtc,
-		  std::shared_ptr<double> &x,
-		  std::shared_ptr<double> &y);
+	void plot(const QVector<double> &x, const QVector<double> &y, QwtPlotCurve &qwtc);
+
+
+	void update_plots();
 
     public slots:
+	void plot_input_frame(std::vector<double> signal);
+	void plot_output_frame(std::vector<double> signal);
 	void plot_input_analysis(std::vector<double> signal);
 	void plot_output_analysis(std::vector<double> signal);
 	void plot_input_signal(std::vector<double> signal);
 	void plot_output_signal(std::vector<double> signal);
 
     private:
-
 	void config();
 	std::unique_ptr<std::thread> qt_thread_;
 	std::unique_ptr<std::thread> signal_process_thread_;
+	QwtPlotCurve qwtc_in_frame_;
+	QwtPlotCurve qwtc_out_frame_;
 	QwtPlotCurve qwtc_in_signal_;
 	QwtPlotCurve qwtc_out_signal_;
 	QwtPlotCurve qwtc_in_anal_;
@@ -108,6 +110,10 @@ class DspPlot : public QObject
 	QwtPlot qwtPlot_out_frame_;
 
 	QElapsedTimer timer_;
+
+	wipp::wipp_circular_buffer_t *cbuffer_in_signal_;
+	wipp::wipp_circular_buffer_t *cbuffer_out_signal_;
+
 
 };
 
