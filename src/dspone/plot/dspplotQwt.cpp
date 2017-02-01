@@ -19,8 +19,8 @@ DspPlot::DspPlot(thread_processing_run_t *f, ShortTimeProcess *stp) :
   process_(stp)
 {
 
-  wipp::init_cirular_buffer<double>(&cbuffer_in_signal_, 500);
-  wipp::init_cirular_buffer<double>(&cbuffer_out_signal_, 500);
+  wipp::init_cirular_buffer<double>(&cbuffer_in_signal_, 512);
+  wipp::init_cirular_buffer<double>(&cbuffer_out_signal_, 512);
 
   widget_.reset(new QWidget());
   layout_.reset(new QGridLayout(widget_.get()));
@@ -98,7 +98,7 @@ void DspPlot::plot(std::vector<double> signal, wipp::wipp_circular_buffer_t *cbu
   QVector<double> y(size, 0);
   QVector<double> x(size, 0);
 
-  wipp::cf_read(cbuffer, &y[0], size, &stored);
+  wipp::cf_next(cbuffer, &y[0], size, &stored);
 
   for (int i = 0; i < size; ++i)
     x[i] = i;
