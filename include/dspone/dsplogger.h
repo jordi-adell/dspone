@@ -26,7 +26,7 @@
 #include <vector>
 
 
-#ifdef _LOGGER
+#ifdef _DSP_LOGGER
 
 #include <dspone/dsploggerImpl.h>
 
@@ -50,6 +50,23 @@
 
 #ifndef TRACE_STREAM
 #define TRACE_STREAM(x)
+#endif
+
+
+#ifndef ERROR_STREAM_ONCE
+#define ERROR_STREAM_ONCE(x)
+#endif
+
+#ifndef WARN_STREAM_ONCE
+#define WARN_STREAM_ONCE(x)
+#endif
+
+#ifndef INFO_STREAM_ONCE
+#define INFO_STREAM_ONCE(x)
+#endif
+
+#ifndef DEBUG_STREAM_ONCE
+#define DEBUG_STREAM_ONCE(x)
 #endif
 
 

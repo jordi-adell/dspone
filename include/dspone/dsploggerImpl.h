@@ -64,6 +64,12 @@ static dsp::Logger _logger_(dsp::Logger::TRACE);
 #define INFO_STREAM(what) LOG_STREAM(dsp::Logger::INFO, what)
 #define TRACE_STREAM(what) LOG_STREAM(dsp::Logger::TRACE, what)
 
+#define WARN_STREAM_ONCE(what)  {static bool printed=false; if (!printed) LOG_STREAM(mca::Logger::WARNING, what); printed=true;}
+#define ERROR_STREAM_ONCE(what) {static bool printed=false; if (!printed) LOG_STREAM(mca::Logger::ERROR, what);   printed=true;}
+#define INFO_STREAM_ONCE(what)  {static bool printed=false; if (!printed) LOG_STREAM(mca::Logger::INFO, what);    printed=true;}
+#define DEBUG_STREAM_ONCE(what) {static bool printed=false; if (!printed) LOG_STREAM(mca::Logger::DEBUG, what);   printed=true;}
+#define TRACE_STREAM_ONCE(what) {static bool printed=false; if (!printed) LOG_STREAM(mca::Logger::TRACE, what);   printed=true;}
 
+#define SET_LOG_LEVEL(level) _logger_.setLevel(level)
 
 #endif //__DSP_LOGGER_H_
