@@ -32,7 +32,7 @@
 
 #include <math.h>
 
-
+//#define PRINT_DEBUG
 
 namespace dsp{
 
@@ -72,6 +72,8 @@ void GeneralisedCrossCorrelationImpl::allocate()
   _phase.reset(new BaseType[_length]);
   _phat.reset(new BaseType[_length]);
   _magnitude.reset(new BaseType[_length]);
+  _ditherx.reset(new BaseTypeC[_length]);
+  _dithery.reset(new BaseTypeC[_length]);
   _ones.reset(new BaseType[_length]);
   _delay.reset(new BaseTypeC[_length]);
   _correlation.reset(new BaseTypeC[_length]);
@@ -109,6 +111,7 @@ void GeneralisedCrossCorrelationImpl::calculateCorrelationsForTauVector(const Ba
       throw(DspException("Wrong vector length"));
     }
     generateTwoSidedFFT(x, y, _fullx.get(), _fully.get(), length);
+
     calculateCorrelationsCore(_fullx.get(), _fully.get(), c, samplesDelay, numSteps, false);
   }
   else if (usedFFTtype == GeneralisedCrossCorrelation::TWOSIDEDFFT)
@@ -206,19 +209,48 @@ void GeneralisedCrossCorrelationImpl::generateTwoSidedFFT(const BaseTypeC *x, co
 void GeneralisedCrossCorrelationImpl::calculateCorrelationsCore(const  BaseTypeC *x, const  BaseTypeC *y, BaseTypeC *c,
 							    BaseType *samplesDelay, int numSteps, bool usePrecomputedMatrix)
 {
-  wipp::conj(reinterpret_cast<const wipp::wipp_complex_t*>(x),
+  wipp::wipp_complex_t value = {1e-100, 1e-100};
+  wipp::copyBuffer(reinterpret_cast<const wipp::wipp_complex_t*>(x), reinterpret_cast<wipp::wipp_complex_t*>(_ditherx.get()), _length);
+  wipp::copyBuffer(reinterpret_cast<const wipp::wipp_complex_t*>(y), reinterpret_cast<wipp::wipp_complex_t*>(_dithery.get()), _length);
+  wipp::addC(value, reinterpret_cast<wipp::wipp_complex_t*>(_ditherx.get()), _length);
+  wipp::addC(value, reinterpret_cast<wipp::wipp_complex_t*>(_dithery.get()), _length);
+
+#ifdef PRINT_DEBUG
+  std::cout << " CORE " << std::endl;
+  for (int i = 0; i < std::min(_length, 10); ++i)
+    std::cout << "(" << _ditherx[i].re << " + " << _ditherx[i].im << "j) ";
+  std::cout << std::endl;
+  for (int i = 0; i < std::min(_length,10); ++i)
+    std::cout << "(" << _dithery[i].re << " + " << _dithery[i].im << "j) ";
+  std::cout << std::endl;
+#endif
+
+  wipp::conj(reinterpret_cast<const wipp::wipp_complex_t*>(_ditherx.get()),
 	     reinterpret_cast<wipp::wipp_complex_t*>(_correlation.get()),
 	     _length);
 
-  wipp::mult(reinterpret_cast<const wipp::wipp_complex_t*>(y),
+  wipp::mult(reinterpret_cast<const wipp::wipp_complex_t*>(_dithery.get()),
 	     reinterpret_cast<wipp::wipp_complex_t*>(_correlation.get()),
 	     _length);
+
+#ifdef PRINT_DEBUG
+  for (int i = 0; i < std::min(_length, 10); ++i)
+    std::cout << "(" << _correlation[i].re << " + " << _correlation[i].im << "j) ";
+  std::cout << std::endl;
+#endif
+
 
   //PHAT weight vector
-  phatWeight(x, y, _weight.get());
+  phatWeight(_ditherx.get(), _dithery.get(), _weight.get());
   wipp::mult(reinterpret_cast<wipp::wipp_complex_t*>(_weight.get()),
 	     reinterpret_cast<wipp::wipp_complex_t*>(_correlation.get()),
 	     _length);
+
+#ifdef PRINT_DEBUG
+  for (int i = 0; i < std::min(_length, 10); ++i)
+    std::cout << "(" << _correlation[i].re << " + " << _correlation[i].im << "j) ";
+  std::cout << std::endl;
+#endif
 
   for (int i = 0; i < numSteps; i++)
   {
@@ -247,6 +279,12 @@ void GeneralisedCrossCorrelationImpl::calculateCorrelationsCore(const  BaseTypeC
 	       reinterpret_cast<wipp::wipp_complex_t*>(&c[i]));
   }
 
+#ifdef PRINT_DEBUG
+  for (int i = 0; i < std::min(_length, 10); ++i)
+    std::cout << "(" << _correlation[i].re << " + " << _correlation[i].im << "j) ";
+  std::cout << std::endl;
+#endif
+
 }
 
 void GeneralisedCrossCorrelationImpl::phatWeight(const  BaseTypeC *x, const  BaseTypeC *y,  BaseTypeC *w)
@@ -256,21 +294,36 @@ void GeneralisedCrossCorrelationImpl::phatWeight(const  BaseTypeC *x, const  Bas
   //        W(w) =  -------------------  ==>  PHAT (more or less)
   //                 |X_i(w)||X_j(w)|
 
+#ifdef PRINT_DEBUG
+  std::cout << "PHAT" << std::endl;
+
+  for (int i = 0; i < std::min(_length, 10); ++i)
+    std::cout << "(" << x[i].re << " + " << x[i].im << "j) ";
+  std::cout << std::endl;
+  for (int i = 0; i < std::min(_length, 10); ++i)
+    std::cout << "(" << y[i].re << " + " << y[i].im << "j) ";
+  std::cout << std::endl;
+#endif
+
   wipp::set(1.0, _phat.get(), _length);
 
   wipp::magnitude(reinterpret_cast<const wipp::wipp_complex_t*>(x), _magnitude.get(), _length);
-  wipp::addC(0.5e-100, _magnitude.get(), _length);
   wipp::div(_magnitude.get(), _phat.get(), _length);
 
   wipp::magnitude(reinterpret_cast<const wipp::wipp_complex_t*>(y), _magnitude.get(), _length);
-  wipp::addC(0.5e-100, _magnitude.get(), _length);
   wipp::div(_magnitude.get(), _phat.get(), _length);
-
-  wipp::threshold_lt(_phat.get(), _length, 0.0001, 0.0001);
 
   wipp::real2complex(_phat.get(),
 		     NULL,
 		     reinterpret_cast<wipp::wipp_complex_t*>(w), _length);
+
+#ifdef PRINT_DEBUG
+  for (int i = 0; i < std::min(_length, 10); ++i)
+    std::cout << "(" << w[i].re << " + " << w[i].im << "j) ";
+  std::cout << std::endl;
+
+  std::cout << " ------------------- " << std::endl;
+#endif
 }
 
 void GeneralisedCrossCorrelationImpl::computePhaseRamp(BaseType tau)

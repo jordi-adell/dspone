@@ -39,7 +39,7 @@ GeneralisedCrossCorrelation::~GeneralisedCrossCorrelation()
 BaseTypeC GeneralisedCrossCorrelation::calculateCorrelation(const  BaseTypeC *x, const  BaseTypeC *y,
 							    int length, BaseType tau, FFTtype usedFFTtype)
 {
-  _impl->calculateCorrelation(x, y, length, tau, usedFFTtype);
+  return _impl->calculateCorrelation(x, y, length, tau, usedFFTtype);
 }
 
 void GeneralisedCrossCorrelation::calculateCorrelationsForTauVector(const BaseTypeC *x, const BaseTypeC *y, BaseTypeC *c, int length,

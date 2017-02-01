@@ -1,7 +1,3 @@
-#ifdef DEBUG
-#define _LOGGER
-#endif
-
 #include <dspone/dsp.h>
 #include <dspone/dspHelpers.h>
 #include <dspone/DspException.h>
@@ -9,6 +5,8 @@
 
 #include <dspone/algorithm/signalPower.h>
 #include <dspone/algorithm/fft.h>
+#include <dspone/algorithm/gralCrossCorrelation.h>
+#include <dspone/algorithm/gralCrossCorrelationImpl.h>
 
 #include <dspone/filter/FIRFilter.h>
 #include <dspone/filter/IIRFilter.h>
@@ -98,6 +96,53 @@ class DummyTimeProcess : public dsp::Timeprocess
     }
 
 };
+TEST(GCC, same_signal)
+{
+
+  int order = 10;
+  int length = 1 << order;
+
+  dsp::FFT fft(order);
+  dsp::GeneralisedCrossCorrelation gcc(length, dsp::GeneralisedCrossCorrelation::ONESIDEDFFT);
+
+  dsp::Complex corr;
+  dsp::Complex signal[length];
+  dsp::Complex signal_fft[length];
+
+  wipp::setZeros(reinterpret_cast<wipp::wipp_complex_t*>(signal), length);
+  signal[length / 2 + 1].re = 1;
+
+  fft.fwdTransform(signal, signal_fft, length);
+
+  corr = gcc.calculateCorrelation(signal_fft, signal_fft, length, 0, dsp::GeneralisedCrossCorrelation::ONESIDEDFFT);
+
+  EXPECT_DOUBLE_EQ(1, corr.re);
+  EXPECT_DOUBLE_EQ(0, corr.im);
+
+  EXPECT_DOUBLE_EQ(1, sqrt(corr.re*corr.re + corr.im*corr.im));
+}
+
+TEST(GCC, core)
+{
+  int length = 3;
+  dsp::GeneralisedCrossCorrelationImpl gcc(length, dsp::GeneralisedCrossCorrelation::ONESIDEDFFT);
+  dsp::BaseTypeC corr;
+  dsp::BaseTypeC signal[length];
+
+  double delay = 0;
+  int numSteps = 0;
+  wipp::wipp_complex_t value = {1, 1};
+
+
+  wipp::setZeros(reinterpret_cast<wipp::wipp_complex_t*>(signal), length);
+  wipp::set(value, reinterpret_cast<wipp::wipp_complex_t*>(signal), length);
+  signal[length / 2 + 1].re = 20000;
+
+  corr = gcc.calculateCorrelation(signal, signal, length, delay, dsp::GeneralisedCrossCorrelation::ONESIDEDFFT);
+  EXPECT_DOUBLE_EQ (1, corr.re);
+  EXPECT_DOUBLE_EQ(0, corr.im);
+
+}
 
 TEST(DigitalSignalProcessingTest, testFIRFilter)
 {

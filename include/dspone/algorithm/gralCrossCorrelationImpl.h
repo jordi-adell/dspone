@@ -62,6 +62,8 @@ class GeneralisedCrossCorrelationImpl
 	SignalPtr _ones; /**< used to compute the phase ramp */
 	SignalCPtr _delay;  /**< used to compute the phase ramp [exp(jw*_phase)] */
 	SignalPtr _magnitude; /**< used to compute the PHAT */
+	SignalCPtr _ditherx; /**< used to compute the PHAT */
+	SignalCPtr _dithery; /**< used to compute the PHAT */
 	SignalPtr _phat; /**< used to compute the PHAT weights */
 	SignalCPtr _weight; /**< used to store the PHAT weights */
 	SignalCPtr _correlation; /**< used to compute the correlation */
