@@ -30,6 +30,7 @@ find_package(WIPP REQUIRED)
 find_package(Qwt)
 find_package(Qt COMPONENTS QtCore QtGui)
 
+
 if (Boost_FOUND)
     add_definitions(-DBOOST_FOUND)
 endif()
@@ -272,7 +273,10 @@ if (test)
 	${Qwt-Qt4_LIBRARY}
 	${QT_QTCORE_LIBRARY}
 	${QT_QTGUI_LIBRARY}
+<<<<<<< HEAD
 	${SNDFILE_LIBRARY}
+=======
+>>>>>>> 48831dd22845abd60aea054b2b16943e98e37125
 	)
 
     target_link_libraries(${PROJECT_NAME}-test ${TEST_DEPENDENCIES})

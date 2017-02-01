@@ -15,7 +15,7 @@ namespace test {
 
 void plot_signal_pocessing_run(ShortTimeProcess *process)
 {
-  int length = 100*1024;
+  int length = 200*1024;
   int outlength = length + process->getMaxLatency();
   double data[length];
   double out_data[outlength];
@@ -80,6 +80,17 @@ void plot_file_process_run(ShortTimeProcess *process)
 
 }
 
+  for (double freq = 0; freq < M_PI; freq += M_PI/50 )
+  {
+    for (int i = 0; i < length; ++i)
+    {
+      data[i] = cos(i*freq/8);
+    }
+    process->process(in_channels, length, out_channels, outlength);
+  }
+}
+
+
 
 TEST(plot, plot_stft)
 {
@@ -101,7 +112,6 @@ TEST(plot, plot_timep)
   DspGui gui(&stp, &plot_signal_pocessing_run);
   gui.start();
 }
-
 
 
 }
