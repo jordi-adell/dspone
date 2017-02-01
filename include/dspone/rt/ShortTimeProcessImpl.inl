@@ -112,7 +112,7 @@ int ShortTimeProcessImpl::overlapAndAdd(const std::vector<sampleType *> &signal,
 
 	// Put the current signal to process to the 64bits vector.
 
-	if (i < signal.size())
+	if (i < signal.size() && inbuffersize > samplesLeftOver)
 	    wipp::copyBuffer(signal[i],&(basetSignal[i][latencycount]), inbuffersize - samplesLeftOver);
 
 	// Copy the las window Shift to be processed to the latency buffer, so that

@@ -22,6 +22,8 @@
 #ifndef __FFT_H_
 #define __FFT_H_
 
+#include <dspone/complex.h>
+
 #include <memory>
 
 namespace dsp {
@@ -68,6 +70,8 @@ class FFT
 	   */
 	void fwdTransform(const double *inFrame, double *fft);
 	void fwdTransform(const double *inFrame, double *fft, int frameLength);
+	void fwdTransform(const Complex *inFrame, Complex *fft);
+	void fwdTransform(const Complex *inFrame, Complex *fft, int frameLength);
 
 	/**
 	   * @brief invTransfrom   Performed the inverse transform
@@ -80,6 +84,8 @@ class FFT
 	   */
 	void invTransfrom(double *outFrame, const double *fft);
 	void invTransfrom(double *outFrame, const double *fft, int frameLength);
+	void invTransfrom(Complex *outFrame, const double *fft);
+	void invTransfrom(Complex *outFrame, const double *fft, int frameLength);
 
     private:
 	std::unique_ptr<FFTImpl>_impl;

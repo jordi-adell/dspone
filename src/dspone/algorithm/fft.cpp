@@ -71,6 +71,11 @@ void FFT::fwdTransform(const BaseType *inFrame, BaseType *fft, int frameLength)
   _impl->fwdTransform(inFrame, fft, frameLength);
 }
 
+void FFT::fwdTransform(const Complex *inFrame, Complex *fft, int frameLength)
+{
+  _impl->fwdTransform(reinterpret_cast<const BaseType*>(inFrame),
+		      reinterpret_cast<BaseType*>(fft), frameLength);
+}
 
 void FFT::invTransfrom(BaseType *outFrame, const BaseType *fft, int frameLength)
 {
@@ -82,11 +87,19 @@ void FFT::fwdTransform(const BaseType *inFrame, BaseType *fft)
   _impl->fwdTransform(inFrame, fft);
 }
 
+void FFT::fwdTransform(const Complex *inFrame, Complex *fft)
+{
+  _impl->fwdTransform(reinterpret_cast<const BaseType*>(inFrame),
+		      reinterpret_cast<BaseType*>(fft));
+}
+
 void FFT::invTransfrom(BaseType *outFrame, const BaseType *fft)
 {
   _impl->invTransfrom(outFrame, fft);
 }
 
 }
+
+
 
 
