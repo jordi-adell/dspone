@@ -80,17 +80,6 @@ void plot_file_process_run(ShortTimeProcess *process)
 
 }
 
-  for (double freq = 0; freq < M_PI; freq += M_PI/50 )
-  {
-    for (int i = 0; i < length; ++i)
-    {
-      data[i] = cos(i*freq/8);
-    }
-    process->process(in_channels, length, out_channels, outlength);
-  }
-}
-
-
 
 TEST(plot, plot_stft)
 {
@@ -113,9 +102,11 @@ TEST(plot, plot_timep)
   gui.start();
 }
 
+}
+}
 
-}
-}
+
+
 
 
 int main(int argc, char* argv[])

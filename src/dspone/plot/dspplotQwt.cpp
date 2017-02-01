@@ -98,11 +98,7 @@ void DspPlot::plot(std::vector<double> signal, wipp::wipp_circular_buffer_t *cbu
   QVector<double> y(size, 0);
   QVector<double> x(size, 0);
 
-<<<<<<< HEAD
   wipp::cf_next(cbuffer, &y[0], size, &stored);
-=======
-  wipp::cf_read(cbuffer, &y[0], size, &stored);
->>>>>>> 48831dd22845abd60aea054b2b16943e98e37125
 
   for (int i = 0; i < size; ++i)
     x[i] = i;
