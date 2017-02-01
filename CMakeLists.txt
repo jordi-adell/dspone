@@ -30,7 +30,6 @@ find_package(WIPP REQUIRED)
 find_package(Qwt)
 find_package(Qt COMPONENTS QtCore QtGui)
 
-
 if (Boost_FOUND)
     add_definitions(-DBOOST_FOUND)
 endif()
@@ -254,6 +253,10 @@ INCLUDE(CPack)
 if (test)
     enable_testing()
 
+    add_definitions("-DTEST_AUDIO_DIR=\"${CMAKE_SOURCE_DIR}/etc/test/audiofiles\"")
+
+    find_package(SNDFILE)
+
     find_package(GTest REQUIRED COMPONENTS system)
     find_package(Threads REQUIRED COMPONENTS system)
 
@@ -269,6 +272,7 @@ if (test)
 	${Qwt-Qt4_LIBRARY}
 	${QT_QTCORE_LIBRARY}
 	${QT_QTGUI_LIBRARY}
+	${SNDFILE_LIBRARY}
 	)
 
     target_link_libraries(${PROJECT_NAME}-test ${TEST_DEPENDENCIES})
