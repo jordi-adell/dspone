@@ -24,9 +24,13 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
-#ifdef DEBUG
-#undef DEBUG
+#ifdef _DSP_LOGGER
+#if _DSP_LOGGER
+#undef _DSP_LOGGER
+#define _DSP_LOGGER FATAL
+#endif
 #endif
 
 namespace dsp
@@ -38,6 +42,7 @@ class Logger
 	typedef enum{FATAL  = 0, ERROR = 1, WARNING = 2, INFO = 3, DEBUG = 4, TRACE = 5} LogLevel;
 
 	Logger(LogLevel level = FATAL, bool enable = true, std::ostream &os = std::cout);
+	static Logger& logger(LogLevel level = FATAL, bool enable = true, std::ostream &os = std::cout);
 
 	std::ostream &log(LogLevel level, const char *file, int line);
 
@@ -45,17 +50,22 @@ class Logger
 	void enable();
 	void disable();
 
+	void setLevel(std::string level);
+	void setLevel(LogLevel level);
+
     private:
 	LogLevel _level;
 	std::ostream &_os;
 	bool _enabled;
 	std::vector<std::string> _levelNames;
+
+	static std::unique_ptr<Logger> _logger;
 };
 
 
 }
 
-static dsp::Logger _logger_(dsp::Logger::TRACE);
+#define _logger_ dsp::Logger::logger(dsp::Logger::_DSP_LOGGER)
 
 #define LOG_STREAM(level, what) {if (_logger_.isEnabled(level)) _logger_.log(level, __FILE__, __LINE__) << what << std::endl;}
 #define DEBUG_STREAM(what) LOG_STREAM(dsp::Logger::DEBUG, what)

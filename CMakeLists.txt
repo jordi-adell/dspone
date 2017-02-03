@@ -10,13 +10,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 if(DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
-    add_definitions("-DDEBUG")
+    add_definitions("-D_DEBUG")
     add_definitions("-D_DSP_LOGGER")
-    message(STATUS "DEBUG mode")
+    message(STATUS "DEBUG mode.")
 else(DEBUG)
   set(OPT_FLAGS, "-O3 -msse4")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OPT_FLAGS}")
-  message(STATUS "optimisation flags: ${OPT_FLAGS}")
+  message(STATUS "RELEASE mode. Optimisation flags: ${OPT_FLAGS}")
 endif(DEBUG)
 
 #############################################

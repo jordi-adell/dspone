@@ -363,10 +363,6 @@ TEST(DigitalSignalProcessingTest, testMedianFilter)
 
   filter.filterBuffer(buffer, obuffer, length);
 
-#ifdef _LOGGER
-  std::cout << "LOGGER" << std::endl;
-#endif
-
   for (size_t i = 0; i < length; ++i)
   {
     EXPECT_EQ(reference[i], obuffer[i]);
@@ -1339,7 +1335,8 @@ void checkFilterBankBinsOverlap(double *coefs, int length, int nbins)
 
 int main(int argc, char* argv[])
 {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+  SET_LOG_LEVEL("DDEBUG");
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
 
