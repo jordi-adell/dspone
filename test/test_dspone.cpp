@@ -49,12 +49,20 @@
 #include <stdlib.h>
 #include <string>
 
+
+#ifndef AUDIO_FILES_PATH
+#define AUDIO_FILES_PATH "./"
+#endif
+
 namespace dsp {
 namespace test {
 
+
 inline std::string getAudioPath()
 {
-    std::string audio = "./audiofiles/";
+    std::string audio = AUDIO_FILES_PATH;
+    audio += "/audiofiles/";
+    DEBUG_STREAM(audio);
     return audio;
 }
 
@@ -556,7 +564,7 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
 	else if (1.01*lowFreq < sinFreq && sinFreq < 0.99*highFreq)
 	{
 	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
-	    EXPECT_GE(filterGaindB[f], 0);
+	    EXPECT_GE(filterGaindB[f], -0.01);
 	}
 	else if(sinFreq> 1.01*highFreq)
 	{
@@ -570,8 +578,11 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
     wipp::min(&filterGaindB[1], NFREQS-2, &min);
     wipp::max(&filterGaindB[1], NFREQS-2, &max);
 
+
+
+
     EXPECT_NEAR(-1081, min,1);
-    EXPECT_NEAR(5, max,1);
+    EXPECT_NEAR(0, max,1);
 
 }
 
@@ -1222,8 +1233,6 @@ void testFilterBank(int order,  FilterBank &filterBank)
 
 	DEBUG_STREAM("input power: " << calculateLogPowerTemporal(signal, length));
 
-	std::cout << " F: " << sinFreq << std::endl;
-
 	for (int j=0; j<5; ++j)
 	  filterBank.filterBuffer(signal, residual, filtered, length, length*filterBank.getNBins());
 
@@ -1305,7 +1314,7 @@ void testBandPassFilter(BandPassFilter &filter,
 	DEBUG_STREAM("Freq: " << sinFreq  <<
 		     "; filt: " << powerfilt <<
 		     " dB; signal: " << powersign <<
-		     " dB; gain: " << filterGaindB[f]);
+		     " dB; gain: " << filterGaindB[f] << " dB.");
     }
 
 }

@@ -232,6 +232,8 @@ INCLUDE(CPack)
 if (test)
     enable_testing()
 
+    add_definitions("-DAUDIO_FILES_PATH=\"${CMAKE_SOURCE_DIR}/test/\"")
+
     find_package(GTest REQUIRED COMPONENTS system)
     find_package(Threads REQUIRED COMPONENTS system)
 
