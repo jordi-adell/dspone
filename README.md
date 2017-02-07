@@ -10,6 +10,13 @@ It is oriented to process sta in real-time and is aimed at allowing the devlopme
 ## Documentation
 http://jordi-adell.github.io/dspone
 
+## Installation
+### PPA repository debian/ubuntu
+> sudo echo "deb [trusted=yes] https://repo.fury.io/jordi-adell/ /" >> /etc/apt/sources.list
+
+### Download debian package
+https://github.com/jordi-adell/dspone/releases
+
 ## Licensing
 --------------------------------------------------------------------------------
     WIPP is a library for mathematical calculation signal processing-oriented
