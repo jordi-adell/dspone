@@ -45,12 +45,11 @@ class DspGui
 	DspGui(ShortTimeProcess *process, thread_processing_run_t &f);
 	DspGui(ShortTimeProcess &process, thread_processing_run_t &f);
 
+	virtual ~DspGui();
 
 	void start();
 
     private:
-	std::shared_ptr<QApplication> qt_app_;
-	std::shared_ptr<DspPlot> plot_;
 	void init(ShortTimeProcess &process, thread_processing_run_t &f);
 	void init(ShortTimeProcess &process, thread_processing_run_t_ *f);
 	thread_processing_run_t process_f_;

@@ -28,6 +28,11 @@ DspGui::DspGui(ShortTimeProcess &process, thread_processing_run_t &f)
   init(process, f);
 }
 
+DspGui::~DspGui()
+{
+
+}
+
 void DspGui::init(ShortTimeProcess &process, thread_processing_run_t &f)
 {
   process_ = &process;
@@ -47,11 +52,13 @@ void DspGui::start()
   int argc = 1;
   char *argv[argc];
   argv[0] = const_cast<char*>(title.c_str());
-  qt_app_.reset(new QApplication(argc, argv));
-  plot_.reset(new DspPlot(process_f_ , process_));
+  QApplication* qt_app = new QApplication(argc, argv);
+  DspPlot *plot = new DspPlot(process_f_ , process_);
 
-  plot_->start();
-  qt_app_->exec();
+  plot->start();
+  qt_app->exec();
+
+  delete qt_app;
 }
 
 

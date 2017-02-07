@@ -112,8 +112,8 @@ class DspPlot : public QObject
 	const QObject *dspplot_;
 	ShortTimeProcess *process_;
 	thread_processing_run_t processing_run;
-	std::shared_ptr<QWidget> widget_;
-	std::shared_ptr<QGridLayout> layout_;
+	QWidget *widget_;
+	QGridLayout *layout_;
 	QwtPlot qwtPlot_in_signal_;
 	QwtPlot qwtPlot_out_signal_;
 	QwtPlot qwtPlot_in_anal_;

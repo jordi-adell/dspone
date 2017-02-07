@@ -53,14 +53,20 @@ void DspPlot::allocate()
   wipp::init_cirular_buffer<double>(&cbuffer_in_signal_, 512);
   wipp::init_cirular_buffer<double>(&cbuffer_out_signal_, 512);
 
-  widget_.reset(new QWidget());
-  layout_.reset(new QGridLayout(widget_.get()));
+  widget_ = new QWidget(); // Not using a smart pointer because QGridLayout will take care.
+  layout_ = new QGridLayout(widget_);
 }
 
 DspPlot::~DspPlot()
 {
-  if (signal_process_thread_->joinable())
-    signal_process_thread_->join();
+  wipp::delete_circular_buffer(&cbuffer_in_signal_);
+  wipp::delete_circular_buffer(&cbuffer_out_signal_);
+
+  if (signal_process_thread_)
+  {
+    if (signal_process_thread_->joinable())
+      signal_process_thread_->join();
+  }
 }
 
 void DspPlot::init()
@@ -163,7 +169,6 @@ void DspPlot::update_plots()
 {
   if (timer_.hasExpired(75))
   {
-    timer_.restart();
     qwtPlot_in_anal_.replot();
     qwtPlot_out_anal_.replot();
     qwtPlot_in_signal_.replot();
@@ -281,6 +286,8 @@ void DspPlot::signal_process()
 {
   if (process_)
     processing_run(*process_);
+
+  signal_process_thread_.reset();
 
   QApplication::quit();
 }
