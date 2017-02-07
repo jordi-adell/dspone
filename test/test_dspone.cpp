@@ -475,6 +475,18 @@ TEST(DigitalSignalProcessingTest, testDummySTFT)
   shortTimeProcess(*shortTimeP);
 }
 
+/*
+TEST(DigitalSignalProcessingTest, DummySTFTGUI)
+{
+  DummySTFT stft;
+  ShortTimeProcess *shortTimeP =dynamic_cast<ShortTimeProcess *>(&stft);
+  dsp::DspGui gui(shortTimeP, shortTimeProcess);
+
+  gui.start();
+
+}
+*/
+
 TEST(DigitalSignalProcessingTest, testDummySTFTAnalysis)
 {
     DummySTFTAnalysis *a = new DummySTFTAnalysis();
@@ -1128,7 +1140,7 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	    int samples_to_sub = processedSamples - latency;
 
 //	    DEBUG_STREAM("Latency: " << latency << ", processed: " << processedSamples);
-	    if (firstcall < 10)
+	    if (firstcall < 1)
 	    {
 		++firstcall;
 	    }
@@ -1142,7 +1154,7 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 		  wipp::mean(&difference[0], processedSamples-latency, &sum);
 		  wipp::abs(dataDifference, processedSamples-latency);
 		  wipp::mean(dataDifference, processedSamples-latency, &datasum);
-		  EXPECT_LT(sum, 0.3);
+		  EXPECT_LT(sum, 0.5);
 		  EXPECT_EQ(0, (int) datasum);
 		}
 	    }
