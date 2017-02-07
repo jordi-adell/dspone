@@ -13,10 +13,10 @@
 namespace dsp {
 namespace test {
 
-void plot_signal_pocessing_run(ShortTimeProcess *process)
+void plot_signal_pocessing_run(ShortTimeProcess &process)
 {
   int length = 200*1024;
-  int outlength = length + process->getMaxLatency();
+  int outlength = length + process.getMaxLatency();
   double data[length];
   double out_data[outlength];
 
@@ -39,13 +39,13 @@ void plot_signal_pocessing_run(ShortTimeProcess *process)
       data[i] = cos(2.0F*M_PI*freq*time + phase);
       freq += 0.1F/(iters*length);
     }
-    process->process(in_channels, length, out_channels, outlength);
+    process.process(in_channels, length, out_channels, outlength);
     usleep(5*1000);
   }
 
 }
 
-void plot_file_process_run(ShortTimeProcess *process)
+void plot_file_process_run(ShortTimeProcess &process)
 {
   std::string input_file = TEST_AUDIO_DIR;
   input_file += "/example16000.wav";
@@ -58,14 +58,14 @@ void plot_file_process_run(ShortTimeProcess *process)
     return;
 
   int nframes = 1024;
-  int out_n_frames = nframes + process->getMaxLatency();
+  int out_n_frames = nframes + process.getMaxLatency();
   int nchannels = sf_info_in.channels;
   int sampling_rate = sf_info_in.samplerate;
 
   EXPECT_EQ(1,nchannels);
 
   double data[nframes * nchannels];
-  double out_data[out_n_frames * nchannels + process->getMaxLatency()];
+  double out_data[out_n_frames * nchannels + process.getMaxLatency()];
 
   std::vector<double*> in_channels, out_channels;
   in_channels.push_back(data);
@@ -74,7 +74,7 @@ void plot_file_process_run(ShortTimeProcess *process)
   int read_frames;
   while ( (read_frames = sf_readf_double(snd_file_in, data, nframes) ) > 0)
   {
-    process->process(in_channels, read_frames, out_channels, out_n_frames);
+    process.process(in_channels, read_frames, out_channels, out_n_frames);
     usleep(1000000.0F * read_frames / sampling_rate );
   }
 

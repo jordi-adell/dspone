@@ -8,20 +8,36 @@
 namespace dsp
 {
 
-DspGui::DspGui(ShortTimeProcess *process, thread_processing_run_t *f)
+DspGui::DspGui(ShortTimeProcess *process, thread_processing_run_t_ *f)
 {
   init(*process, f);
 }
 
-DspGui::DspGui(ShortTimeProcess &process, thread_processing_run_t *f)
+DspGui::DspGui(ShortTimeProcess &process, thread_processing_run_t_ *f)
 {
   init(process, f);
 }
 
-void DspGui::init(ShortTimeProcess &process, thread_processing_run_t *f)
+DspGui::DspGui(ShortTimeProcess *process, thread_processing_run_t &f)
+{
+  init(*process, f);
+}
+
+DspGui::DspGui(ShortTimeProcess &process, thread_processing_run_t &f)
+{
+  init(process, f);
+}
+
+void DspGui::init(ShortTimeProcess &process, thread_processing_run_t &f)
 {
   process_ = &process;
   process_f_  = f;
+}
+
+void DspGui::init(ShortTimeProcess &process, thread_processing_run_t_ *f)
+{
+  process_ = &process;
+  process_f_  = std::bind(f, std::placeholders::_1);
 }
 
 

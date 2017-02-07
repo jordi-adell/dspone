@@ -25,6 +25,7 @@
 
 #include <dspone/rt/ShortTimeProcess.h>
 #include <dspone/rt/ShortTimeProcessImpl.h>
+#include <dspone/plot/dspgui.h>
 
 #include <qt4/Qt/qobject.h>
 
@@ -49,14 +50,23 @@ class DspPlot : public QObject
 {
 	Q_OBJECT
     public:
-	typedef void thread_processing_run_t(ShortTimeProcess *stp);
-	DspPlot(thread_processing_run_t *f, ShortTimeProcess *stp);
+
+	typedef DspGui::thread_processing_run_t thread_processing_run_t;
+	typedef DspGui::thread_processing_run_t_ thread_processing_run_t_;
+
+	DspPlot(thread_processing_run_t f, ShortTimeProcess *stp);
+	DspPlot(thread_processing_run_t_ *f, ShortTimeProcess *stp);
+	DspPlot(thread_processing_run_t f, ShortTimeProcess &stp);
+	DspPlot(thread_processing_run_t_ *f, ShortTimeProcess &stp);
+
+
 	virtual ~DspPlot();
 
 	void start();
 
     private:
 	void init();
+	void allocate();
 	void signal_process();
 	void initQwtCurve(QwtPlotCurve &qwtc);
 	void initQwtPlot(QwtPlot &qwtPlot);
@@ -101,7 +111,7 @@ class DspPlot : public QObject
 	int length_;
 	const QObject *dspplot_;
 	ShortTimeProcess *process_;
-	thread_processing_run_t *processing_run;
+	thread_processing_run_t processing_run;
 	std::shared_ptr<QWidget> widget_;
 	std::shared_ptr<QGridLayout> layout_;
 	QwtPlot qwtPlot_in_signal_;

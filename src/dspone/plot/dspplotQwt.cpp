@@ -4,6 +4,8 @@
 #include <qwt_sampling_thread.h>
 #include <qwt_plot_layout.h>
 
+#include <Qt/qapplication.h>
+
 #include <mutex>
 
 Q_DECLARE_METATYPE(std::shared_ptr<double>)
@@ -14,18 +16,45 @@ namespace dsp
 {
 
 
-DspPlot::DspPlot(thread_processing_run_t *f, ShortTimeProcess *stp) :
+DspPlot::DspPlot(thread_processing_run_t f, ShortTimeProcess *stp) :
   processing_run(f),
   process_(stp)
 {
+  allocate();
+  init();
+}
 
+DspPlot::DspPlot(thread_processing_run_t f, ShortTimeProcess &stp) :
+  processing_run(f),
+  process_(&stp)
+{
+  allocate();
+  init();
+}
+
+DspPlot::DspPlot(thread_processing_run_t_ *f, ShortTimeProcess *stp) :
+  processing_run(std::bind(f, std::placeholders::_1)),
+  process_(stp)
+{
+  allocate();
+  init();
+}
+
+DspPlot::DspPlot(thread_processing_run_t_ *f, ShortTimeProcess &stp) :
+  processing_run(std::bind(f, std::placeholders::_1)),
+  process_(&stp)
+{
+  allocate();
+  init();
+}
+
+void DspPlot::allocate()
+{
   wipp::init_cirular_buffer<double>(&cbuffer_in_signal_, 512);
   wipp::init_cirular_buffer<double>(&cbuffer_out_signal_, 512);
 
   widget_.reset(new QWidget());
   layout_.reset(new QGridLayout(widget_.get()));
-  timer_.start();
-  init();
 }
 
 DspPlot::~DspPlot()
@@ -36,6 +65,7 @@ DspPlot::~DspPlot()
 
 void DspPlot::init()
 {
+  timer_.start();
   config();
 }
 
@@ -250,7 +280,9 @@ void DspPlot::config()
 void DspPlot::signal_process()
 {
   if (process_)
-    (*processing_run)(process_);
+    processing_run(*process_);
+
+  QApplication::quit();
 }
 
 

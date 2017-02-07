@@ -79,7 +79,9 @@ template <class T> std::string  saveBufferToFile(T* buffer, int length, std::str
     return getTmpPath()+file;
 }
 
-void shortTimeProcess(ShortTimeProcess &shortTimeP);
+void shortTimeProcess(ShortTimeProcess &process);
+void shortTimeProcess(ShortTimeProcess *shortTimeP);
+
 void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputDataChannels);
 void testFilterBank(int order,  FilterBank &filterBank);
 void testBandPassFilter(BandPassFilter &filter, double *filterGaindB, double *freqs);
@@ -102,6 +104,8 @@ class DummyTimeProcess : public dsp::Timeprocess
     }
 
 };
+
+
 TEST(GCC, same_signal)
 {
 
@@ -476,6 +480,16 @@ TEST(DigitalSignalProcessingTest, testDummySTFT)
   DummySTFT stft;
   ShortTimeProcess *shortTimeP =dynamic_cast<ShortTimeProcess *>(&stft);
   shortTimeProcess(*shortTimeP);
+}
+
+
+TEST(DigitalSignalProcessingTest, DummySTFTGUI)
+{
+  DummySTFT stft;
+  ShortTimeProcess *shortTimeP =dynamic_cast<ShortTimeProcess *>(&stft);
+  dsp::DspGui gui(shortTimeP, shortTimeProcess);
+
+  gui.start();
 }
 
 TEST(DigitalSignalProcessingTest, testDummySTFTAnalysis)
@@ -1071,6 +1085,10 @@ TEST(signal_power, class_api)
 
 
 
+void shortTimeProcess(ShortTimeProcess *process)
+{
+  shortTimeProcess(*process);
+}
 
 void shortTimeProcess(ShortTimeProcess &shortTimeP)
 {
@@ -1123,16 +1141,12 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	    readSamples = readBytes / 2;
 
 	    int latency = shortTimeP.getLatency();
+	    EXPECT_GE(latency, 0);
 	    int processedSamples = shortTimeP.process(inVectorSignal, readSamples, outVectorSignal, bufferOutSampleSize);
 	    int samples_to_sub = processedSamples - latency;
 	    size_t sub_to_sizet = samples_to_sub;
 //	    std::cout << latency << " " << processedSamples << " " << samples_to_sub << " " << sub_to_sizet << std::endl;
-	    if (processedSamples > latency)
-	    {
-	      wipp::sub(inbuffer, &outbuffer[latency], difference, processedSamples-latency);
-	      wipp::sub(inDatabuffer, &outDatabuffer[latency], dataDifference, processedSamples-latency);
-	    }
-
+	    std::cout << latency << std::endl;
 	    if (firstcall)
 	    {
 		firstcall = false;
@@ -1141,16 +1155,18 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	    {
 		if (processedSamples > latency)
 		{
-		    wipp::abs(difference, processedSamples-latency);
-		    math::sum(&difference[0], processedSamples-latency, &sum);
-		    wipp::abs(dataDifference, processedSamples-latency);
-		    math::sum(dataDifference, processedSamples-latency, &datasum);
+		  wipp::sub(inbuffer, &outbuffer[latency], difference, processedSamples-latency);
+		  wipp::sub(inDatabuffer, &outDatabuffer[latency], dataDifference, processedSamples-latency);
+		  wipp::abs(difference, processedSamples-latency);
+		  math::sum(&difference[0], processedSamples-latency, &sum);
+		  wipp::abs(dataDifference, processedSamples-latency);
+		  math::sum(dataDifference, processedSamples-latency, &datasum);
+		  EXPECT_EQ(0, (int) sum);
+		  EXPECT_EQ(0, (int) datasum);
+		  if (sum > 1000) sleep(2);
 
-		    EXPECT_LT(sum, 500);
-		    EXPECT_EQ(0, (int) datasum);
 		}
 	    }
-
 	}
     }
 }
