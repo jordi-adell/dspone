@@ -206,6 +206,11 @@ install(FILES
     COMPONENT dev
 )
 
+install(FILES
+    include/${PROJECT_NAME}/plot/dspgui.h
+    DESTINATION ${INCLUDE_DESTINATION}/plot
+    COMPONENT dev
+    )
 
 ########################
 ## Package generation ##
