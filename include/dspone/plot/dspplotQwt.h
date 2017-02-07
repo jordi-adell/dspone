@@ -53,6 +53,8 @@ class DspPlot : public QObject
 	DspPlot(thread_processing_run_t *f, ShortTimeProcess *stp);
 	virtual ~DspPlot();
 
+	void start();
+
     private:
 	void init();
 	void signal_process();

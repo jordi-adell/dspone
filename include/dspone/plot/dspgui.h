@@ -37,13 +37,19 @@ class DspGui
 {
     public:
 	typedef void thread_processing_run_t(ShortTimeProcess *stp);
+
 	DspGui(ShortTimeProcess *process, thread_processing_run_t *f);
+	DspGui(ShortTimeProcess &process, thread_processing_run_t *f);
+
 
 	void start();
 
     private:
 	std::shared_ptr<QApplication> qt_app_;
 	std::shared_ptr<DspPlot> plot_;
+	void init(ShortTimeProcess &process, thread_processing_run_t *f);
+	thread_processing_run_t *process_f_;
+	ShortTimeProcess *process_;
 };
 
 }

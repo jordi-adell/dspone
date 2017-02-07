@@ -37,15 +37,17 @@ DspPlot::~DspPlot()
 void DspPlot::init()
 {
   config();
+}
 
+
+void DspPlot::start()
+{
   if (!signal_process_thread_)
   {
     signal_process_thread_.reset(new std::thread(&DspPlot::signal_process, this));
     signal_process_thread_->detach();
   }
-
 }
-
 
 void DspPlot::plot_input_frame(std::vector<double> signal)
 {

@@ -3,27 +3,39 @@
 #include <dspone/plot/dspplotQwt.h>
 #include <qt4/Qt/qapplication.h>
 
+#define TITLE "QT Gui"
 
 namespace dsp
 {
 
 DspGui::DspGui(ShortTimeProcess *process, thread_processing_run_t *f)
 {
-    std::string title="QT Gui";
-    int argc = 1;
-    char *argv[argc];
-    argv[0] = const_cast<char*>(title.c_str());
+  init(*process, f);
+}
 
-    qt_app_.reset(new QApplication(argc, argv));
+DspGui::DspGui(ShortTimeProcess &process, thread_processing_run_t *f)
+{
+  init(process, f);
+}
 
-    plot_.reset(new DspPlot(f, process));
-
+void DspGui::init(ShortTimeProcess &process, thread_processing_run_t *f)
+{
+  process_ = &process;
+  process_f_  = f;
 }
 
 
 void DspGui::start()
 {
-    qt_app_->exec();
+  std::string title = TITLE;
+  int argc = 1;
+  char *argv[argc];
+  argv[0] = const_cast<char*>(title.c_str());
+  qt_app_.reset(new QApplication(argc, argv));
+  plot_.reset(new DspPlot(process_f_ , process_));
+
+  plot_->start();
+  qt_app_->exec();
 }
 
 
