@@ -456,8 +456,10 @@ TEST(DigitalSignalProcessingTest, testDummyShortTimeProcess)
 	shortTimeProcessConstantSignal(shortTimeP, true);
 
 	INFO_STREAM("Real input signal");
-	shortTimeProcess(shortTimePData);
-	shortTimeProcess(shortTimeP);
+	DummyShortTimeProcess shortTimePData2(1 << order, true);
+	DummyShortTimeProcess shortTimeP2(1 << order);
+	shortTimeProcess(shortTimePData2);
+	shortTimeProcess(shortTimeP2);
     }
 }
 
@@ -564,7 +566,7 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
 	else if (1.01*lowFreq < sinFreq && sinFreq < 0.99*highFreq)
 	{
 	    DEBUG_STREAM("Gain: < pass band" << filterGaindB[f] << ", f: " << sinFreq);
-	    EXPECT_GE(filterGaindB[f], -0.01);
+	    EXPECT_GE(filterGaindB[f], -0.001);
 	}
 	else if(sinFreq> 1.01*highFreq)
 	{
@@ -582,7 +584,7 @@ TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
 
 
     EXPECT_NEAR(-1081, min,1);
-    EXPECT_NEAR(0, max,1);
+    EXPECT_NEAR(0, max,0.01);
 
 }
 
@@ -1084,8 +1086,8 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	INFO_STREAM("Using buffersize: " << bufferSampleSize << " and the window size is " << shortTimeP.getFrameSize());
 	int bufferBytesSize = bufferSampleSize*2;
 	int readBytes = -1, readSamples = -1;
-	int16_t sum = -1;
-	int16_t datasum = -1;
+	double sum = -1;
+	double datasum = -1;
 
 	int16_t inbuffer[bufferSampleSize];
 	int16_t inDatabuffer[bufferSampleSize];
@@ -1109,9 +1111,11 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	outVectorSignal.push_back(outbuffer);
 	outVectorSignal.push_back(outDatabuffer);
 
-	bool firstcall = true;
+	int firstcall = 0;
 
 	EXPECT_TRUE(ifs) << "Unable to open file " << infile;
+
+	shortTimeP.clear();
 
 	while(ifs)
 	{
@@ -1121,28 +1125,35 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 
 	    int latency = shortTimeP.getLatency();
 	    int processedSamples = shortTimeP.process(inVectorSignal, readSamples, outVectorSignal, bufferOutSampleSize);
-	    wipp::sub(inbuffer, &outbuffer[latency], difference, processedSamples-latency);
-	    wipp::sub(inDatabuffer, &outDatabuffer[latency], dataDifference, processedSamples-latency);
+	    int samples_to_sub = processedSamples - latency;
 
-	    if (firstcall)
+//	    DEBUG_STREAM("Latency: " << latency << ", processed: " << processedSamples);
+	    if (firstcall < 10)
 	    {
-		firstcall = false;
+		++firstcall;
 	    }
 	    else
 	    {
 		if (processedSamples > latency)
 		{
-		    wipp::abs(difference, processedSamples-latency);
-		    math::sum(&difference[0], processedSamples-latency, &sum);
-		    wipp::abs(dataDifference, processedSamples-latency);
-		    math::sum(dataDifference, processedSamples-latency, &datasum);
-
-		    EXPECT_EQ(0, (int) sum);
-		    EXPECT_EQ(0, (int) datasum);
+		  wipp::sub(inbuffer, &outbuffer[latency], difference, processedSamples-latency);
+		  wipp::sub(inDatabuffer, &outDatabuffer[latency], dataDifference, processedSamples-latency);
+		  wipp::abs(difference, processedSamples-latency);
+		  wipp::mean(&difference[0], processedSamples-latency, &sum);
+		  wipp::abs(dataDifference, processedSamples-latency);
+		  wipp::mean(dataDifference, processedSamples-latency, &datasum);
+		  EXPECT_LT(sum, 0.3);
+		  EXPECT_EQ(0, (int) datasum);
 		}
 	    }
 
 	}
+
+	while(shortTimeP.getAmountOfRemainingSamples() > 0)
+	{
+	  shortTimeP.getRemainingSpeech(outVectorSignal, bufferOutSampleSize);
+	}
+	DEBUG_STREAM("Empty latency: " << shortTimeP.getLatency());
     }
 }
 
@@ -1259,12 +1270,10 @@ void testFilterBank(int order,  FilterBank &filterBank)
 	DEBUG_STREAM("P: " << pPower[pIdx] << " i: " << pIdx);
 	DEBUG_STREAM("F: " << pFreqs[fIdx] << " i: " << fIdx);
 
+	EXPECT_FLOAT_EQ(fIdx, pIdx) << "The maximum power does not correspond "
+				    << "to the bin whose central frequency "
+				    << "is closer to the one of the input sinusoidal";
 
-	EXPECT_FLOAT_EQ(fIdx, pIdx);
-
-	//            EXPECT_FLOAT_EQ("The maximum power does not correspond to the bin whose central frequency is closer to the one of the input sinusoidal",
-	//                                         fIdx,
-	//                                         pIdx);
     }
 
 }
