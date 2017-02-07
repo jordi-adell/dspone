@@ -222,6 +222,12 @@ int ShortTimeProcess::process(const std::vector<boost::shared_array<uint16_t> > 
   return _impl->process(signal, inbuffersize, output, outbuffersize);
 }
 
+
+void ShortTimeProcess::clear()
+{
+  _impl->clear();
+}
+
 }
 
 

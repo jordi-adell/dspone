@@ -185,6 +185,9 @@ class ShortTimeProcessImpl
 		    const std::vector<boost::shared_array<SampleType> > &output,
 		    unsigned int outbuffersize);
 
+
+	void clear();
+
 	/**
 	   * @brief Returns the latency of the algorithm. This the number of samples that are sotored
 	   * for further processing the sample that will be supplied in the next call.

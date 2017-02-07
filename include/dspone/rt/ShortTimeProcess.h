@@ -195,6 +195,8 @@ class ShortTimeProcess : public SignalProcessor
 		    unsigned int outbuffersize);
 
 
+	void clear();
+
     private:
 	friend class ShortTimeProcessImpl;
 	std::unique_ptr<ShortTimeProcessImpl> _impl;

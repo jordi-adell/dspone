@@ -145,6 +145,22 @@ int ShortTimeProcessImpl::getAmountOfRemainingSamples()
 
 
 
+void ShortTimeProcessImpl::clear()
+{
+  _latencyBufferSignal.clear();
+  _analysisFrames.clear();
+  _analysisFramesPtr.clear();
+  for (size_t i = 0; i < _latencyBufferSignal.size(); ++i)
+  {
+    wipp::wipp_circular_buffer_t *f = _latencyBufferSignal.at(i);
+    wipp::delete_circular_buffer(&f);
+  }
+  _dataFrames.clear();
+  _dataFramesPtr.clear();
+  _latencyBufferProcessed.clear();
+
+  initBuffers();
+}
 
 void ShortTimeProcessImpl::ShortTimeProcessing(const SignalVector &signal, const SignalVector &output, int length)
 {
