@@ -72,7 +72,35 @@ int ShortTimeProcess::getAmountOfRemainingSamples()
   return _impl->getAmountOfRemainingSamples();
 }
 
+int ShortTimeProcess::getRemainingSpeech(const std::vector<double *> &buffer, unsigned int buffersize)
+{
+  return _impl->getRemainingSpeech(buffer, buffersize);
+}
 
+int ShortTimeProcess::getRemainingSpeech(const std::vector<float *> &buffer, unsigned int buffersize)
+{
+  return _impl->getRemainingSpeech(buffer, buffersize);
+}
+
+int ShortTimeProcess::getRemainingSpeech(const std::vector<int16_t *> &buffer, unsigned int buffersize)
+{
+  return _impl->getRemainingSpeech(buffer, buffersize);
+}
+
+int ShortTimeProcess::getRemainingSpeech(const std::vector<boost::shared_array<double> > &buffer, unsigned int buffersize)
+{
+  return _impl->getRemainingSpeech(buffer, buffersize);
+}
+
+int ShortTimeProcess::getRemainingSpeech(const std::vector<boost::shared_array<float> > &buffer, unsigned int buffersize)
+{
+  return _impl->getRemainingSpeech(buffer, buffersize);
+}
+
+int ShortTimeProcess::getRemainingSpeech(const std::vector<boost::shared_array<int16_t> > &buffer, unsigned int buffersize)
+{
+  return _impl->getRemainingSpeech(buffer, buffersize);
+}
 
 
 

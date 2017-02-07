@@ -110,10 +110,13 @@ class ShortTimeProcess : public SignalProcessor
 	    @param buffer  The buffer to where signal has to be stored
 	    @param buffersize  length of th ebuffer provided
 	    **/
-	template <typename sampleType>
-	int getRemainingSpeech(const std::vector<sampleType *> &buffer, unsigned int buffersize);
-	template <typename sampleType>
-	int getRemainingSpeech(const std::vector<boost::shared_array<sampleType> > &buffer, unsigned int buffersize);
+	int getRemainingSpeech(const std::vector<double *> &buffer, unsigned int buffersize);
+	int getRemainingSpeech(const std::vector<float *> &buffer, unsigned int buffersize);
+	int getRemainingSpeech(const std::vector<int16_t*> &buffer, unsigned int buffersize);
+
+	int getRemainingSpeech(const std::vector<boost::shared_array<double> > &buffer, unsigned int buffersize);
+	int getRemainingSpeech(const std::vector<boost::shared_array<float> > &buffer, unsigned int buffersize);
+	int getRemainingSpeech(const std::vector<boost::shared_array<int16_t> > &buffer, unsigned int buffersize);
 
 
 	/** @brief this type is used to set whether the short time process
