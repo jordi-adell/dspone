@@ -1,4 +1,5 @@
 # DSPONE
+[![Build Status](https://travis-ci.org/jordi-adell/dspone.svg?branch=master)](https://travis-ci.org/jordi-adell/dspone)
 
 ## Description
 
