@@ -12,5 +12,7 @@ var classdsp_1_1Logger =
     [ "disable", "d6/d97/classdsp_1_1Logger.html#ac16ef6a82eb9e6a21a453ec0635198d9", null ],
     [ "enable", "d6/d97/classdsp_1_1Logger.html#abb8b091fd90ac8abae5fb0b4f7d2beae", null ],
     [ "isEnabled", "d6/d97/classdsp_1_1Logger.html#add11e74fd3f1d56e5ff4a93df43965a7", null ],
-    [ "log", "d6/d97/classdsp_1_1Logger.html#a67758a4a02e94fbd6a276fcd1d93ab0f", null ]
+    [ "log", "d6/d97/classdsp_1_1Logger.html#a998091fa2d200d8a27e63d3f7e6bcb10", null ],
+    [ "setLevel", "d6/d97/classdsp_1_1Logger.html#ad7feee3ac33aa7e48879b50c6798da3a", null ],
+    [ "setLevel", "d6/d97/classdsp_1_1Logger.html#ac1f357d2d817e09b4050957c3c902f04", null ]
 ];

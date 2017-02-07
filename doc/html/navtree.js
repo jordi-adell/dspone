@@ -1,7 +1,6 @@
 var NAVTREE =
 [
   [ "DSPONE", "index.html", [
-    [ "n.n.n / 2016-06-19", "d5/d22/md_etc_test_History.html", null ],
     [ "DSPONE", "d0/d30/md_README.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
@@ -29,7 +28,6 @@ var NAVTREE =
       [ "File List", "files.html", "files" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
@@ -40,10 +38,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/d98/test__dspone_8cpp.html#afb0fd31610dc6eabf7194de63efe29b7",
-"d6/d9b/classdsp_1_1FFT.html#aa2a635402dca50c55aa8eab36476e163",
-"da/dbc/classdsp_1_1GeneralisedCrossCorrelationImpl.html#a68058e346deb28c328c895158bbd638a",
-"functions_func_i.html"
+"d4/da1/dspMath_8h.html#a7dd4d9fad04873054cb61f30dc7a36f0",
+"d7/df6/dspdefs_8h.html#a011f3fadb094eb640a34302684f32609",
+"de/d17/classdsp_1_1IObservationModel.html#a2524e890da40908ecf6a80e9d648b781"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

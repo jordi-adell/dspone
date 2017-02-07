@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['warn_5fstream',['WARN_STREAM',['../d4/d20/dsplogger_8h.html#a989c5c053f63311a238ba98d7ea38eab',1,'WARN_STREAM():&#160;dsplogger.h'],['../db/dac/dsploggerImpl_8h.html#a8e412580ea9613615a61c13cb6084d23',1,'WARN_STREAM():&#160;dsploggerImpl.h']]]
+  ['trace_5fstream',['TRACE_STREAM',['../d4/d20/dsplogger_8h.html#a7af057c44040ad34ada684a46574e5ea',1,'TRACE_STREAM():&#160;dsplogger.h'],['../db/dac/dsploggerImpl_8h.html#a7d002bf2a1b22aa5da564455d451fd6a',1,'TRACE_STREAM():&#160;dsploggerImpl.h']]],
+  ['trace_5fstream_5fonce',['TRACE_STREAM_ONCE',['../db/dac/dsploggerImpl_8h.html#acea449b00f9919e5f12e98c3966200f3',1,'dsploggerImpl.h']]]
 ];

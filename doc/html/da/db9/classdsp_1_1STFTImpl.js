@@ -2,7 +2,7 @@ var classdsp_1_1STFTImpl =
 [
     [ "STFTImpl", "da/db9/classdsp_1_1STFTImpl.html#a9bf7c42593d76ab14b9c979fa23602c1", null ],
     [ "STFTImpl", "da/db9/classdsp_1_1STFTImpl.html#a06821f1d25b1519495f265ad1a4889dc", null ],
-    [ "~STFTImpl", "da/db9/classdsp_1_1STFTImpl.html#a6aa8ac42435a1cab51892d7bb3392848", null ],
+    [ "~STFTImpl", "da/db9/classdsp_1_1STFTImpl.html#a92ffc067b5c156f700c29b026406c0fa", null ],
     [ "getAnalysisLength", "da/db9/classdsp_1_1STFTImpl.html#a719eb5840c974758cb78e8e8095fbb19", null ],
     [ "getNumChannels", "da/db9/classdsp_1_1STFTImpl.html#af61c6942bef26045077fe46cd38509a9", null ],
     [ "getOneSidedFFTLength", "da/db9/classdsp_1_1STFTImpl.html#acad91bbc1dd6fe91927a4001c728d80e", null ],

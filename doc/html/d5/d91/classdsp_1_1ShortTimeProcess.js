@@ -5,7 +5,7 @@ var classdsp_1_1ShortTimeProcess =
       [ "ANALYSIS_SYNTHESIS", "d5/d91/classdsp_1_1ShortTimeProcess.html#a3594b4ea46c68b4bc69bbe17f0cdd74bae7ea226dfcd56de747a919186f788d44", null ]
     ] ],
     [ "ShortTimeProcess", "d5/d91/classdsp_1_1ShortTimeProcess.html#a147da9b21f62f62038cfe4e33a555785", null ],
-    [ "~ShortTimeProcess", "d5/d91/classdsp_1_1ShortTimeProcess.html#a326b9648c9969e1dd1e92225527cc427", null ],
+    [ "~ShortTimeProcess", "d5/d91/classdsp_1_1ShortTimeProcess.html#a7564fa0f27c9b22a626ef5c3f917de85", null ],
     [ "getAmountOfRemainingSamples", "d5/d91/classdsp_1_1ShortTimeProcess.html#a9e929eb415855237e12740e167abdc2c", null ],
     [ "getAnalysisLength", "d5/d91/classdsp_1_1ShortTimeProcess.html#a0174b8952fc6f4368c6113d67e0b3edb", null ],
     [ "getBufferSize", "d5/d91/classdsp_1_1ShortTimeProcess.html#a71c7fce8dfc126fb21bf1d8b74a4c0a4", null ],
@@ -14,7 +14,8 @@ var classdsp_1_1ShortTimeProcess =
     [ "getLatency", "d5/d91/classdsp_1_1ShortTimeProcess.html#ad09980ce37941fa5a70ad9a61e2c93c0", null ],
     [ "getMaxLatency", "d5/d91/classdsp_1_1ShortTimeProcess.html#af956164eafc0abf0599cdaa40cd1d4cb", null ],
     [ "getMinLatency", "d5/d91/classdsp_1_1ShortTimeProcess.html#af15394ddf7e1ef415a95ca59550e836f", null ],
-    [ "getNumberOfChannels", "d5/d91/classdsp_1_1ShortTimeProcess.html#adadc9e1e4e9e650dd8c41970077e4246", null ],
+    [ "getNumberOfChannels", "d5/d91/classdsp_1_1ShortTimeProcess.html#a0ab81de473fae1deb0ef8d4b8c718eaf", null ],
+    [ "getNumberOfDataChannels", "d5/d91/classdsp_1_1ShortTimeProcess.html#a62eef340b6a6f6b64cacabd2172ebdec", null ],
     [ "getRate", "d5/d91/classdsp_1_1ShortTimeProcess.html#a505c4f07ae3f24cd130673c17cf3fdd7", null ],
     [ "getRemainingSpeech", "d5/d91/classdsp_1_1ShortTimeProcess.html#a24e45046f79bc61ea1361306db881c1f", null ],
     [ "getRemainingSpeech", "d5/d91/classdsp_1_1ShortTimeProcess.html#a23f1625bdd39272d23f22ffcc1ea8fb4", null ],

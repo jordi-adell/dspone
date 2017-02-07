@@ -109,6 +109,7 @@ $(document).ready(function(){initNavTree('d6/d97/classdsp_1_1Logger.html','../..
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="../../d2/dc3/classdsp_1_1Logger-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">dsp::Logger Class Reference</div>  </div>
@@ -120,6 +121,8 @@ $(document).ready(function(){initNavTree('d6/d97/classdsp_1_1Logger.html','../..
 Collaboration diagram for dsp::Logger:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d05/classdsp_1_1Logger__coll__graph.png" border="0" usemap="#dsp_1_1Logger_coll__map" alt="Collaboration graph"/></div>
+<map name="dsp_1_1Logger_coll__map" id="dsp_1_1Logger_coll__map">
+</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -140,14 +143,23 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5acf3c22973ca21002e8126ad498573a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a5acf3c22973ca21002e8126ad498573a">Logger</a> (<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a> level=<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cddaa0d0681f1277f17ed255213fceeac309">FATAL</a>, bool <a class="el" href="../../d6/d97/classdsp_1_1Logger.html#abb8b091fd90ac8abae5fb0b4f7d2beae">enable</a>=true, std::ostream &amp;os=std::cout)</td></tr>
 <tr class="separator:a5acf3c22973ca21002e8126ad498573a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67758a4a02e94fbd6a276fcd1d93ab0f"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a67758a4a02e94fbd6a276fcd1d93ab0f">log</a> (<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a> level, const char *file, int line)</td></tr>
-<tr class="separator:a67758a4a02e94fbd6a276fcd1d93ab0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998091fa2d200d8a27e63d3f7e6bcb10"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a998091fa2d200d8a27e63d3f7e6bcb10">log</a> (<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a> level, const char *file, int line)</td></tr>
+<tr class="separator:a998091fa2d200d8a27e63d3f7e6bcb10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add11e74fd3f1d56e5ff4a93df43965a7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#add11e74fd3f1d56e5ff4a93df43965a7">isEnabled</a> (<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a> level)</td></tr>
 <tr class="separator:add11e74fd3f1d56e5ff4a93df43965a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb8b091fd90ac8abae5fb0b4f7d2beae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#abb8b091fd90ac8abae5fb0b4f7d2beae">enable</a> ()</td></tr>
 <tr class="separator:abb8b091fd90ac8abae5fb0b4f7d2beae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac16ef6a82eb9e6a21a453ec0635198d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#ac16ef6a82eb9e6a21a453ec0635198d9">disable</a> ()</td></tr>
 <tr class="separator:ac16ef6a82eb9e6a21a453ec0635198d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7feee3ac33aa7e48879b50c6798da3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#ad7feee3ac33aa7e48879b50c6798da3a">setLevel</a> (std::string level)</td></tr>
+<tr class="separator:ad7feee3ac33aa7e48879b50c6798da3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1f357d2d817e09b4050957c3c902f04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#ac1f357d2d817e09b4050957c3c902f04">setLevel</a> (<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a> level)</td></tr>
+<tr class="separator:ac1f357d2d817e09b4050957c3c902f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a99d3a42eb9f3bb32cd80db2f053b6a3a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d6/d97/classdsp_1_1Logger.html">Logger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a99d3a42eb9f3bb32cd80db2f053b6a3a">logger</a> (<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a> level=<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cddaa0d0681f1277f17ed255213fceeac309">FATAL</a>, bool <a class="el" href="../../d6/d97/classdsp_1_1Logger.html#abb8b091fd90ac8abae5fb0b4f7d2beae">enable</a>=true, std::ostream &amp;os=std::cout)</td></tr>
+<tr class="separator:a99d3a42eb9f3bb32cd80db2f053b6a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Enumeration Documentation</h2>
 <a class="anchor" id="a53d783fa55556176313dc92740b46cdd"></a>
@@ -256,12 +268,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a67758a4a02e94fbd6a276fcd1d93ab0f"></a>
+<a class="anchor" id="a998091fa2d200d8a27e63d3f7e6bcb10"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::ostream &amp; dsp::Logger::log </td>
+          <td class="memname">std::ostream&amp; dsp::Logger::log </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a>&#160;</td>
           <td class="paramname"><em>level</em>, </td>
@@ -288,9 +300,80 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a class="anchor" id="a99d3a42eb9f3bb32cd80db2f053b6a3a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../d6/d97/classdsp_1_1Logger.html">Logger</a>&amp; dsp::Logger::logger </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a>&#160;</td>
+          <td class="paramname"><em>level</em> = <code><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cddaa0d0681f1277f17ed255213fceeac309">FATAL</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em> = <code>std::cout</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad7feee3ac33aa7e48879b50c6798da3a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dsp::Logger::setLevel </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>level</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac1f357d2d817e09b4050957c3c902f04"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dsp::Logger::setLevel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdd">LogLevel</a>&#160;</td>
+          <td class="paramname"><em>level</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/dspone/<a class="el" href="../../db/dac/dsploggerImpl_8h_source.html">dsploggerImpl.h</a></li>
-<li>src/dspone/<a class="el" href="../../de/d03/dsplogger_8cpp.html">dsplogger.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

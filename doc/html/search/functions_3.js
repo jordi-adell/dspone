@@ -6,6 +6,7 @@ var searchData=
   ['divc',['divC',['../d3/d98/namespacedsp_1_1math.html#a961b8416c4ea790a855ee8c28525b4ba',1,'dsp::math::divC(int value, int *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#a3ffde9bf20c7c8d577f2c23ee34fd0e3',1,'dsp::math::divC(double value, double *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#ab9cb0ab076ab14b24d28c3cda922ace5',1,'dsp::math::divC(int16_t value, int16_t *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#a3ff57a23a94fa5160b5a561e746357f2',1,'dsp::math::divC(float value, float *buffer, int length)']]],
   ['divc_5fcore',['divC_core',['../d3/d98/namespacedsp_1_1math.html#a0f33089188f09544468c2e25a827ba1c',1,'dsp::math']]],
   ['dspexception',['DspException',['../d7/dc0/classdsp_1_1DspException.html#a6e430e8e01b305708365fcc59c22dc40',1,'dsp::DspException']]],
+  ['dspplotgnuplot',['dspPlotGnuplot',['../d0/dda/classdsp_1_1dspPlotGnuplot.html#a68e7093963e0ec1913cd763c327bb8a9',1,'dsp::dspPlotGnuplot']]],
   ['dummyshorttimeprocess',['DummyShortTimeProcess',['../db/d59/classdsp_1_1DummyShortTimeProcess.html#a085f40e269c555d9e1167f464c098cf3',1,'dsp::DummyShortTimeProcess']]],
   ['dummystft',['DummySTFT',['../d1/d0b/classdsp_1_1DummySTFT.html#a113d7b891d51870d16cc3af2df5ee083',1,'dsp::DummySTFT']]],
   ['dummystftanalysis',['DummySTFTAnalysis',['../da/d8f/classdsp_1_1DummySTFTAnalysis.html#a71335fec0f7b1332f1985bcfa43903c6',1,'dsp::DummySTFTAnalysis']]]

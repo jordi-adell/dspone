@@ -114,10 +114,13 @@ $(document).ready(function(){initNavTree('db/dac/dsploggerImpl_8h.html','../../'
 <div class="contents">
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br/>
 <code>#include &lt;vector&gt;</code><br/>
+<code>#include &lt;memory&gt;</code><br/>
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for dsploggerImpl.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/df7/dsploggerImpl_8h__incl.png" border="0" usemap="#include_2dspone_2dsploggerImpl_8h" alt=""/></div>
+<map name="include_2dspone_2dsploggerImpl_8h" id="include_2dspone_2dsploggerImpl_8h">
+</map>
 </div>
 </div>
 <p><a href="../../db/dac/dsploggerImpl_8h_source.html">Go to the source code of this file.</a></p>
@@ -134,6 +137,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ae2922f738d08239f3526f9e831650cc6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#ae2922f738d08239f3526f9e831650cc6">_logger_</a>&#160;&#160;&#160;<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a99d3a42eb9f3bb32cd80db2f053b6a3a">dsp::Logger::logger</a>(dsp::Logger::_DSP_LOGGER)</td></tr>
+<tr class="separator:ae2922f738d08239f3526f9e831650cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c6017d5878f063a01cea8e777e4b032"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(level, what)&#160;&#160;&#160;{if (_logger_.isEnabled(level)) _logger_.log(level, __FILE__, __LINE__) &lt;&lt; what &lt;&lt; std::endl;}</td></tr>
 <tr class="separator:a2c6017d5878f063a01cea8e777e4b032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a18d577c4ee7300dd2158f50ae6ec0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#a3a18d577c4ee7300dd2158f50ae6ec0c">DEBUG_STREAM</a>(what)&#160;&#160;&#160;<a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdda93b271978118a8b215423a02cd033875">dsp::Logger::DEBUG</a>, what)</td></tr>
@@ -146,8 +151,32 @@ Macros</h2></td></tr>
 <tr class="separator:afebc82c1bd02e882b9e08502e5df6d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d002bf2a1b22aa5da564455d451fd6a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#a7d002bf2a1b22aa5da564455d451fd6a">TRACE_STREAM</a>(what)&#160;&#160;&#160;<a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdda7d5cdaba53307f2e90a36077c72dbe13">dsp::Logger::TRACE</a>, what)</td></tr>
 <tr class="separator:a7d002bf2a1b22aa5da564455d451fd6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad56319c97734da1c061240195b2a6926"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#ad56319c97734da1c061240195b2a6926">WARN_STREAM_ONCE</a>(what)&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::WARNING, what); printed=true;}</td></tr>
+<tr class="separator:ad56319c97734da1c061240195b2a6926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58e3ee12b821648d27ebfbfc9c5852a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#a58e3ee12b821648d27ebfbfc9c5852a8">ERROR_STREAM_ONCE</a>(what)&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::ERROR, what);   printed=true;}</td></tr>
+<tr class="separator:a58e3ee12b821648d27ebfbfc9c5852a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18784a1a8c19e7b334fa66d0ec3c5b02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#a18784a1a8c19e7b334fa66d0ec3c5b02">INFO_STREAM_ONCE</a>(what)&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::INFO, what);    printed=true;}</td></tr>
+<tr class="separator:a18784a1a8c19e7b334fa66d0ec3c5b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab610a0b5df1606d22079338c686a3637"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#ab610a0b5df1606d22079338c686a3637">DEBUG_STREAM_ONCE</a>(what)&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::DEBUG, what);   printed=true;}</td></tr>
+<tr class="separator:ab610a0b5df1606d22079338c686a3637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea449b00f9919e5f12e98c3966200f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#acea449b00f9919e5f12e98c3966200f3">TRACE_STREAM_ONCE</a>(what)&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::TRACE, what);   printed=true;}</td></tr>
+<tr class="separator:acea449b00f9919e5f12e98c3966200f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac300780884c9d51a9af4223dcf50be5c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dac/dsploggerImpl_8h.html#ac300780884c9d51a9af4223dcf50be5c">SET_LOG_LEVEL</a>(level)&#160;&#160;&#160;_logger_.setLevel(level)</td></tr>
+<tr class="separator:ac300780884c9d51a9af4223dcf50be5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ae2922f738d08239f3526f9e831650cc6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _logger_&#160;&#160;&#160;<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a99d3a42eb9f3bb32cd80db2f053b6a3a">dsp::Logger::logger</a>(dsp::Logger::_DSP_LOGGER)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a3a18d577c4ee7300dd2158f50ae6ec0c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -158,6 +187,22 @@ Macros</h2></td></tr>
           <td class="paramtype">&#160;</td>
           <td class="paramname">what</td><td>)</td>
           <td>&#160;&#160;&#160;<a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cdda93b271978118a8b215423a02cd033875">dsp::Logger::DEBUG</a>, what)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab610a0b5df1606d22079338c686a3637"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEBUG_STREAM_ONCE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what</td><td>)</td>
+          <td>&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::DEBUG, what);   printed=true;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -180,6 +225,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a58e3ee12b821648d27ebfbfc9c5852a8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_STREAM_ONCE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what</td><td>)</td>
+          <td>&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::ERROR, what);   printed=true;}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="afebc82c1bd02e882b9e08502e5df6d0b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -190,6 +251,22 @@ Macros</h2></td></tr>
           <td class="paramtype">&#160;</td>
           <td class="paramname">what</td><td>)</td>
           <td>&#160;&#160;&#160;<a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cddada6c8f690de6f71d2b8bfa7bed5723d8">dsp::Logger::INFO</a>, what)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a18784a1a8c19e7b334fa66d0ec3c5b02"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INFO_STREAM_ONCE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what</td><td>)</td>
+          <td>&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::INFO, what);    printed=true;}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -222,6 +299,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac300780884c9d51a9af4223dcf50be5c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SET_LOG_LEVEL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">level</td><td>)</td>
+          <td>&#160;&#160;&#160;_logger_.setLevel(level)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a7d002bf2a1b22aa5da564455d451fd6a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -238,6 +331,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acea449b00f9919e5f12e98c3966200f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRACE_STREAM_ONCE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what</td><td>)</td>
+          <td>&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::TRACE, what);   printed=true;}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a8e412580ea9613615a61c13cb6084d23"></a>
 <div class="memitem">
 <div class="memproto">
@@ -248,6 +357,22 @@ Macros</h2></td></tr>
           <td class="paramtype">&#160;</td>
           <td class="paramname">what</td><td>)</td>
           <td>&#160;&#160;&#160;<a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(<a class="el" href="../../d6/d97/classdsp_1_1Logger.html#a53d783fa55556176313dc92740b46cddae0fef2670df2d007291a8acc8bcf2afc">dsp::Logger::WARNING</a>, what)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad56319c97734da1c061240195b2a6926"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WARN_STREAM_ONCE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what</td><td>)</td>
+          <td>&#160;&#160;&#160;{static bool printed=false; if (!printed) <a class="el" href="../../db/dac/dsploggerImpl_8h.html#a2c6017d5878f063a01cea8e777e4b032">LOG_STREAM</a>(mca::Logger::WARNING, what); printed=true;}</td>
         </tr>
       </table>
 </div><div class="memdoc">

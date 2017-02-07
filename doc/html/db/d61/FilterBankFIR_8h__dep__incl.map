@@ -1,7 +1,3 @@
 <map id="include/dspone/filter/FilterBankFIR.h" name="include/dspone/filter/FilterBankFIR.h">
-<area shape="rect" id="node2" href="$d6/ded/FilterBankMelScale_8h.html" title="include/dspone/filter\l/FilterBankMelScale.h" alt="" coords="203,97,353,138"/>
-<area shape="rect" id="node6" href="$df/d3b/FilterBankFIR_8cpp.html" title="src/dspone/filter/Filter\lBankFIR.cpp" alt="" coords="378,97,525,138"/>
-<area shape="rect" id="node3" href="$dd/d18/FilterBankMelScale_8cpp.html" title="src/dspone/filter/Filter\lBankMelScale.cpp" alt="" coords="5,187,152,229"/>
-<area shape="rect" id="node4" href="$d3/da1/ShortTimeFourierSubBandImpl_8cpp.html" title="src/dspone/rt/ShortTimeFourier\lSubBandImpl.cpp" alt="" coords="177,187,380,229"/>
-<area shape="rect" id="node5" href="$d4/d98/test__dspone_8cpp.html" title="test/test_dspone.cpp" alt="" coords="404,195,548,221"/>
+<area shape="rect" id="node2" href="$d6/ded/FilterBankMelScale_8h.html" title="include/dspone/filter\l/FilterBankMelScale.h" alt="" coords="5,97,155,138"/>
 </map>

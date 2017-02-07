@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['n_2en_2en_20_2f_202016_2d06_2d19',['n.n.n / 2016-06-19',['../d5/d22/md_etc_test_History.html',1,'']]],
-  ['normalise',['normalise',['../d4/d00/classdsp_1_1IParticleSet.html#a718d22712f618358734f6a154fc8fc88',1,'dsp::IParticleSet::normalise()'],['../d8/dd8/classdsp_1_1ParticleSet.html#a65e214186d8a414a54d4e40a095d9564',1,'dsp::ParticleSet::normalise()']]],
-  ['notchfilter',['NotchFilter',['../de/d85/classdsp_1_1NotchFilter.html#a92f74a3602e4c08ee3619504c2038a25',1,'dsp::NotchFilter']]],
-  ['notchfilter',['NotchFilter',['../de/d85/classdsp_1_1NotchFilter.html',1,'dsp']]],
-  ['notchfilter_2ecpp',['NotchFilter.cpp',['../d2/db7/NotchFilter_8cpp.html',1,'']]],
-  ['notchfilter_2eh',['NotchFilter.h',['../dc/d20/NotchFilter_8h.html',1,'']]]
+  ['observationmodel',['ObservationModel',['../db/db5/classdsp_1_1ObservationModel.html',1,'dsp']]],
+  ['observationmodel',['ObservationModel',['../db/db5/classdsp_1_1ObservationModel.html#abfe188402cfc133d5a3dee43ae6ecb8d',1,'dsp::ObservationModel']]],
+  ['observationmodel_2ehpp',['ObservationModel.hpp',['../dd/d90/ObservationModel_8hpp.html',1,'']]],
+  ['onesidedfft',['ONESIDEDFFT',['../d3/d2f/classdsp_1_1GeneralisedCrossCorrelation.html#abb5aeecf96ff3e22c5ce1826d65007f3a4459b7af86d277a4fd4b00f7b5aa201d',1,'dsp::GeneralisedCrossCorrelation']]],
+  ['operator_2a',['operator*',['../d0/d41/namespacedsp.html#ab9fa6887c93d6b76716456051a20acf9',1,'dsp']]],
+  ['operator_2b',['operator+',['../d0/d41/namespacedsp.html#a3b757788083e305de214f8217b29aed5',1,'dsp']]],
+  ['operator_3c_3c',['operator&lt;&lt;',['../d0/d41/namespacedsp.html#a1c83d5b37e91836df08697a06a8eab37',1,'dsp']]],
+  ['operator_3d',['operator=',['../d8/dd8/classdsp_1_1ParticleSet.html#a8775639740a73bc91bce7cfc29ad8266',1,'dsp::ParticleSet']]]
 ];

@@ -1,3 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d3/d2f/classdsp_1_1GeneralisedCrossCorrelation.html" title="dsp::GeneralisedCrossCorrelation" alt="" coords="5,5,224,32"/>
+<area shape="rect" id="node1" href="$dd/dde/classdsp_1_1FilterBank.html" title="The FilterBank class This class can be used to filter signal by a pool of several filters (a filter b..." alt="" coords="6,56,117,83"/>
+<area shape="rect" id="node2" href="$df/d13/classdsp_1_1FilterBankFFTW.html" title="This class implements a filter bank using a set of spectral weigthing band&#45;pass filters. The band pass filters are constructed using overlaped triangular windows in the frequency domain. " alt="" coords="175,5,321,32"/>
+<area shape="rect" id="node4" href="$d9/d7d/classdsp_1_1FilterBankFIR.html" title="dsp::FilterBankFIR" alt="" coords="182,107,314,133"/>
+<area shape="rect" id="node3" href="$dc/d68/classdsp_1_1FilterBankFFTWMelScale.html" title="dsp::FilterBankFFTWMelScale" alt="" coords="379,31,581,57"/>
+<area shape="rect" id="node5" href="$d1/de7/classdsp_1_1FilterBankFIRMelScale.html" title="dsp::FilterBankFIRMelScale" alt="" coords="387,93,573,120"/>
+<area shape="rect" id="node6" href="$d3/d3f/classdsp_1_1FilterBankMelScale.html" title="This class implements a filter bank using the spectral weighting technique. However, band&#45;pass filters are equally spaced in the mel&#45;scale. So, in the linear scale filters are close to ecah other for low frequencies and more separated for high frequencies. " alt="" coords="166,56,330,83"/>
 </map>

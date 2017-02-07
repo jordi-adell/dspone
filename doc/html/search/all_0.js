@@ -13,7 +13,7 @@ var searchData=
   ['_5fframeprocessor',['_frameProcessor',['../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a1f839aec99c7e51cb6ae9981f7842d34',1,'dsp::ShortTimeProcessImpl']]],
   ['_5fhalfwindowsize',['_halfWindowSize',['../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a1f5b463d33e0077e47ba9149f57cb40c',1,'dsp::ShortTimeProcessImpl']]],
   ['_5fiwindow',['_iwindow',['../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a22ea62413dba7351de9de651c802191e',1,'dsp::ShortTimeProcessImpl']]],
-  ['_5flogger',['_LOGGER',['../de/d03/dsplogger_8cpp.html#a2feb1cae76265b127a9009321790a4f4',1,'dsplogger.cpp']]],
+  ['_5flogger_5f',['_logger_',['../db/dac/dsploggerImpl_8h.html#ae2922f738d08239f3526f9e831650cc6',1,'dsploggerImpl.h']]],
   ['_5fmaximumlatencybuffersize',['_maximumLatencyBufferSize',['../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a048bb8869005c6593a2b5c3c13a66316',1,'dsp::ShortTimeProcessImpl']]],
   ['_5fnchannels',['_nchannels',['../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#ac695c49d829b1cb581c61df8cf96e6b6',1,'dsp::ShortTimeProcessImpl']]],
   ['_5fndatachannels',['_nDataChannels',['../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a24abf7d5d14524c227a363f70a9e5206',1,'dsp::ShortTimeProcessImpl']]],

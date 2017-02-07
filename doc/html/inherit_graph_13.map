@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d4/d00/classdsp_1_1IParticleSet.html" title="This interface represents a particle set. This is a group of particles that can be modified..." alt="" coords="6,5,133,46"/>
-<area shape="rect" id="node2" href="$d8/dd8/classdsp_1_1ParticleSet.html" title="The ParticleSet class This is an implementation of IParticleSet needed for the ParticleFilter that wi..." alt="" coords="182,5,317,46"/>
+<area shape="rect" id="node1" href="$d1/d7c/classdsp_1_1IParticleFilterCallback.html" title="The IParticleFilterCallback class is an interface to implement a callback for the particle filter..." alt="" coords="5,5,184,46"/>
 </map>

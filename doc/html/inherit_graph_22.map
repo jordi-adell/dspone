@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d5/d33/classdsp_1_1ShortTimeProcessImpl.html" title="dsp::ShortTimeProcessImpl" alt="" coords="5,5,189,32"/>
-<area shape="rect" id="node2" href="$d4/dd8/classdsp_1_1ShortTimeAnalysisImpl.html" title="dsp::ShortTimeAnalysisImpl" alt="" coords="237,5,424,32"/>
+<area shape="rect" id="node1" href="$df/d17/classdsp_1_1ProcessDispatcher.html" title="The SignalProcessingDispatcher to have a teplate funtion process that can process data of any type..." alt="" coords="5,5,168,46"/>
 </map>
