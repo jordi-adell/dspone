@@ -254,7 +254,7 @@ INCLUDE(CPack)
 if (test)
     enable_testing()
 
-    add_definitions("-DTEST_AUDIO_DIR=\"${CMAKE_SOURCE_DIR}/etc/test/audiofiles\"")
+    add_definitions("-DTEST_AUDIO_DIR=\"${CMAKE_SOURCE_DIR}/test/audiofiles\"")
 
     find_package(SNDFILE)
 
