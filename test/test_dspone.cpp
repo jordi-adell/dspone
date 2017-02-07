@@ -1344,7 +1344,7 @@ void checkFilterBankBinsOverlap(double *coefs, int length, int nbins)
 
 int main(int argc, char* argv[])
 {
-  SET_LOG_LEVEL("DDEBUG");
+  SET_LOG_LEVEL("DEBUG");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
