@@ -1,5 +1,5 @@
 <map id="dsp::ShortTimeProcessImpl" name="dsp::ShortTimeProcessImpl">
-<area shape="rect" id="node2" href="$d5/d91/classdsp_1_1ShortTimeProcess.html" title="{dsp::ShortTimeProcess\n||+ getLatency()\l+ getMinLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getWindowSize()\l+ getFrameSize()\l+ getFrameRate()\l+ getAnalysisLength()\l+ setAnalysisLength()\l+ getRate()\land 17 more...\l+ calculateOrderFromSampleRate()\l+ calculateWindowSizeFromSampleRate()\l}" alt="" coords="5,421,275,675"/>
+<area shape="rect" id="node2" href="$d5/d91/classdsp_1_1ShortTimeProcess.html" title="{dsp::ShortTimeProcess\n||+ getLatency()\l+ getMinLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getWindowSize()\l+ getFrameSize()\l+ getFrameRate()\l+ getAnalysisLength()\l+ setAnalysisLength()\l+ getRate()\land 22 more...\l+ calculateOrderFromSampleRate()\l+ calculateWindowSizeFromSampleRate()\l}" alt="" coords="5,421,275,675"/>
 <area shape="rect" id="node3" href="$da/db7/classdsp_1_1SignalProcessor.html" title="{dsp::SignalProcessor\n||+ SignalProcessor()\l+ ~SignalProcessor()\l+ process()\l+ process()\l+ process()\l+ process()\l+ getLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getNumberOfChannels()\l}" alt="" coords="53,147,227,357"/>
 <area shape="rect" id="node5" title="STL class. " alt="" coords="409,213,524,291"/>
 </map>

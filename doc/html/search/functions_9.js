@@ -1,6 +1,7 @@
 var searchData=
 [
   ['magnitude',['magnitude',['../d3/d98/namespacedsp_1_1math.html#aee9216f717f381886de311fdb0e4bcbf',1,'dsp::math']]],
+  ['main',['main',['../d4/d98/test__dspone_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'test_dspone.cpp']]],
   ['make_5ffilterprocess',['make_FilterProcess',['../d2/dda/classdsp_1_1FilterProcess.html#acc55619a7efb5d2bfa5002a9fa150ff8',1,'dsp::FilterProcess::make_FilterProcess(int nchannels, const double *coefs, int length)'],['../d2/dda/classdsp_1_1FilterProcess.html#af8d4e9d0ed944f6fc5c37d804ea15bc6',1,'dsp::FilterProcess::make_FilterProcess(int nchannels, int order, double lowFreq, double highFreq)']]],
   ['make_5fobservation_5fmodel',['make_observation_model',['../d0/d41/namespacedsp.html#a133d6edaca55f84340b118df0acf634d',1,'dsp']]],
   ['make_5fparticle_5ffilter',['make_particle_filter',['../d0/d41/namespacedsp.html#a483205292191b1f4f16196ca2c329c2f',1,'dsp']]],

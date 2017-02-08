@@ -1,7 +1,7 @@
 var classdsp_1_1Filter =
 [
     [ "Filter", "d9/d40/classdsp_1_1Filter.html#a0875e982f6cea8c4e25fe778e50f4633", null ],
-    [ "~Filter", "d9/d40/classdsp_1_1Filter.html#a603f9cdaa1459bbd964fe0890e0bf2f7", null ],
+    [ "~Filter", "d9/d40/classdsp_1_1Filter.html#a93553d80c10d27a0f0b42c9a5b194717", null ],
     [ "filterBuffer", "d9/d40/classdsp_1_1Filter.html#a90c18e4735141e937ce58b82c0d162ab", null ],
     [ "filterBuffer", "d9/d40/classdsp_1_1Filter.html#a59f9bcbeb63c6fba6fd004cd569e8487", null ],
     [ "filterBuffer", "d9/d40/classdsp_1_1Filter.html#afe1d880b455df3d90347d9678abfff3b", null ],

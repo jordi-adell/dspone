@@ -3,7 +3,6 @@ var dir_e6cb2ff7ec5fea1adc6c30d9bf2825ee =
     [ "algorithm", "dir_83916e0dd056bb53b0a2c6a8debc557c.html", "dir_83916e0dd056bb53b0a2c6a8debc557c" ],
     [ "filter", "dir_3f9ff564b61ab5eef0f4ed252128c5c3.html", "dir_3f9ff564b61ab5eef0f4ed252128c5c3" ],
     [ "pf", "dir_78c1e64369c44d608fbaee7b2f3229df.html", "dir_78c1e64369c44d608fbaee7b2f3229df" ],
-    [ "plot", "dir_9fbdc5d40f6541705d7b514b7d95d3ad.html", "dir_9fbdc5d40f6541705d7b514b7d95d3ad" ],
     [ "rt", "dir_a16ed5e89b6a72abe26875ee30b65b36.html", "dir_a16ed5e89b6a72abe26875ee30b65b36" ],
     [ "complex.h", "d7/d3b/complex_8h.html", "d7/d3b/complex_8h" ],
     [ "dsp.h", "d3/d08/dsp_8h.html", "d3/d08/dsp_8h" ],

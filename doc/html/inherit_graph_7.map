@@ -1,13 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d9/d40/classdsp_1_1Filter.html" title="The Filter class This is an interface for a filter, it could be a band pass, low pas, IIR, FIR .... any filter. The specification here is that there is an input buffer the is modified and the result is placed in the output buffer. A filter outputs as many samples as the ones contained in the input buffer. " alt="" coords="5,208,85,235"/>
-<area shape="rect" id="node2" href="$d1/df3/classdsp_1_1BandPassFilter.html" title="The BandPassFilter class This is an abstract class that sets general specifications for a band&#45;pass f..." alt="" coords="145,56,285,83"/>
-<area shape="rect" id="node6" href="$d5/d87/classdsp_1_1FFTWeightingFilter.html" title="This class filters a signal by calculating the FFT of the buffer, multiplies the spectrum by the vect..." alt="" coords="133,107,296,133"/>
-<area shape="rect" id="node7" href="$d0/d9f/classdsp_1_1FIRFilter.html" title="dsp::FIRFilter" alt="" coords="163,157,266,184"/>
-<area shape="rect" id="node8" href="$db/d24/classdsp_1_1IIRFilter.html" title="The IIRFilter class. " alt="" coords="165,208,264,235"/>
-<area shape="rect" id="node9" href="$da/d87/classdsp_1_1MedianFilter.html" title="dsp::MedianFilter" alt="" coords="153,259,276,285"/>
-<area shape="rect" id="node10" href="$de/d85/classdsp_1_1NotchFilter.html" title="dsp::NotchFilter" alt="" coords="157,309,272,336"/>
-<area shape="rect" id="node11" href="$d1/dbe/classdsp_1_1PreEmphasisFilter.html" title="The PreEmphasisFilter class This can be used as a premphasis filter to pre&#45;process speech samples..." alt="" coords="135,360,294,387"/>
-<area shape="rect" id="node3" href="$df/d51/classdsp_1_1BandPassFFTWFilter.html" title="implementation of a band pass filter using the spectrum weighting technique. By default uses a triang..." alt="" coords="357,5,534,32"/>
-<area shape="rect" id="node4" href="$d4/d5f/classdsp_1_1BandPassFFTWFilterImpl.html" title="implementation of a band pass filter using the spectrum weighting technique. By default uses a triang..." alt="" coords="344,56,547,83"/>
-<area shape="rect" id="node5" href="$d3/d7f/classdsp_1_1BandPassFIRFilter.html" title="This class implements a band pass filter using the FIR approach. The design of the filter specificati..." alt="" coords="364,107,527,133"/>
+<area shape="rect" id="node1" href="$dd/dde/classdsp_1_1FilterBank.html" title="The FilterBank class This class can be used to filter signal by a pool of several filters (a filter b..." alt="" coords="6,56,117,83"/>
+<area shape="rect" id="node2" href="$df/d13/classdsp_1_1FilterBankFFTW.html" title="This class implements a filter bank using a set of spectral weigthing band&#45;pass filters. The band pass filters are constructed using overlaped triangular windows in the frequency domain. " alt="" coords="175,5,321,32"/>
+<area shape="rect" id="node4" href="$d9/d7d/classdsp_1_1FilterBankFIR.html" title="dsp::FilterBankFIR" alt="" coords="182,107,314,133"/>
+<area shape="rect" id="node3" href="$dc/d68/classdsp_1_1FilterBankFFTWMelScale.html" title="dsp::FilterBankFFTWMelScale" alt="" coords="379,31,581,57"/>
+<area shape="rect" id="node5" href="$d1/de7/classdsp_1_1FilterBankFIRMelScale.html" title="dsp::FilterBankFIRMelScale" alt="" coords="387,93,573,120"/>
+<area shape="rect" id="node6" href="$d3/d3f/classdsp_1_1FilterBankMelScale.html" title="This class implements a filter bank using the spectral weighting technique. However, band&#45;pass filters are equally spaced in the mel&#45;scale. So, in the linear scale filters are close to ecah other for low frequencies and more separated for high frequencies. " alt="" coords="166,56,330,83"/>
 </map>

@@ -1,6 +1,8 @@
 var namespacedsp =
 [
     [ "math", "d3/d98/namespacedsp_1_1math.html", "d3/d98/namespacedsp_1_1math" ],
+    [ "median_filter_impl", "da/d2b/namespacedsp_1_1median__filter__impl.html", null ],
+    [ "test", "d6/da2/namespacedsp_1_1test.html", null ],
     [ "FFT", "d6/d9b/classdsp_1_1FFT.html", "d6/d9b/classdsp_1_1FFT" ],
     [ "FFTImpl", "db/d38/classdsp_1_1FFTImpl.html", "db/d38/classdsp_1_1FFTImpl" ],
     [ "GeneralisedCrossCorrelation", "d3/d2f/classdsp_1_1GeneralisedCrossCorrelation.html", "d3/d2f/classdsp_1_1GeneralisedCrossCorrelation" ],
@@ -38,7 +40,6 @@ var namespacedsp =
     [ "ParticleSet", "d8/dd8/classdsp_1_1ParticleSet.html", "d8/dd8/classdsp_1_1ParticleSet" ],
     [ "PredictionModel", "d2/da0/classdsp_1_1PredictionModel.html", "d2/da0/classdsp_1_1PredictionModel" ],
     [ "ResamplingModel", "da/d9b/classdsp_1_1ResamplingModel.html", "da/d9b/classdsp_1_1ResamplingModel" ],
-    [ "dspPlotGnuplot", "d0/dda/classdsp_1_1dspPlotGnuplot.html", "d0/dda/classdsp_1_1dspPlotGnuplot" ],
     [ "AnalysisDispatcher", "dc/da1/classdsp_1_1AnalysisDispatcher.html", "dc/da1/classdsp_1_1AnalysisDispatcher" ],
     [ "DummySTFT", "d1/d0b/classdsp_1_1DummySTFT.html", "d1/d0b/classdsp_1_1DummySTFT" ],
     [ "DummySTFTAnalysis", "da/d8f/classdsp_1_1DummySTFTAnalysis.html", "da/d8f/classdsp_1_1DummySTFTAnalysis" ],

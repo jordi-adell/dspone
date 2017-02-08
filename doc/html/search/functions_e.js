@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['savebuffertofile',['saveBufferToFile',['../d6/da2/namespacedsp_1_1test.html#a0496fd0686d81f3f40e6645c773b950e',1,'dsp::test']]],
   ['set',['set',['../d4/d00/classdsp_1_1IParticleSet.html#acee640d4a6689ff16847934f7bc7648f',1,'dsp::IParticleSet::set()'],['../d8/dd8/classdsp_1_1ParticleSet.html#a3b3dcbb2a61008af56325e163b304e94',1,'dsp::ParticleSet::set()'],['../d3/d98/namespacedsp_1_1math.html#ab538ebecce88e5887be8326f2e13ee8a',1,'dsp::math::set(int value, int *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#ad4498a23d13a1ffbe53ad1c7c55bf45b',1,'dsp::math::set(double value, double *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#ac3db880c2360bedf1d14852489b73b45',1,'dsp::math::set(int16_t value, int16_t *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#a7a18231de64eaaed427a51827e713be5',1,'dsp::math::set(float value, float *buffer, int length)']]],
   ['set_5fcore',['set_core',['../d3/d98/namespacedsp_1_1math.html#aad76cb11aefa5644332a28b926d51e4b',1,'dsp::math']]],
   ['set_5fzeros_5fcore',['set_zeros_core',['../d3/d98/namespacedsp_1_1math.html#a132eee28d1ffc52f3454b5a2e4e93c14',1,'dsp::math']]],
@@ -11,7 +12,8 @@ var searchData=
   ['setzeros',['setZeros',['../d3/d98/namespacedsp_1_1math.html#a2a03cbb61d4f270ed331a263fe4f7e93',1,'dsp::math::setZeros(int *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#a36fcf100d6b68624fa8ac34eb08e0c3b',1,'dsp::math::setZeros(double *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#a9974c1ba1edc069065a335b3956fea14',1,'dsp::math::setZeros(int16_t *buffer, int length)'],['../d3/d98/namespacedsp_1_1math.html#a127ade663b890485d304001e55e564f4',1,'dsp::math::setZeros(float *buffer, int length)']]],
   ['shorttimeanalysis',['ShortTimeAnalysis',['../d5/dfb/classdsp_1_1ShortTimeAnalysis.html#affbc65f163d54805cf1153688f967e00',1,'dsp::ShortTimeAnalysis']]],
   ['shorttimeanalysisimpl',['ShortTimeAnalysisImpl',['../d4/dd8/classdsp_1_1ShortTimeAnalysisImpl.html#a67483fe2f97a489de629dc402d6d3ee9',1,'dsp::ShortTimeAnalysisImpl']]],
-  ['shorttimeprocess',['ShortTimeProcess',['../d5/d91/classdsp_1_1ShortTimeProcess.html#a147da9b21f62f62038cfe4e33a555785',1,'dsp::ShortTimeProcess']]],
+  ['shorttimeprocess',['ShortTimeProcess',['../d5/d91/classdsp_1_1ShortTimeProcess.html#a147da9b21f62f62038cfe4e33a555785',1,'dsp::ShortTimeProcess::ShortTimeProcess()'],['../d6/da2/namespacedsp_1_1test.html#ab563853115b9d983428c0b1d3997d3e3',1,'dsp::test::shortTimeProcess()']]],
+  ['shorttimeprocessconstantsignal',['shortTimeProcessConstantSignal',['../d6/da2/namespacedsp_1_1test.html#a9b1b0277316284f4447d1f185f0c1903',1,'dsp::test']]],
   ['shorttimeprocessimpl',['ShortTimeProcessImpl',['../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#afaaef692dfc8d68548ed7884cb8671fc',1,'dsp::ShortTimeProcessImpl']]],
   ['signalanalyser',['SignalAnalyser',['../d6/d67/classdsp_1_1SignalAnalyser.html#ad3ccbb6aa15a596bde60c7bf3c17ee63',1,'dsp::SignalAnalyser']]],
   ['signalprocessor',['SignalProcessor',['../da/db7/classdsp_1_1SignalProcessor.html#a022bf88d44337238d9460052e8c86fcd',1,'dsp::SignalProcessor']]],

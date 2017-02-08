@@ -3,9 +3,6 @@ var hierarchy =
     [ "dsp::AnalysisDispatcher< Derived >", "dc/da1/classdsp_1_1AnalysisDispatcher.html", null ],
     [ "dsp::Complex32f", "d2/de4/structdsp_1_1Complex32f.html", null ],
     [ "dsp::Complex64f", "d0/d23/structdsp_1_1Complex64f.html", null ],
-    [ "dspPlotImpl", null, [
-      [ "dsp::dspPlotGnuplot", "d0/dda/classdsp_1_1dspPlotGnuplot.html", null ]
-    ] ],
     [ "std::exception", null, [
       [ "std::runtime_error", null, [
         [ "dsp::DspException", "d7/dc0/classdsp_1_1DspException.html", null ]

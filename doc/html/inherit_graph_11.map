@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$de/d17/classdsp_1_1IObservationModel.html" title="dsp::IObservationModel\l\&lt; ParticleSet\&lt; T_Particle\l \&gt;, ParticleSet\&lt; T_Weight \&gt; \&gt;" alt="" coords="6,4,205,60"/>
-<area shape="rect" id="node2" href="$db/db5/classdsp_1_1ObservationModel.html" title="The ObservationModel class Dummy class for testing purposes. The observation model depens on the taks..." alt="" coords="254,11,423,53"/>
+<area shape="rect" id="node1" href="$de/d17/classdsp_1_1IObservationModel.html" title="This class template is an interface to implement Observation models for the particle filter..." alt="" coords="6,5,215,46"/>
 </map>

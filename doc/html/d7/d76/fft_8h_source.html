@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">DSPONE
-   &#160;<span id="projectnumber">v0.2.0</span>
+   &#160;<span id="projectnumber">v0.4.1</span>
    </div>
    <div id="projectbrief">Signal processing of multichannel unidimensional data.</div>
   </td>
@@ -176,17 +176,17 @@ $(document).ready(function(){initNavTree('d7/d76/fft_8h_source.html','../../');}
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif // __FFT_H_</span></div>
 <div class="ttc" id="complex_8h_html"><div class="ttname"><a href="../../d7/d3b/complex_8h.html">complex.h</a></div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_a5fc76f19b6bb6e10a4d938c300d4805c"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a5fc76f19b6bb6e10a4d938c300d4805c">dsp::FFT::FFT</a></div><div class="ttdeci">FFT(int order)</div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_a5fc76f19b6bb6e10a4d938c300d4805c"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a5fc76f19b6bb6e10a4d938c300d4805c">dsp::FFT::FFT</a></div><div class="ttdeci">FFT(int order)</div><div class="ttdef"><b>Definition:</b> fft.cpp:29</div></div>
 <div class="ttc" id="classdsp_1_1FFTImpl_html"><div class="ttname"><a href="../../db/d38/classdsp_1_1FFTImpl.html">dsp::FFTImpl</a></div><div class="ttdoc">1D Fast Fourier Transform </div><div class="ttdef"><b>Definition:</b> fftImpl.h:34</div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_a69283e973882f30f9b1d227ecaf7fd0a"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a69283e973882f30f9b1d227ecaf7fd0a">dsp::FFT::getOneSidedFFTLength</a></div><div class="ttdeci">int getOneSidedFFTLength() const </div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_a69283e973882f30f9b1d227ecaf7fd0a"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a69283e973882f30f9b1d227ecaf7fd0a">dsp::FFT::getOneSidedFFTLength</a></div><div class="ttdeci">int getOneSidedFFTLength() const </div><div class="ttdef"><b>Definition:</b> fft.cpp:59</div></div>
 <div class="ttc" id="structdsp_1_1Complex64f_html"><div class="ttname"><a href="../../d0/d23/structdsp_1_1Complex64f.html">dsp::Complex64f</a></div><div class="ttdef"><b>Definition:</b> complex.h:29</div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_aa2a635402dca50c55aa8eab36476e163"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#aa2a635402dca50c55aa8eab36476e163">dsp::FFT::fwdTransform</a></div><div class="ttdeci">void fwdTransform(const double *inFrame, double *fft)</div><div class="ttdoc">fwdTransform Performed the forward/direct transform If the frameLength is not provided, then the value returned by getFFRLength is assumed. </div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_a24820100ddd10293852305121db5a51b"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a24820100ddd10293852305121db5a51b">dsp::FFT::getOrder</a></div><div class="ttdeci">int getOrder() const </div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_af7a46208b0b6d3973e0f337db9c4c167"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#af7a46208b0b6d3973e0f337db9c4c167">dsp::FFT::getFFTLength</a></div><div class="ttdeci">int getFFTLength() const </div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_a193ec362bdaa2b4fdb83dd639b107a26"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a193ec362bdaa2b4fdb83dd639b107a26">dsp::FFT::invTransfrom</a></div><div class="ttdeci">void invTransfrom(double *outFrame, const double *fft)</div><div class="ttdoc">invTransfrom Performed the inverse transform If the frameLength is not provided, then the value retur...</div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_aa2a635402dca50c55aa8eab36476e163"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#aa2a635402dca50c55aa8eab36476e163">dsp::FFT::fwdTransform</a></div><div class="ttdeci">void fwdTransform(const double *inFrame, double *fft)</div><div class="ttdoc">fwdTransform Performed the forward/direct transform If the frameLength is not provided, then the value returned by getFFRLength is assumed. </div><div class="ttdef"><b>Definition:</b> fft.cpp:85</div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_a24820100ddd10293852305121db5a51b"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a24820100ddd10293852305121db5a51b">dsp::FFT::getOrder</a></div><div class="ttdeci">int getOrder() const </div><div class="ttdef"><b>Definition:</b> fft.cpp:64</div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_af7a46208b0b6d3973e0f337db9c4c167"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#af7a46208b0b6d3973e0f337db9c4c167">dsp::FFT::getFFTLength</a></div><div class="ttdeci">int getFFTLength() const </div><div class="ttdef"><b>Definition:</b> fft.cpp:54</div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_a193ec362bdaa2b4fdb83dd639b107a26"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a193ec362bdaa2b4fdb83dd639b107a26">dsp::FFT::invTransfrom</a></div><div class="ttdeci">void invTransfrom(double *outFrame, const double *fft)</div><div class="ttdoc">invTransfrom Performed the inverse transform If the frameLength is not provided, then the value retur...</div><div class="ttdef"><b>Definition:</b> fft.cpp:96</div></div>
 <div class="ttc" id="classdsp_1_1FFT_html"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html">dsp::FFT</a></div><div class="ttdoc">1D Fast Fourier Transform </div><div class="ttdef"><b>Definition:</b> fft.h:36</div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_a9a030884403630b7c0910f44a5276a4e"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a9a030884403630b7c0910f44a5276a4e">dsp::FFT::~FFT</a></div><div class="ttdeci">~FFT()</div></div>
-<div class="ttc" id="classdsp_1_1FFT_html_a1c31d039ed015e62ac75fb9958c52141"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a1c31d039ed015e62ac75fb9958c52141">dsp::FFT::getAnalysisWindowLength</a></div><div class="ttdeci">int getAnalysisWindowLength() const </div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_a9a030884403630b7c0910f44a5276a4e"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a9a030884403630b7c0910f44a5276a4e">dsp::FFT::~FFT</a></div><div class="ttdeci">~FFT()</div><div class="ttdef"><b>Definition:</b> fft.cpp:34</div></div>
+<div class="ttc" id="classdsp_1_1FFT_html_a1c31d039ed015e62ac75fb9958c52141"><div class="ttname"><a href="../../d6/d9b/classdsp_1_1FFT.html#a1c31d039ed015e62ac75fb9958c52141">dsp::FFT::getAnalysisWindowLength</a></div><div class="ttdeci">int getAnalysisWindowLength() const </div><div class="ttdef"><b>Definition:</b> fft.cpp:39</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

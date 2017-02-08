@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">DSPONE
-   &#160;<span id="projectnumber">v0.2.0</span>
+   &#160;<span id="projectnumber">v0.4.1</span>
    </div>
    <div id="projectbrief">Signal processing of multichannel unidimensional data.</div>
   </td>
@@ -131,21 +131,23 @@ Collaboration diagram for dsp::ShortTimeProcessImpl:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d6e/classdsp_1_1ShortTimeProcessImpl__coll__graph.png" border="0" usemap="#dsp_1_1ShortTimeProcessImpl_coll__map" alt="Collaboration graph"/></div>
 <map name="dsp_1_1ShortTimeProcessImpl_coll__map" id="dsp_1_1ShortTimeProcessImpl_coll__map">
-<area shape="rect" id="node2" href="../../d5/d91/classdsp_1_1ShortTimeProcess.html" title="{dsp::ShortTimeProcess\n||+ getLatency()\l+ getMinLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getWindowSize()\l+ getFrameSize()\l+ getFrameRate()\l+ getAnalysisLength()\l+ setAnalysisLength()\l+ getRate()\land 17 more...\l+ calculateOrderFromSampleRate()\l+ calculateWindowSizeFromSampleRate()\l}" alt="" coords="5,421,275,675"/><area shape="rect" id="node3" href="../../da/db7/classdsp_1_1SignalProcessor.html" title="{dsp::SignalProcessor\n||+ SignalProcessor()\l+ ~SignalProcessor()\l+ process()\l+ process()\l+ process()\l+ process()\l+ getLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getNumberOfChannels()\l}" alt="" coords="53,147,227,357"/><area shape="rect" id="node5" title="STL class. " alt="" coords="409,213,524,291"/></map>
+<area shape="rect" id="node2" href="../../d5/d91/classdsp_1_1ShortTimeProcess.html" title="{dsp::ShortTimeProcess\n||+ getLatency()\l+ getMinLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getWindowSize()\l+ getFrameSize()\l+ getFrameRate()\l+ getAnalysisLength()\l+ setAnalysisLength()\l+ getRate()\land 22 more...\l+ calculateOrderFromSampleRate()\l+ calculateWindowSizeFromSampleRate()\l}" alt="" coords="5,421,275,675"/><area shape="rect" id="node3" href="../../da/db7/classdsp_1_1SignalProcessor.html" title="{dsp::SignalProcessor\n||+ SignalProcessor()\l+ ~SignalProcessor()\l+ process()\l+ process()\l+ process()\l+ process()\l+ getLatency()\l+ getMaxLatency()\l+ getBufferSize()\l+ getNumberOfChannels()\l}" alt="" coords="53,147,227,357"/><area shape="rect" id="node5" title="STL class. " alt="" coords="409,213,524,291"/></map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afaaef692dfc8d68548ed7884cb8671fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#afaaef692dfc8d68548ed7884cb8671fc">ShortTimeProcessImpl</a> (<a class="el" href="../../d5/d91/classdsp_1_1ShortTimeProcess.html">ShortTimeProcess</a> *frameProcessor, int windowSize, int analisysLength, int nchannels=1, <a class="el" href="../../d5/d91/classdsp_1_1ShortTimeProcess.html#a3594b4ea46c68b4bc69bbe17f0cdd74b">Mode</a> mode=<a class="el" href="../../d5/d91/classdsp_1_1ShortTimeProcess.html#a3594b4ea46c68b4bc69bbe17f0cdd74bae7ea226dfcd56de747a919186f788d44">ShortTimeProcess::ANALYSIS_SYNTHESIS</a>)</td></tr>
 <tr class="separator:afaaef692dfc8d68548ed7884cb8671fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcb9ce4593dc795d4359188be7619362"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#afcb9ce4593dc795d4359188be7619362">~ShortTimeProcessImpl</a> ()</td></tr>
-<tr class="separator:afcb9ce4593dc795d4359188be7619362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ace6c3810239a0acdc1220a4a69dee"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a61ace6c3810239a0acdc1220a4a69dee">~ShortTimeProcessImpl</a> ()</td></tr>
+<tr class="separator:a61ace6c3810239a0acdc1220a4a69dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abeabe1bd0be7493a7b1d0a541052e924"><td class="memTemplParams" colspan="2">template&lt;typename SampleType &gt; </td></tr>
 <tr class="memitem:abeabe1bd0be7493a7b1d0a541052e924"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#abeabe1bd0be7493a7b1d0a541052e924">process</a> (const std::vector&lt; SampleType * &gt; &amp;signal, unsigned int inbuffersize, const std::vector&lt; SampleType * &gt; &amp;output, unsigned int outbuffersize)</td></tr>
 <tr class="separator:abeabe1bd0be7493a7b1d0a541052e924"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e028fcf922b8a453f08d3e499549901"><td class="memTemplParams" colspan="2">template&lt;typename SampleType &gt; </td></tr>
 <tr class="memitem:a1e028fcf922b8a453f08d3e499549901"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a1e028fcf922b8a453f08d3e499549901">process</a> (const std::vector&lt; boost::shared_array&lt; SampleType &gt; &gt; &amp;signal, unsigned int inbuffersize, const std::vector&lt; boost::shared_array&lt; SampleType &gt; &gt; &amp;output, unsigned int outbuffersize)</td></tr>
 <tr class="separator:a1e028fcf922b8a453f08d3e499549901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf8221f09cddc723cdf3b490422ac01f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#abf8221f09cddc723cdf3b490422ac01f">clear</a> ()</td></tr>
+<tr class="separator:abf8221f09cddc723cdf3b490422ac01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a454558e7e547567c0ab8618817cc695b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a454558e7e547567c0ab8618817cc695b">getLatency</a> () const </td></tr>
 <tr class="memdesc:a454558e7e547567c0ab8618817cc695b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the latency of the algorithm. This the number of samples that are sotored for further processing the sample that will be supplied in the next call.  <a href="#a454558e7e547567c0ab8618817cc695b">More...</a><br/></td></tr>
 <tr class="separator:a454558e7e547567c0ab8618817cc695b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,12 +169,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afaaf80c5827dcddf44d67be1adad6f80"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#afaaf80c5827dcddf44d67be1adad6f80">getRate</a> () const </td></tr>
 <tr class="memdesc:afaaf80c5827dcddf44d67be1adad6f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">The buffer supplied to the process function must have a length multiple of the internal frame size.  <a href="#afaaf80c5827dcddf44d67be1adad6f80">More...</a><br/></td></tr>
 <tr class="separator:afaaf80c5827dcddf44d67be1adad6f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3f37d9eff66961e6bde5a0f22edda64"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#ac3f37d9eff66961e6bde5a0f22edda64">getNumberOfChannels</a> () const </td></tr>
-<tr class="memdesc:ac3f37d9eff66961e6bde5a0f22edda64"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumberOfChannels  <a href="#ac3f37d9eff66961e6bde5a0f22edda64">More...</a><br/></td></tr>
-<tr class="separator:ac3f37d9eff66961e6bde5a0f22edda64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accad0b067c0117adb32c5bbf20d21bdf"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#accad0b067c0117adb32c5bbf20d21bdf">getNumberOfDataChannels</a> () const </td></tr>
-<tr class="memdesc:accad0b067c0117adb32c5bbf20d21bdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumberOfDataChannels  <a href="#accad0b067c0117adb32c5bbf20d21bdf">More...</a><br/></td></tr>
-<tr class="separator:accad0b067c0117adb32c5bbf20d21bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af88d61d0724cc01e5ee36c173ffc7601"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#af88d61d0724cc01e5ee36c173ffc7601">getNumberOfChannels</a> () const </td></tr>
+<tr class="memdesc:af88d61d0724cc01e5ee36c173ffc7601"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumberOfChannels  <a href="#af88d61d0724cc01e5ee36c173ffc7601">More...</a><br/></td></tr>
+<tr class="separator:af88d61d0724cc01e5ee36c173ffc7601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5ed1239af1ebce53a95aa69b2477bb9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#af5ed1239af1ebce53a95aa69b2477bb9">getNumberOfDataChannels</a> () const </td></tr>
+<tr class="memdesc:af5ed1239af1ebce53a95aa69b2477bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumberOfDataChannels  <a href="#af5ed1239af1ebce53a95aa69b2477bb9">More...</a><br/></td></tr>
+<tr class="separator:af5ed1239af1ebce53a95aa69b2477bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31deae1e4519a88d5455e4ef8781c7b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d33/classdsp_1_1ShortTimeProcessImpl.html#a31deae1e4519a88d5455e4ef8781c7b2">getAmountOfRemainingSamples</a> ()</td></tr>
 <tr class="separator:a31deae1e4519a88d5455e4ef8781c7b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af09125435e29dfa1bac07b698fd3adb8"><td class="memTemplParams" colspan="2">template&lt;typename sampleType &gt; </td></tr>
@@ -297,7 +299,7 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afcb9ce4593dc795d4359188be7619362"></a>
+<a class="anchor" id="a61ace6c3810239a0acdc1220a4a69dee"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -305,7 +307,7 @@ Static Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual dsp::ShortTimeProcessImpl::~ShortTimeProcessImpl </td>
+          <td class="memname">dsp::ShortTimeProcessImpl::~ShortTimeProcessImpl </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -321,6 +323,21 @@ Static Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="abf8221f09cddc723cdf3b490422ac01f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dsp::ShortTimeProcessImpl::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a31deae1e4519a88d5455e4ef8781c7b2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -436,7 +453,7 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac3f37d9eff66961e6bde5a0f22edda64"></a>
+<a class="anchor" id="af88d61d0724cc01e5ee36c173ffc7601"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -444,7 +461,7 @@ Static Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int dsp::ShortTimeProcessImpl::getNumberOfChannels </td>
+          <td class="memname">int dsp::ShortTimeProcessImpl::getNumberOfChannels </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -462,7 +479,7 @@ Static Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="accad0b067c0117adb32c5bbf20d21bdf"></a>
+<a class="anchor" id="af5ed1239af1ebce53a95aa69b2477bb9"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -470,7 +487,7 @@ Static Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int dsp::ShortTimeProcessImpl::getNumberOfDataChannels </td>
+          <td class="memname">int dsp::ShortTimeProcessImpl::getNumberOfDataChannels </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1044,6 +1061,7 @@ template&lt;typename SampleType &gt; </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/dspone/rt/<a class="el" href="../../d7/d12/ShortTimeProcessImpl_8h_source.html">ShortTimeProcessImpl.h</a></li>
 <li>include/dspone/rt/<a class="el" href="../../d6/d97/ShortTimeProcessImpl_8inl.html">ShortTimeProcessImpl.inl</a></li>
+<li>src/dspone/rt/<a class="el" href="../../d7/dbd/ShortTimeProcessImpl_8cpp.html">ShortTimeProcessImpl.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">DSPONE
-   &#160;<span id="projectnumber">v0.2.0</span>
+   &#160;<span id="projectnumber">v0.4.1</span>
    </div>
    <div id="projectbrief">Signal processing of multichannel unidimensional data.</div>
   </td>
@@ -141,7 +141,7 @@ $(document).ready(function(){initNavTree('df/df8/Filter_8h_source.html','../../'
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="../../d9/d40/classdsp_1_1Filter.html#a0875e982f6cea8c4e25fe778e50f4633">Filter</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="../../d9/d40/classdsp_1_1Filter.html#a603f9cdaa1459bbd964fe0890e0bf2f7">~Filter</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="../../d9/d40/classdsp_1_1Filter.html#a93553d80c10d27a0f0b42c9a5b194717">~Filter</a>();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d9/d40/classdsp_1_1Filter.html#a90c18e4735141e937ce58b82c0d162ab">filterBuffer</a>(<span class="keyword">const</span> int16_t *inbuffer, int16_t *outbuffer, <span class="keywordtype">int</span> length)  = 0;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d9/d40/classdsp_1_1Filter.html#a90c18e4735141e937ce58b82c0d162ab">filterBuffer</a>(<span class="keyword">const</span> int32_t *inbuffer, int32_t *outbuffer, <span class="keywordtype">int</span> length)  = 0;</div>
@@ -160,9 +160,9 @@ $(document).ready(function(){initNavTree('df/df8/Filter_8h_source.html','../../'
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif // FILTER_H_</span></div>
 <div class="ttc" id="classdsp_1_1Filter_html"><div class="ttname"><a href="../../d9/d40/classdsp_1_1Filter.html">dsp::Filter</a></div><div class="ttdoc">The Filter class This is an interface for a filter, it could be a band pass, low pas, IIR, FIR .... any filter. The specification here is that there is an input buffer the is modified and the result is placed in the output buffer. A filter outputs as many samples as the ones contained in the input buffer. </div><div class="ttdef"><b>Definition:</b> Filter.h:37</div></div>
 <div class="ttc" id="classdsp_1_1Filter_html_a90c18e4735141e937ce58b82c0d162ab"><div class="ttname"><a href="../../d9/d40/classdsp_1_1Filter.html#a90c18e4735141e937ce58b82c0d162ab">dsp::Filter::filterBuffer</a></div><div class="ttdeci">virtual void filterBuffer(const int16_t *inbuffer, int16_t *outbuffer, int length)=0</div><div class="ttdoc">filterBuffer filters a buffer of 2^order samples long, thre different sample format can be supplied...</div></div>
-<div class="ttc" id="classdsp_1_1Filter_html_a603f9cdaa1459bbd964fe0890e0bf2f7"><div class="ttname"><a href="../../d9/d40/classdsp_1_1Filter.html#a603f9cdaa1459bbd964fe0890e0bf2f7">dsp::Filter::~Filter</a></div><div class="ttdeci">virtual ~Filter()</div></div>
+<div class="ttc" id="classdsp_1_1Filter_html_a93553d80c10d27a0f0b42c9a5b194717"><div class="ttname"><a href="../../d9/d40/classdsp_1_1Filter.html#a93553d80c10d27a0f0b42c9a5b194717">dsp::Filter::~Filter</a></div><div class="ttdeci">virtual ~Filter()</div><div class="ttdef"><b>Definition:</b> Filter.cpp:31</div></div>
 <div class="ttc" id="classdsp_1_1Filter_html_a8591b3d36a0e5998e696ebb43fa3c54f"><div class="ttname"><a href="../../d9/d40/classdsp_1_1Filter.html#a8591b3d36a0e5998e696ebb43fa3c54f">dsp::Filter::getFrameLength</a></div><div class="ttdeci">virtual int getFrameLength() const =0</div></div>
-<div class="ttc" id="classdsp_1_1Filter_html_a0875e982f6cea8c4e25fe778e50f4633"><div class="ttname"><a href="../../d9/d40/classdsp_1_1Filter.html#a0875e982f6cea8c4e25fe778e50f4633">dsp::Filter::Filter</a></div><div class="ttdeci">Filter()</div></div>
+<div class="ttc" id="classdsp_1_1Filter_html_a0875e982f6cea8c4e25fe778e50f4633"><div class="ttname"><a href="../../d9/d40/classdsp_1_1Filter.html#a0875e982f6cea8c4e25fe778e50f4633">dsp::Filter::Filter</a></div><div class="ttdeci">Filter()</div><div class="ttdef"><b>Definition:</b> Filter.cpp:27</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
