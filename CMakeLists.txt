@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2.2)
-project(dspone VERSION 0.4.1)
-#set(PROJECT_VERSION_STATUS "-alpha")
+project(dspone VERSION 1.0.0)
+set(PROJECT_VERSION_STATUS "-alpha")
 
 ###########################
 ## Configure compilation ##
