@@ -18,7 +18,9 @@
 *
 * You should have received a copy of the GNU General Public License
 * along with DSPONE.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef __DUMMY_SHORT_TIME_PROCESS_H_
+*/
+
+#ifndef __DUMMY_SHORT_TIME_PROCESS_H_
 #define __DUMMY_SHORT_TIME_PROCESS_H_
 
 #include <dspone/rt/ShortTimeProcess.h>

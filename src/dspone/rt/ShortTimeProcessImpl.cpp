@@ -305,12 +305,21 @@ void ShortTimeProcessImpl::frameAnalysis(BaseType *inFrame,
 					 int analysisLength,
 					 int channel)
 {
-  _frameProcessor->frameAnalysis(inFrame, analysis, frameLength, analysisLength, channel);
+if (channel == 0)
+  _qtdebug.plot(inFrame, frameLength, QtDebug::IN_FRAME);
+
+_frameProcessor->frameAnalysis(inFrame, analysis, frameLength, analysisLength, channel);
+
 }
 
 void ShortTimeProcessImpl::processParametrisation()
 {
+
+  _qtdebug.plot(_analysisFrames, _analysisLength, QtDebug::IN_ANALYSIS);
+
   _frameProcessor->processParametrisation(_analysisFramesPtr, _analysisLength, _dataFramesPtr, _windowSize);
+
+  _qtdebug.plot(_analysisFrames, _analysisLength, QtDebug::OUT_ANALYSIS);
 }
 
 
@@ -321,6 +330,7 @@ void ShortTimeProcessImpl::frameSynthesis(BaseType *outFrame,
 					  int channel)
 {
   _frameProcessor->frameSynthesis(outFrame, analysis, frameLength, analysisLength, channel);
+  _qtdebug.plot(outFrame, frameLength, QtDebug::OUT_FRAME);
 }
 
 

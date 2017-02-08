@@ -60,6 +60,9 @@ template<typename sampleType>
 int ShortTimeProcessImpl::overlapAndAdd(const std::vector<sampleType *> &signal, unsigned int inbuffersize,
 				    const std::vector<sampleType *> &output, unsigned int outbuffersize)
 {
+
+    _qtdebug.plot(signal, inbuffersize,  QtDebug::IN_SIGNAL);
+
     int latencycount;
     size_t occupancy;
     //    = _latencyBufferSignal[0].getCountUsed();
@@ -162,6 +165,9 @@ int ShortTimeProcessImpl::overlapAndAdd(const std::vector<sampleType *> &signal,
 	ERROR_STREAM("The supplied buffersize "<< outbuffersize << " is not large enough: " << outLength <<". Some samples will be lost");
 	outLength = outbuffersize;
     }
+
+    _qtdebug.plot(output, outLength, QtDebug::OUT_SIGNAL);
+
     return outLength;
 }
 

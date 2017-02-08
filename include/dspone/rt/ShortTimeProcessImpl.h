@@ -22,8 +22,10 @@
 #ifndef __SHORTTIMEPROCESSIMPL_H_
 #define __SHORTTIMEPROCESSIMPL_H_
 
-
 #include <dspone/rt/ShortTimeProcess.h>
+
+#include <dspone/plot/qtDebug.h>
+
 #include <dspone/DspException.h>
 #include <dspone/dspdefs.h>
 #include <dspone/dsplogger.h>
@@ -40,11 +42,12 @@
 
 namespace dsp {
 
+
+
 class ShortTimeProcessImpl
 {
 
     protected:
-
 	typedef ShortTimeProcess::Mode Mode;
 
 	//@TODO set it at run time
@@ -265,8 +268,8 @@ class ShortTimeProcessImpl
 
 	void unwindowFrame(double *frame, size_t length) const;
 	void unwindowFrame(double *frame, double *unwindow, size_t length) const;
-
-
+    public:
+	QtDebug _qtdebug; /*<- This is public to be access by the ShortTimePrcess frien class DspGui */
 };
 
 

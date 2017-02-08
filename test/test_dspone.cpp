@@ -28,7 +28,7 @@
 #include <dspone/rt/DummyShortTimeFourier.h>
 #include <dspone/rt/FilterProcess.hpp>
 #include <dspone/rt/TimeProcess.h>
-
+#include <dspone/rt/DummyTimeProcess.h>
 
 // Implementations
 
@@ -36,6 +36,8 @@
 #include <dspone/algorithm/fftImpl.h>
 
 #include <dspone/dspMath.h>
+
+#include <dspone/plot/dspgui.h>
 
 #include <wipp/wippstats.h>
 #include <wipp/wipputils.h>
@@ -81,7 +83,9 @@ template <class T> std::string  saveBufferToFile(T* buffer, int length, std::str
     return getTmpPath()+file;
 }
 
-void shortTimeProcess(ShortTimeProcess &shortTimeP);
+void shortTimeProcess(ShortTimeProcess &process);
+void shortTimeProcess(ShortTimeProcess *shortTimeP);
+
 void shortTimeProcessConstantSignal(ShortTimeProcess &shortTimeP, bool useInputDataChannels);
 void testFilterBank(int order,  FilterBank &filterBank);
 void testBandPassFilter(BandPassFilter &filter, double *filterGaindB, double *freqs);
@@ -104,6 +108,8 @@ class DummyTimeProcess : public dsp::Timeprocess
     }
 
 };
+
+
 TEST(GCC, same_signal)
 {
 
@@ -279,6 +285,8 @@ TEST(DigitalSignalProcessingTest, testFIRFilter)
     }
 }
 
+
+
 TEST(DigitalSignalProcessingTest, testIIRFilter)
 {
     // This is a pole in -1 and a zero i 0.
@@ -301,6 +309,7 @@ TEST(DigitalSignalProcessingTest, testIIRFilter)
     }
     DEBUG_STREAM("Tested");
 }
+
 
 TEST(DigitalSignalProcessingTest, interactiveIIRShape)
 {
@@ -483,7 +492,6 @@ TEST(DigitalSignalProcessingTest, DummySTFTGUI)
   dsp::DspGui gui(shortTimeP, shortTimeProcess);
 
   gui.start();
-
 }
 */
 
@@ -1079,8 +1087,13 @@ TEST(signal_power, class_api)
   dsp::SignalPower::power(vptr_signal, length);
   dsp::SignalPower::power(signal_ptr, length);
 
+}
 
 
+
+void shortTimeProcess(ShortTimeProcess *process)
+{
+  shortTimeProcess(*process);
 }
 
 void shortTimeProcess(ShortTimeProcess &shortTimeP)
@@ -1136,10 +1149,11 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 	    readSamples = readBytes / 2;
 
 	    int latency = shortTimeP.getLatency();
+	    EXPECT_GE(latency, 0);
 	    int processedSamples = shortTimeP.process(inVectorSignal, readSamples, outVectorSignal, bufferOutSampleSize);
 	    int samples_to_sub = processedSamples - latency;
 
-//	    DEBUG_STREAM("Latency: " << latency << ", processed: " << processedSamples);
+	    DEBUG_STREAM("Latency: " << latency << ", processed: " << processedSamples);
 	    if (firstcall < 1)
 	    {
 		++firstcall;
@@ -1158,7 +1172,6 @@ void shortTimeProcess(ShortTimeProcess &shortTimeP)
 		  EXPECT_EQ(0, (int) datasum);
 		}
 	    }
-
 	}
 
 	while(shortTimeP.getAmountOfRemainingSamples() > 0)
