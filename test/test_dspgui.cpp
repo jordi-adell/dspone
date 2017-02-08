@@ -13,6 +13,14 @@
 namespace dsp {
 namespace test {
 
+inline std::string getAudioPath()
+{
+    std::string audio = AUDIO_FILES_PATH;
+    audio += "/audiofiles/";
+    DEBUG_STREAM(audio);
+    return audio;
+}
+
 void plot_signal_pocessing_run(ShortTimeProcess &process)
 {
   int length = 200*1024;
@@ -47,7 +55,7 @@ void plot_signal_pocessing_run(ShortTimeProcess &process)
 
 void plot_file_process_run(ShortTimeProcess &process)
 {
-  std::string input_file = TEST_AUDIO_DIR;
+  std::string input_file = getAudioPath();
   input_file += "/example16000.wav";
   SF_INFO sf_info_in;
   SNDFILE *snd_file_in  = sf_open(input_file.c_str(), SFM_READ, &sf_info_in);
