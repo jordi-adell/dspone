@@ -28,17 +28,16 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 find_package(WIPP REQUIRED)
-find_package(Qwt)
-find_package(Qt COMPONENTS QtCore QtGui)
 
+if (DEBUG)
+    find_package(Qwt)
+    find_package(Qt COMPONENTS QtCore QtGui)
+endif(DEBUG)
 
 if (Boost_FOUND)
     add_definitions(-DBOOST_FOUND)
 endif()
 
-if (Qt4_FOUND)
-    add_definitions(-DQT_FOUND)
-endif(Qt4_FOUND)
 
 include_directories(
   include
@@ -48,25 +47,15 @@ include_directories(
   ${Qwt_INCLUDE_DIR}
 )
 
-set(MOC_HEADERS
-    include/${PROJECT_NAME}/plot/dspplotQwt.h
-    include/${PROJECT_NAME}/plot/qtDebug.h
-    )
-
-QT4_WRAP_CPP(MOC_SRCS ${MOC_HEADERS})
-
 ###################################
 ## Declare and configure targets ##
 ###################################
 
 add_library(dspone SHARED
-    ${MOC_SRCS}
   src/${PROJECT_NAME}/dsplogger.cpp
   src/${PROJECT_NAME}/dspHelpers.cpp
   src/${PROJECT_NAME}/dspMath.cpp
   src/${PROJECT_NAME}/DspException.cpp
-  src/${PROJECT_NAME}/plot/dspplotQwt.cpp
-  src/${PROJECT_NAME}/plot/dspgui.cpp
   src/${PROJECT_NAME}/plot/qtDebug.cpp
   src/${PROJECT_NAME}/algorithm/fft.cpp
   src/${PROJECT_NAME}/algorithm/fftImpl.cpp
@@ -108,6 +97,20 @@ add_library(dspone SHARED
   src/${PROJECT_NAME}/rt/ShortTimeFourierSubBandImpl.cpp
   src/${PROJECT_NAME}/rt/DummyShortTimeFourier.cpp
   )
+
+if (Qt4_FOUND)
+    add_definitions(-DQT_FOUND)
+    set(MOC_HEADERS
+	include/${PROJECT_NAME}/plot/dspplotQwt.h
+	include/${PROJECT_NAME}/plot/qtDebug.h
+	)
+    QT4_WRAP_CPP(MOC_SRCS ${MOC_HEADERS})
+    target_sources(dspone
+	${MOC_SRCS}
+	src/${PROJECT_NAME}/plot/dspplotQwt.cpp
+	src/${PROJECT_NAME}/plot/dspgui.cpp
+	)
+endif(Qt4_FOUND)
 
 set_target_properties(dspone
 PROPERTIES
@@ -207,11 +210,13 @@ install(FILES
     COMPONENT dev
 )
 
+if (DEBUG)
 install(FILES
     include/${PROJECT_NAME}/plot/dspgui.h
     DESTINATION ${INCLUDE_DESTINATION}/plot
     COMPONENT dev
     )
+endif(DEBUG)
 
 ########################
 ## Package generation ##
@@ -264,9 +269,7 @@ if (test)
 
     find_package(GTest REQUIRED COMPONENTS system)
     find_package(Threads REQUIRED COMPONENTS system)
-
-    add_executable(${PROJECT_NAME}-test test/test_dspone.cpp)
-    add_executable(dspgui-test test/test_dspgui.cpp)
+    find_package(SNDFILE REQUIRED)
 
     set(TEST_DEPENDENCIES
 	dspone
@@ -280,12 +283,16 @@ if (test)
 	${SNDFILE_LIBRARY}
 	)
 
+    add_executable(${PROJECT_NAME}-test test/test_dspone.cpp)
     target_link_libraries(${PROJECT_NAME}-test ${TEST_DEPENDENCIES})
-    target_link_libraries(dspgui-test ${TEST_DEPENDENCIES})
+
+    if (DEBUG)
+	add_executable(dspgui-test test/test_dspgui.cpp)
+	target_link_libraries(dspgui-test ${TEST_DEPENDENCIES})
+    endif(DEBUG)
 
     add_custom_target(tests DEPENDS
 	${PROJECT_NAME}-test
-	dspgui-test
 	)
 
     add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-test)
