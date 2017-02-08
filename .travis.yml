@@ -33,6 +33,7 @@ branches:
  only:
   - master
   - v0.X.X
+  - v0.4.1
 
 before_script:
  - mkdir build
