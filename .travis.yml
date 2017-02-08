@@ -17,6 +17,7 @@ addons:
    - libfftw3-dev   
    - libgtest-dev
    - libboost1.55-all-dev
+   - libsndfile1-dev 
    - libwipp-dev
 
 before_install:
