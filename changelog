@@ -1,3 +1,25 @@
+
+## [0.4.1] - (2017-02-8)
+
+### New
+ - travis CI configuration file
+ - Implement a clear function in ShortTimepProcess
+ - API functions to get FFT in the plain complex format, in addition to CCS format
+ - Test dependency on sndfile
+
+### Changed
+ - Several unit-tests added
+ - changed the API from using std::shared_ptr into boost::share_array
+
+### Fixed
+ - Implementation of getRemainingSpeech function in ShortTimeProcess
+ - Declaration of virtual function process parameterisation in TimeProcess
+ - logger, enabled it by default in DEBUG compilation
+ - dithering (sort of) in GCC, also tests added
+ - STFT bug due to not denormalising the FFT by the frame length
+ - FFT frameLength normalisation
+ - using frameLength instead of fftLength in SFTFT
+
 ## [0.4.0] - (2016-10-05)
 
 ### New
@@ -54,7 +76,7 @@
 - disable logging for dependant libraries
 - move to std::shared_ptr instead of boost::shared_ptr
 - short time processors refactor to hide implementations
-- hide STFT sub-band analysis implementation 
+- hide STFT sub-band analysis implementation
 - hide wipp implementation
 - hide most boost library usages
 - reorganise the real time modules, so that headers are clean and implementation is hidden.
@@ -77,7 +99,7 @@
 
 ## [0.1.6] - 2014-10-24
 
-- Patch to avoid errors when processing data channels in the case when 
+- Patch to avoid errors when processing data channels in the case when
   there are no input channels given, but there are output channels to be generated.
 
 - Test with a constant signal for shorttimeprocess
