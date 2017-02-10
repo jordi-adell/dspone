@@ -75,6 +75,7 @@ class QtDebug
 template<typename T>
 void QtDebug::plot(const std::vector<T*> &data, int length, QtDebugSignal signal)
 {
+#ifdef QT_DEBUG
     if (data.size() > 0)
     {
 	PlotData tmp(length);
@@ -82,21 +83,25 @@ void QtDebug::plot(const std::vector<T*> &data, int length, QtDebugSignal signal
 	    tmp[i] = data[0][i];
 	send_signal(tmp, signal);
     }
+#endif
 }
 
 
 template<typename T>
 void QtDebug::plot(const T* data, int length, QtDebugSignal signal)
 {
+#ifdef QT_DEBUG
     PlotData tmp(length);
     for (int i = 0; i < length; ++i)
 	tmp[i] = data[i];
     send_signal(tmp, signal);
+#endif
 }
 
 template<typename T>
 void QtDebug::plot(const std::vector<boost::shared_array<T> > &data, int length, QtDebugSignal signal)
 {
+#ifdef QT_DEBUG
     if (data.size() > 0)
     {
 	PlotData tmp(length);
@@ -104,6 +109,8 @@ void QtDebug::plot(const std::vector<boost::shared_array<T> > &data, int length,
 	    tmp[i] = data[0][i];
 	send_signal(tmp, signal);
     }
+#endif
+
 }
 
 }
