@@ -68,11 +68,11 @@ class Logger
 #define _logger_ dsp::Logger::logger(dsp::Logger::_DSP_LOGGER)
 
 #define LOG_STREAM(level, what) {if (_logger_.isEnabled(level)) _logger_.log(level, __FILE__, __LINE__) << what << std::endl;}
-#define DEBUG_STREAM(what) LOG_STREAM(dsp::Logger::DEBUG, what)
-#define ERROR_STREAM(what) LOG_STREAM(dsp::Logger::ERROR, what)
-#define WARN_STREAM(what) LOG_STREAM(dsp::Logger::WARNING, what)
-#define INFO_STREAM(what) LOG_STREAM(dsp::Logger::INFO, what)
-#define TRACE_STREAM(what) LOG_STREAM(dsp::Logger::TRACE, what)
+#define DEBUG_STREAM(what) LOG_STREAM(dsp::Logger::DEBUG,   what)
+#define ERROR_STREAM(what) LOG_STREAM(dsp::Logger::ERROR,   what)
+#define WARN_STREAM(what)  LOG_STREAM(dsp::Logger::WARNING, what)
+#define INFO_STREAM(what)  LOG_STREAM(dsp::Logger::INFO,    what)
+#define TRACE_STREAM(what) LOG_STREAM(dsp::Logger::TRACE,   what)
 
 #define WARN_STREAM_ONCE(what)  {static bool printed=false; if (!printed) LOG_STREAM(mca::Logger::WARNING, what); printed=true;}
 #define ERROR_STREAM_ONCE(what) {static bool printed=false; if (!printed) LOG_STREAM(mca::Logger::ERROR, what);   printed=true;}
