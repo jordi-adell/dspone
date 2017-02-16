@@ -26,10 +26,10 @@
 #include <vector>
 #include <memory>
 
-#ifdef _DSP_LOGGER
-#if _DSP_LOGGER
-#undef _DSP_LOGGER
-#define _DSP_LOGGER FATAL
+#ifdef DSP_LOGGER
+#if DSP_LOGGER
+#undef DSP_LOGGER
+#define DSP_LOGGER FATAL
 #endif
 #endif
 
@@ -65,7 +65,7 @@ class Logger
 
 }
 
-#define _logger_ dsp::Logger::logger(dsp::Logger::_DSP_LOGGER)
+#define _logger_ dsp::Logger::logger(dsp::Logger::DSP_LOGGER)
 
 #define LOG_STREAM(level, what) {if (_logger_.isEnabled(level)) _logger_.log(level, __FILE__, __LINE__) << what << std::endl;}
 #define DEBUG_STREAM(what) LOG_STREAM(dsp::Logger::DEBUG,   what)

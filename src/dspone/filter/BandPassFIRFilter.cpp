@@ -40,8 +40,9 @@
 
 namespace dsp {
 
-struct BandPassFIRFilterImpl
+class BandPassFIRFilterImpl
 {
+  public:
     BandPassFIRFilterImpl(const int order, BandPassFIRFilter::FrequencyShape shape):
       _order(order),
       _shape(shape),

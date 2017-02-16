@@ -6,19 +6,20 @@ set(PROJECT_VERSION_STATUS "-alpha")
 ## Configure compilation ##
 ###########################
 
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 if(DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
     add_definitions("-D_DEBUG")
-    add_definitions("-D_DSP_LOGGER")
+    add_definitions("-DDSP_LOGGER=DEBUG")
     message(STATUS "DEBUG mode.")
 else(DEBUG)
   set(OPT_FLAGS, "-O3 -msse4")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OPT_FLAGS}")
   message(STATUS "RELEASE mode. Optimisation flags: ${OPT_FLAGS}")
 endif(DEBUG)
+
+message(STATUS "CXXFLAGS: ${CMAKE_CXX_FLAGS}")
 
 #############################################
 ## Find modules and configure dependencies ##
@@ -105,7 +106,7 @@ if (Qt4_FOUND)
 	include/${PROJECT_NAME}/plot/qtDebug.h
 	)
     QT4_WRAP_CPP(MOC_SRCS ${MOC_HEADERS})
-    target_sources(dspone
+    target_sources(dspone PRIVATE
 	${MOC_SRCS}
 	src/${PROJECT_NAME}/plot/dspplotQwt.cpp
 	src/${PROJECT_NAME}/plot/dspgui.cpp

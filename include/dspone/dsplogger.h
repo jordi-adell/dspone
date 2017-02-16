@@ -26,7 +26,7 @@
 #include <vector>
 
 
-#ifdef _DSP_LOGGER
+#ifdef DSP_LOGGER
 
 #include <dspone/dsploggerImpl.h>
 
