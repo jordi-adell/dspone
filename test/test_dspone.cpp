@@ -504,7 +504,7 @@ TEST(DigitalSignalProcessingTest, testDummySTFTAnalysis)
     ShortTimeAnalysis *shortTimeP =dynamic_cast<ShortTimeAnalysis *>(&stft);
 }
 
-TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
+TEST(DigitalSignalProcessingTest, BandPassFIRFilterRECT)
 {
     int order = 9;
     int length = 1 << order;
@@ -514,7 +514,7 @@ TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
     double filterGaindB[NFREQS];
     double freqs[NFREQS];
 
-    BandPassFIRFilter filter(order, lowFreq, highFreq);
+    BandPassFIRFilter filter(length, lowFreq, highFreq, BandPassFIRFilter::RECTANGULAR);
     testBandPassFilter(filter, filterGaindB, freqs);
     lowFreq = filter.getLowFreq();
     highFreq = filter.getHighFreq();
@@ -526,17 +526,25 @@ TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
     {
 	float sinFreq = freqs[f];
 	DEBUG_STREAM("F: " << freqs[f] << " Gain: " << filterGaindB[f]);
-	if (sinFreq < lowFreq)
+	if (sinFreq < 0.95*lowFreq)
 	{
-	  EXPECT_LT(filterGaindB[f], -1);
+	  EXPECT_LT(filterGaindB[f], -1) << "Attenuation is bigger than expected";
+	}
+	else if (sinFreq < lowFreq)
+	{
+	  EXPECT_LT(filterGaindB[f], 2) << "Gain is larger than expected";
 	}
 	else if (sinFreq < highFreq)
 	{
-	    //EXPECT_TRUE("Attenuation is different than expected.", filterGaindB[f] > -1.2);
+	  EXPECT_GT(filterGaindB[f], 2) << "Gain is lower than expected.";
+	}
+	else if (sinFreq < 1.02*highFreq)
+	{
+	  EXPECT_LT(filterGaindB[f], 2) << "Attentuation is larger than expected";
 	}
 	else
 	{
-	  EXPECT_LT(filterGaindB[f], -1);
+	  EXPECT_LT(filterGaindB[f], -1) << "Attenuation is bigger than expected";
 	}
     }
 
@@ -548,6 +556,66 @@ TEST(DigitalSignalProcessingTest, testBandPassFIRFilter)
     EXPECT_LT(min, -30);
     EXPECT_GT(max, -1);
 
+    saveBufferToFile(filterGaindB, NFREQS, "gain");
+}
+
+TEST(DigitalSignalProcessingTest, BandPassFIRFilterTRI)
+{
+    int order = 9;
+    int length = 1 << order;
+    float lowFreq = 0.1;
+    float highFreq  = 0.2;
+    int NFREQS = length/2;
+    double filterGaindB[NFREQS];
+    double freqs[NFREQS];
+
+    BandPassFIRFilter filter(length, lowFreq, highFreq, BandPassFIRFilter::TRIANGULAR);
+    testBandPassFilter(filter, filterGaindB, freqs);
+    lowFreq = filter.getLowFreq();
+    highFreq = filter.getHighFreq();
+
+    EXPECT_FLOAT_EQ(0.1, lowFreq);
+    EXPECT_FLOAT_EQ(0.2, highFreq);
+
+    float prev_gain = std::numeric_limits<double>::min();
+    for (int f = 1; f< NFREQS; ++f)
+    {
+      //      filterGaindB[f] = exp10(filterGaindB[f]/10); // convert to linear scale
+
+      float sinFreq = freqs[f];
+	DEBUG_STREAM("F: " << freqs[f] << " Gain: " << filterGaindB[f]);
+	if (sinFreq < lowFreq)
+	{
+	  EXPECT_LT(filterGaindB[f], -1) << "Attenuation is bigger than expected";
+	}
+	else if (sinFreq < 0.95*(highFreq+lowFreq)/2)
+	{
+	  EXPECT_GT(filterGaindB[f], prev_gain) << "Gain is larger than expected";
+	}
+	else if (sinFreq < 1.05*(highFreq+lowFreq)/2)
+	{
+	  EXPECT_NEAR(filterGaindB[f], prev_gain, 0.5);
+	}
+	else if (sinFreq < highFreq)
+	{
+	  EXPECT_LT(filterGaindB[f], prev_gain) << "Gain is lower than expected.";
+	}
+	else
+	{
+	  EXPECT_LT(filterGaindB[f], -1) << "Attenuation is bigger than expected";
+	}
+	prev_gain = filterGaindB[f];
+    }
+
+    double min=0;
+    double max=0;
+    wipp::min(&filterGaindB[1], NFREQS-2, &min);
+    wipp::max(&filterGaindB[1], NFREQS-2, &max);
+
+    EXPECT_LT(min, -30);
+    EXPECT_GT(max, -1);
+
+    saveBufferToFile(filterGaindB, NFREQS, "gain");
 }
 
 TEST(DigitalSignalProcessingTest, testBandPassFFTWFilter)
