@@ -528,23 +528,23 @@ TEST(DigitalSignalProcessingTest, BandPassFIRFilterRECT)
 	DEBUG_STREAM("F: " << freqs[f] << " Gain: " << filterGaindB[f]);
 	if (sinFreq < 0.95*lowFreq)
 	{
-	  EXPECT_LT(filterGaindB[f], -1) << "Attenuation is bigger than expected";
+	  EXPECT_LT(filterGaindB[f], -3) << "Attenuation is bigger than expected";
 	}
-	else if (sinFreq < lowFreq)
+	else if (sinFreq < 1.05*lowFreq)
 	{
-	  EXPECT_LT(filterGaindB[f], 2) << "Gain is larger than expected";
+	  EXPECT_LT(filterGaindB[f], 0) << "Gain is larger than expected";
 	}
-	else if (sinFreq < highFreq)
+	else if (sinFreq < 0.95*highFreq)
 	{
-	  EXPECT_GT(filterGaindB[f], 2) << "Gain is lower than expected.";
+	  EXPECT_NEAR(filterGaindB[f], 0, 0.1) << "Wrong gain in pass band.";
 	}
 	else if (sinFreq < 1.02*highFreq)
 	{
-	  EXPECT_LT(filterGaindB[f], 2) << "Attentuation is larger than expected";
+	  EXPECT_LT(filterGaindB[f], 0.2) << "Attentuation is larger than expected";
 	}
 	else
 	{
-	  EXPECT_LT(filterGaindB[f], -1) << "Attenuation is bigger than expected";
+	  EXPECT_LT(filterGaindB[f], -3) << "Attenuation is bigger than expected";
 	}
     }
 
