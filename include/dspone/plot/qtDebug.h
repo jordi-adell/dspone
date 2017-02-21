@@ -47,12 +47,13 @@ class QtDebug
 
 	enum QtDebugSignal {IN_SIGNAL, IN_FRAME, IN_ANALYSIS, OUT_ANALYSIS, OUT_FRAME, OUT_SIGNAL};
 
-	QtDebug();
+	QtDebug(int channel=0);
 	virtual ~QtDebug();
 
 	template<typename T> void plot(const std::vector<T*> &data, int length, QtDebugSignal signal);
-	template<typename T> void plot(const T* data, int length, QtDebugSignal signal);
+	template<typename T> void plot(const T* data, int length, QtDebugSignal signal, int channel);
 	template<typename T> void plot(const std::vector<boost::shared_array<T> > &data, int length, QtDebugSignal signal);
+	void set_plot_channel(int channel);
 
 #ifdef QT_DEBUG
     signals:
@@ -68,6 +69,7 @@ class QtDebug
     private:
 
 	void send_signal(const PlotData &data, QtDebugSignal);
+	int channel_;
 
 };
 
@@ -76,11 +78,11 @@ template<typename T>
 void QtDebug::plot(const std::vector<T*> &data, int length, QtDebugSignal signal)
 {
 #ifdef QT_DEBUG
-    if (data.size() > 0)
+    if (data.size() > channel_ )
     {
 	PlotData tmp(length);
 	for (int i = 0; i < length; ++i)
-	    tmp[i] = data[0][i];
+	    tmp[i] = data[channel_][i];
 	send_signal(tmp, signal);
     }
 #endif
@@ -88,32 +90,38 @@ void QtDebug::plot(const std::vector<T*> &data, int length, QtDebugSignal signal
 
 
 template<typename T>
-void QtDebug::plot(const T* data, int length, QtDebugSignal signal)
+void QtDebug::plot(const T* data, int length, QtDebugSignal signal, int channel)
 {
 #ifdef QT_DEBUG
-    PlotData tmp(length);
-    for (int i = 0; i < length; ++i)
-	tmp[i] = data[i];
-    send_signal(tmp, signal);
+    if (channel_ == channel)
+    {
+	PlotData tmp(length);
+	for (int i = 0; i < length; ++i)
+	    tmp[i] = data[i];
+	send_signal(tmp, signal);
+    }
 #endif
 }
 
 template<typename T>
-void QtDebug::plot(const std::vector<boost::shared_array<T> > &data, int length, QtDebugSignal signal)
+void QtDebug::plot(const std::vector<boost::shared_array<T> > &data,
+		   int length, QtDebugSignal signal)
 {
 #ifdef QT_DEBUG
-    if (data.size() > 0)
+    if (data.size() > channel_)
     {
 	PlotData tmp(length);
 	for (int i = 0; i < length; ++i)
-	    tmp[i] = data[0][i];
+	    tmp[i] = data[channel_][i];
 	send_signal(tmp, signal);
     }
 #endif
 
 }
 
+
 }
+
 
 
 #endif

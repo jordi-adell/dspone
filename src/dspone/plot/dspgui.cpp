@@ -46,7 +46,7 @@ void DspGui::init(ShortTimeProcess &process, thread_processing_run_t_ *f)
 }
 
 
-void DspGui::start()
+void DspGui::start(int channel)
 {
   std::string title = TITLE;
   int argc = 1;
@@ -55,7 +55,7 @@ void DspGui::start()
   QApplication* qt_app = new QApplication(argc, argv);
   DspPlot *plot = new DspPlot(process_f_ , process_);
 
-  plot->start();
+  plot->start(channel);
   qt_app->exec();
 
   delete qt_app;

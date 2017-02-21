@@ -47,7 +47,7 @@ class DspGui
 
 	virtual ~DspGui();
 
-	void start();
+	void start(int channel=0);
 
     private:
 	void init(ShortTimeProcess &process, thread_processing_run_t &f);

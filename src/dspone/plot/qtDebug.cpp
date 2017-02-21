@@ -3,7 +3,8 @@
 
 namespace dsp {
 
-QtDebug::QtDebug()
+QtDebug::QtDebug(int channel) :
+  channel_(channel)
 {
 
 }
@@ -43,6 +44,12 @@ void QtDebug::send_signal(const PlotData &data, QtDebugSignal signal)
     break;
   }
 #endif
+}
+
+
+void QtDebug::set_plot_channel(int channel)
+{
+  channel_=channel;
 }
 
 

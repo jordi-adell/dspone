@@ -62,7 +62,7 @@ class DspPlot : public QObject
 
 	virtual ~DspPlot();
 
-	void start();
+	void start(int channel = 0);
 
     private:
 	void init();

@@ -76,8 +76,11 @@ void DspPlot::init()
 }
 
 
-void DspPlot::start()
+void DspPlot::start(int channel)
 {
+  QtDebug &qtdebug = process_->_impl.get()->_qtdebug;
+
+  qtdebug.set_plot_channel(channel);
   if (!signal_process_thread_)
   {
     signal_process_thread_.reset(new std::thread(&DspPlot::signal_process, this));
