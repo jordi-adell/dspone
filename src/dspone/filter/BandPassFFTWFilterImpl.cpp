@@ -100,19 +100,18 @@ namespace dsp {
 
     // cppcheck-suppress zerodivcond
     float triangleFreq = 1.0F/(2*triangleLength);
-    float triangleMagn = 1;
     int idealCenter = (static_cast<float>(endId + startId))/2 + 0.5;
     // cppcheck-suppress zerodivcond
-    double triangleAsym = -(centerId - idealCenter)*2*M_PI/triangleLength;
-    double trianglePhase = 3*M_PI_2 + triangleAsym/2;
+    double triangleAsym = -(centerId - idealCenter)*M_PI/triangleLength;
+    double trianglePhase = M_PI_4 + triangleAsym/2;
 
     if (triangleFreq >= 0.5)
-      {
-	if (triangleLength == 0)
-	  WARN_STREAM("Band-pass filter with a band bas of " << triangleLength << " samples in the FFT. In fact, is a nothing-pass filter." <<
-			  "This is normal if this filter is part of a mel-scale filter bank, otherwise may indicate serious problems.");
+    {
+      if (triangleLength == 0)
+	WARN_STREAM("Band-pass filter with a band bas of " << triangleLength << " samples in the FFT. In fact, is a nothing-pass filter." <<
+		    "This is normal if this filter is part of a mel-scale filter bank, otherwise may indicate serious problems.");
 	triangleLength = 2;
-      }
+    }
 
     if (triangleAsym <= -M_PI)
       triangleAsym = -M_PI*0.999999; // -M_PI is allow in IPP manual, but produces DIV0 exception.
