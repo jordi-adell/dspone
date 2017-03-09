@@ -50,9 +50,7 @@ class FilterBank
 
 	/**
 	   * @brief filterBuffer This function can be used to filter a buffer using the filterbank.
-	   * The input signal is filtered sequencially by each of the filters. After the signal is filtered
-	   * the residual is filtered by the next filter until the last filter is reached.
-	   * The residual of the last filter is also supplied.
+	   * The input signal is filtered sequencially by each of the filters.
 	   * @param inbuffer  input signal. Must be 2^order long.
 	   * @param residual  signal residual
 	   * @param outbuffer  output buffer, the signal resulting from filtering the signal accross each filter,
@@ -61,9 +59,9 @@ class FilterBank
 	   * @param inlength  length of the input signal and the residual
 	   * @param outlength  length of the output buffer (inlength*getNBins()))
 	   */
-	virtual void filterBuffer(int16_t *inbuffer, int16_t *residual, int16_t *outbuffer, int inlength, int outlength);
-	virtual void filterBuffer(double *inbuffer, double *residual, double *outbuffer, int inlength, int outlength);
-	virtual void filterBuffer(float  *inbuffer, float  *residual, float  *outbuffer, int inlength, int outlength);
+	virtual void filterBuffer(int16_t *inbuffer, int16_t *outbuffer, int inlength, int outlength);
+	virtual void filterBuffer(double *inbuffer,  double *outbuffer,  int inlength, int outlength);
+	virtual void filterBuffer(float  *inbuffer,  float  *outbuffer,  int inlength, int outlength);
 
 	/**
 	   * @brief getNBins
@@ -124,7 +122,7 @@ class FilterBank
 	   * @param outbuffer  output signal (is assumed to be already allocated)
 	   * @param length  length of both buffers
 	   */
-	template <class T>  void filterBufferCore(T *inbuffer, T *residual, T *outbuffer, int inlength, int outlength);
+	template <class T>  void filterBufferCore(T *inbuffer, T *outbuffer, int inlength, int outlength);
 };
 
 
