@@ -100,10 +100,10 @@ namespace dsp {
 
     // cppcheck-suppress zerodivcond
     float triangleFreq = 1.0F/(2*triangleLength);
-    int idealCenter = (static_cast<float>(endId + startId))/2 + 0.5;
+    int idealCenter = (static_cast<double>(endId + startId))/2 + 0.5;
     // cppcheck-suppress zerodivcond
-    double triangleAsym = -(centerId - idealCenter)*M_PI/triangleLength;
-    double trianglePhase = M_PI_4 + triangleAsym/2;
+    double triangleAsym = (centerId - idealCenter)*2*M_PI/triangleLength;
+    double trianglePhase = 0;
 
     if (triangleFreq >= 0.5)
     {
@@ -112,11 +112,6 @@ namespace dsp {
 		    "This is normal if this filter is part of a mel-scale filter bank, otherwise may indicate serious problems.");
 	triangleLength = 2;
     }
-
-    if (triangleAsym <= -M_PI)
-      triangleAsym = -M_PI*0.999999; // -M_PI is allow in IPP manual, but produces DIV0 exception.
-    else if (triangleAsym >= M_PI)
-      triangleAsym = M_PI*0.999999;
 
     if (trianglePhase < 0 || trianglePhase >= 2*M_PI)
       trianglePhase = 0;
