@@ -28,18 +28,21 @@ namespace dsp {
 
 
 BaseType calculateLinearPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
-BaseType calculateLinearPowerTemporal(const BaseType* signal, int length);
+BaseType calculateLinearPowerTemporal(const BaseType64* signal, int length);
 BaseType calculateLinearPowerTemporal(const SignalPtr &signal, int length);
 BaseType calculateLinearPowerTemporal(const std::vector<BaseType*> &analysisFrames, int analysisLength, unsigned int nchannels);
 BaseType calculateLinearPowerTemporal(const std::vector<BaseType *> signal, int length);
 
 BaseType calculateLinearPowerTemporal(const BaseType16s *signal, int length);
+BaseType calculateLinearPowerTemporal(const BaseType32  *signal, int length);
+
 
 BaseType calculateLogPowerTemporal(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);
 BaseType calculateLogPowerTemporal(const BaseType *signal, int length);
 BaseType calculateLogPowerTemporal(const SignalPtr &signal, int length);
 BaseType calculateLogPowerTemporal(const std::vector<BaseType*> signal, int length);
 
+BaseType calculateLogPowerTemporal(const BaseType32 *signal, int length);
 BaseType calculateLogPowerTemporal(const BaseType16s *signal, int length);
 
 BaseType calculateLinearPowerFFT(const SignalVector &analysisFrames, int analysisLength, unsigned int nchannels);

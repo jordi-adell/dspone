@@ -30,10 +30,16 @@
 
 namespace dsp {
 
-
-
-
-
+template <typename U, typename T>
+U calculateLinearPowerTemporal_core(const T *signal, int length)
+{
+  BaseType64 aux[length];
+  wipp::copyBuffer(signal, aux, length);
+  BaseType64 power;
+  wipp::sqr(aux, length);
+  wipp::mean(aux, length, &power);
+  return power;
+}
 
 template <typename T, typename U>
 U calculateLinearPowerTemporal_core(const std::vector<const T*> &analysisFrames, int analysisLength, unsigned int nchannels)
@@ -145,18 +151,23 @@ BaseType calculateLinearPowerTemporal(const BaseType* signal, int length)
   return power;
 }
 
+BaseType calculateLinearPowerTemporal(const BaseType32 *signal, int length)
+{
+  return calculateLinearPowerTemporal_core<BaseType>(signal, length);
+}
 
 BaseType calculateLinearPowerTemporal(const BaseType16s *signal, int length)
 {
-  BaseType64 aux[length];
-  wipp::copyBuffer(signal, aux, length);
-  BaseType64 power;
-  wipp::sqr(aux, length);
-  wipp::mean(aux, length, &power);
-  return power;
+  return calculateLinearPowerTemporal_core<BaseType>(signal, length);
 }
 
-BaseType calculateLogPowerTemporal(const BaseType *signal, int length)
+
+BaseType calculateLogPowerTemporal(const BaseType32 *signal, int length)
+{
+  return 10*log10(calculateLinearPowerTemporal(signal, length)+1e-100);
+}
+
+BaseType calculateLogPowerTemporal(const BaseType64 *signal, int length)
 {
   return 10*log10(calculateLinearPowerTemporal(signal, length)+1e-100);
 }

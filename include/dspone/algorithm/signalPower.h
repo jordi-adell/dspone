@@ -39,6 +39,8 @@ class SignalPower
 
 	static double power(const double* signal, int length);
 	static double logPower(const double *signal, int length);
+	static double power(const float* signal, int length);
+	static double logPower(const float *signal, int length);
 	static double power(const int16_t* signal, int length);
 	static double logPower(const int16_t* signal, int length);
 

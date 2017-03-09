@@ -48,6 +48,17 @@ double SignalPower::logPower(const double *signal, int length)
     return calculateLogPowerTemporal(signal, length);
 }
 
+
+double SignalPower::power(const float *signal, int length)
+{
+    return calculateLinearPowerTemporal(signal, length);
+}
+
+double SignalPower::logPower(const float *signal, int length)
+{
+    return calculateLogPowerTemporal(signal, length);
+}
+
 double SignalPower::power(const std::vector<boost::shared_array<double> > &signal, int length)
 {
     return calculateLinearPowerTemporal(signal, length, signal.size());
