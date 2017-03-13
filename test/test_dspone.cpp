@@ -1358,13 +1358,13 @@ void testFilterBank(int order,  FilterBank &filterBank)
 
 	for (int i=0; i<filterBank.getNBins(); ++i)
 	{
-	  std::ostringstream olt;
-	  olt << "filtered_" << sinFreq << "_b" << i << ".txt";
-	  std::ofstream oflt(olt.str());
-	  for (int j = 0; j < length; ++j)
-	  {
-	    oflt << filtered[length*i + j] << std::endl;
-	  }
+	  //	  std::ostringstream olt;
+	  //	  olt << "filtered_" << sinFreq << "_b" << i << ".txt";
+	  //	  std::ofstream oflt(olt.str());
+	  //	  for (int j = 0; j < length; ++j)
+	  //	  {
+	  //	    oflt << filtered[length*i + j] << std::endl;
+	  //	  }
 
 	  pPower[i] = calculateLogPowerTemporal(&filtered[length*i],length);
 	  pFreqs[i] = freqs.at(i);
