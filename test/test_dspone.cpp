@@ -785,8 +785,8 @@ TEST(DigitalSignalProcessingTest, testFilterBankFFTW)
     std::vector<double> freqs;
     std::vector<double> freqsPiece;
 
-    float delta=0.005;
-    for (float f=0; f<=0.5; f+=delta)
+    float delta=0.05;
+    for (float f=0.01; f<=0.490; f+=delta)
     {
 	if (0.1 < f && f < 0.4)
 	{
@@ -1326,30 +1326,54 @@ void testFilterBank(int order,  FilterBank &filterBank)
     int16_t residual[length];
     int16_t filtered[length*filterBank.getNBins()];
 
-    float sinFreq = freqs.front();
-    for (; sinFreq < freqs.back(); sinFreq+=0.1)
+    float sinFreq = freqs.front() + 0.015;
+    for (; sinFreq < freqs.back(); sinFreq+=0.05)
     {
 	for (int i=0; i<length; ++i)
 	{
 	    signal[i] = pow(2,14)*cos(2*M_PI*sinFreq*i);
 	}
-	wipp::window(signal, length, wipp::wippHANN);
 
 	DEBUG_STREAM("input power: " << calculateLogPowerTemporal(signal, length));
 
-	for (int j=0; j<5; ++j)
-	  filterBank.filterBuffer(signal, residual, filtered, length, length*filterBank.getNBins());
+	double coefs[filterBank.getNBins()*length];
+	int ncoefs = filterBank.getFiltersCoeficients(coefs, filterBank.getNBins()*length);
+
+	//	std::ostringstream oss;
+	//	oss << "cfile_" << sinFreq << ".txt";
+	//	std::ofstream ofs(oss.str());
+	//	for (int i = 0; i < ncoefs; ++i)
+	//	  ofs << coefs[i] << std::endl;
+
+	//	std::ostringstream sss;
+	//	sss << "signal_" << sinFreq << ".txt";
+	//	std::ofstream sfs(sss.str());
+	//	for (int i = 0; i < length; ++i)
+	//	  sfs << signal[i] << std::endl;
+
+
+
+	for (int j=0; j<10; ++j)
+	  filterBank.filterBuffer(signal, filtered, length, length*filterBank.getNBins());
 
 	for (int i=0; i<filterBank.getNBins(); ++i)
 	{
-	    pPower[i] = calculateLogPowerTemporal(&filtered[length*i],length);
-	    pFreqs[i] = freqs.at(i);
+	  std::ostringstream olt;
+	  olt << "filtered_" << sinFreq << "_b" << i << ".txt";
+	  std::ofstream oflt(olt.str());
+	  for (int j = 0; j < length; ++j)
+	  {
+	    oflt << filtered[length*i + j] << std::endl;
+	  }
 
-	    DEBUG_STREAM("S: " << calculateLogPowerTemporal(signal, length)
-			     << " F" << i << ": " << calculateLogPowerTemporal(&filtered[length*i],length)
-		    << " R" << i << ": " << calculateLogPowerTemporal(residual, length) - calculateLogPowerTemporal(signal, length)
-		    << " sinFreq: " << sinFreq << ", c: " << freqs.at(i)
-		       );
+	  pPower[i] = calculateLogPowerTemporal(&filtered[length*i],length);
+	  pFreqs[i] = freqs.at(i);
+
+	  DEBUG_STREAM("S: " << calculateLogPowerTemporal(signal, length)
+		       << " F" << i << ": " << calculateLogPowerTemporal(&filtered[length*i],length)
+	      << " R" << i << ": " << calculateLogPowerTemporal(residual, length) - calculateLogPowerTemporal(signal, length)
+	      << " sinFreq: " << sinFreq << ", c: " << freqs.at(i)
+		 );
 	}
 
 	math::subC(sinFreq, pFreqs, freqs.size());
@@ -1361,7 +1385,7 @@ void testFilterBank(int order,  FilterBank &filterBank)
 	wipp::minidx(pFreqs, freqs.size(), &min, &fIdx);
 
 	DEBUG_STREAM("P: " << pPower[pIdx] << " i: " << pIdx);
-	DEBUG_STREAM("F: " << pFreqs[fIdx] << " i: " << fIdx);
+	DEBUG_STREAM("F: " << freqs[fIdx] << " (+-)" << pFreqs[fIdx] << " i: " << fIdx);
 
 	EXPECT_FLOAT_EQ(fIdx, pIdx) << "The maximum power does not correspond "
 				    << "to the bin whose central frequency "
