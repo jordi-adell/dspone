@@ -124,7 +124,8 @@ namespace dsp {
     double max=0; size_t idx=0;
     wipp::maxidx(&coefs[startId], triangleLength, &max, &idx);
     if (max != 0)
-      (&coefs[startId])[idx] /= max;
+      wipp::divC(max, &coefs[startId], triangleLength);
+
   }
 
 
