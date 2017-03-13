@@ -92,6 +92,8 @@ class BandPassFIRFilter : public BandPassFilter
 	void initialiseFilter();
 	void initialiseRectangularCoefs();
 	void initialiseTriangularCoefs();
+	void initialiseTriangularCoefs_invfilt();
+	void initialiseTriangularCoefs_sinc2();
 
 	/**
 	   * @brief This function performs the actual filtering process, it is called by the three public

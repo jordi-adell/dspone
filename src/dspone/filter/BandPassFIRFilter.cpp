@@ -50,11 +50,6 @@ class BandPassFIRFilterImpl
     {
     }
 
-    /**
-	   * @brief auxiliary varaible for IPP functions
-	   */
-    //    boost::shared_array<Ipp8u> _fftInternalBuffer;
-
     const int _order;
     const BandPassFIRFilter::FrequencyShape _shape;
 
@@ -107,11 +102,64 @@ void BandPassFIRFilter::initialiseRectangularCoefs()
   }
 }
 
-
-
 void BandPassFIRFilter::initialiseTriangularCoefs()
 {
+  initialiseTriangularCoefs_sinc2();
+}
 
+
+void BandPassFIRFilter::initialiseTriangularCoefs_invfilt()
+{
+
+  BaseType freqShape[_impl->_order];
+  BaseType spectrum[_impl->_order+2]; // CCS format (see IPP doc for help)
+  wipp::setZeros(freqShape, _impl->_order);
+  wipp::setZeros(freqShape, _impl->_order);
+  wipp::setZeros(spectrum, _impl->_order+2);
+
+  int lowfreq = _lowFreq*_impl->_order;
+  int highfreq = _highFreq*_impl->_order;
+  if (lowfreq == highfreq)
+  {
+    std::ostringstream oss;
+    oss << "Filter order " << _impl->_order << " is too low for the cut-off frequencies you are requesting: "
+	<< "(" << _lowFreq << ", " << _highFreq << ")";
+    throw(DspException(oss.str()));
+  }
+
+  double logOrder = (int) log2(_impl->_order);
+  double roundedOrder = pow(2,logOrder);
+  if (_impl->_order != roundedOrder)
+    throw(DspException("The order of the filter needs to be power of 2 for efficient FFT processing if TRIANGULAR shape has been chosen"));
+
+  // Create a triangular shape
+  int length = highfreq - lowfreq;
+  wipp::triangle(&freqShape[lowfreq],  highfreq - lowfreq, length/2, 0 ,0);
+
+  // Create specrtum in CCS format.
+  int i,j;
+  for (i=0, j=0;  i < _impl->_order/2+1; i++, j=j+2)
+  {
+    spectrum[j] = freqShape[i];
+    spectrum[j] =   freqShape[i]*cos(static_cast<double>(i)*M_PI);
+    spectrum[j+1] = freqShape[i]*sin(static_cast<double>(i)*M_PI);
+  }
+
+  wipp::wipp_fft_t *fft;
+  wipp::init_fft(&fft, _impl->_order);
+  wipp::ifft(spectrum,
+	     _impl->_coefs.get(),
+	     fft);
+  wipp::delete_fft(&fft);
+
+  _impl->_firFilter.reset(new FIRFilter(static_cast<const double*>(_impl->_coefs.get()), _impl->_order));
+}
+
+
+void BandPassFIRFilter::initialiseTriangularCoefs_sinc2()
+{
+
+  wipp::setZeros(_impl->_coefs.get(), _impl->_order);
   int status = wipp::fir_coefs(_lowFreq, _highFreq, _impl->_coefs.get(), _impl->_order, _impl->_winType, wipp::wippfTRIANGULAR);
   if (status)
   {
@@ -119,6 +167,12 @@ void BandPassFIRFilter::initialiseTriangularCoefs()
     throw(DspException(msg));
   }
 
+  wipp::wipp_fft_t *fft;
+  wipp::init_fft(&fft, _impl->_order);
+  wipp::wipp_complex_t cfft[_impl->_order/2+1];
+  double magn[_impl->_order/2 + 1];
+  wipp::fft(_impl->_coefs.get(), reinterpret_cast<double*>(cfft), fft);
+  wipp::magnitude(cfft, magn, _impl->_order/2 + 1);
 
 }
 
