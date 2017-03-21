@@ -84,7 +84,7 @@ class BandPassFIRFilter : public BandPassFilter
 	const BaseType _highFreq;
 
 
-	/** @brief This fucntion is called by the constructor to initialise the IPP filter
+	/** @brief This fucntion is called by the constructor to initialise the FIR filter
 	   * @param order  order of the filter
 	   * @param lowFreq low cut-off frequency
 	   * @param highFreq higest cut-off frequency

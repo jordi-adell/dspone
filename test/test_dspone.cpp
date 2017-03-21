@@ -504,6 +504,13 @@ TEST(DigitalSignalProcessingTest, testDummySTFTAnalysis)
     ShortTimeAnalysis *shortTimeP =dynamic_cast<ShortTimeAnalysis *>(&stft);
 }
 
+
+TEST(BandPass, init_destructor)
+{
+  BandPassFIRFilter *f = new BandPassFIRFilter(256, 0.1, 0.32, BandPassFIRFilter::RECTANGULAR);
+  delete f;
+}
+
 TEST(DigitalSignalProcessingTest, BandPassFIRFilterRECT)
 {
     int order = 9;

@@ -50,6 +50,12 @@ class BandPassFIRFilterImpl
     {
     }
 
+    ~BandPassFIRFilterImpl()
+    {
+      _coefs.reset();
+      _firFilter.reset();
+    }
+
     const int _order;
     const BandPassFIRFilter::FrequencyShape _shape;
 
@@ -71,7 +77,7 @@ BandPassFIRFilter::BandPassFIRFilter(const int order, const double lowFreq, cons
 
 BandPassFIRFilter::~BandPassFIRFilter()
 {
-
+  _impl.reset();
 }
 
 
