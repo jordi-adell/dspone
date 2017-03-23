@@ -1,4 +1,24 @@
 
+## [1.0.0-alpha] - (2017-03-23)
+
+### New:
+- new function to calculate signal power for additional sample types
+- support for QtGui when compiles in DEBUG mode, for debuggin purposes
+- dummy class for time process implementation
+
+### Modifed:
+- implement triangular filter coeficients using sinc2 instead of inverse filtering
+- nomralize all weights of a triangular filter, not only the maximum
+- changed BankFilter API, to correct the definition of BankFilter
+- used wipp::sinc2 to implement FIR filter with triangular shape in freq.
+
+### Fixed:
+- the implementation of triangular filters
+- changed usade of deprecated function subBuffer_I
+- fixed asymetry and phase in triagular shape for FFTW filter banks
+- fixed a double free corruption
+- added a test for constructor-destructor of BandPassFIR
+
 ## [0.4.1] - (2017-02-8)
 
 ### New
